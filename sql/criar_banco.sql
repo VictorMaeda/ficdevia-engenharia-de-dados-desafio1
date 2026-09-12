@@ -29,11 +29,9 @@ CREATE TABLE IF NOT EXISTS usuarios (
 CREATE TABLE IF NOT EXISTS conteudos (
     conteudo_id           INTEGER PRIMARY KEY,
     titulo                 TEXT NOT NULL,
-    tipo                    TEXT NOT NULL
-                                CHECK (tipo IN ('curso', 'video', 'artigo', 'podcast')),
+    tipo                    TEXT NOT NULL,
     categoria_id            INTEGER NOT NULL REFERENCES categorias (categoria_id),
-    nivel                   TEXT NOT NULL
-                                CHECK (nivel IN ('basico', 'intermediario', 'avancado')),
+    nivel                   TEXT NOT NULL,
     carga_horaria_min       INTEGER NOT NULL CHECK (carga_horaria_min > 0),
     data_publicacao         DATE,
     descricao               TEXT,
