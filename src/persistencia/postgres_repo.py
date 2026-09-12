@@ -270,3 +270,30 @@ class RepositorioPostgres:
                 """
             )
             return cursor.fetchall()
+    def carregar_recomendacoes(self, recomendacoes: list[dict]) -> int:
+        if not recomendacoes:
+            return 0
+
+        sql = """
+            INSERT INTO recomendacoes (
+                usuario_id,
+                conteudo_id,
+                pontuacao,
+                posicao,
+                status
+            )
+            VALUES (
+                %(usuario_id)s,
+                %(conteudo_id)s,
+                %(pontuacao)s,
+                %(posicao)s,
+                %(status)s
+            )
+        """
+
+        with self._conexao.cursor() as cursor:
+            cursor.executemany(sql, recomendacoes)
+
+        self._conexao.commit()
+
+        return len(recomendacoes)

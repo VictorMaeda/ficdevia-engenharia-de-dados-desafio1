@@ -49,6 +49,15 @@ def _contar_diferencas(brutos: list[dict], tratados: list[dict]) -> int:
                 break
     return corrigidos
 
+def gravar_recomendacao(recomendacao: dict) -> None:
+    config = carregar_configuracao()
+    logger = configurar_logger(
+        arquivo_log=config.arquivo_log,
+        nivel=config.nivel_log
+    )
+
+    with RepositorioPostgres(config.postgres, logger) as repo:
+        repo.carregar_recomendacoes([recomendacao])
 
 def executar() -> int:
     inicio = time.perf_counter()
@@ -232,4 +241,12 @@ def executar() -> int:
 
 
 if __name__ == "__main__":
+    #exemplo de uso
+    # gravar_recomendacao({
+    #     "usuario_id": 1,
+    #     "conteudo_id": 10,
+    #     "pontuacao": 87.5,
+    #     "posicao": 1,
+    #     "status": "positivo"
+    # })
     sys.exit(executar())
