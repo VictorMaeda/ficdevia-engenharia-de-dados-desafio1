@@ -1,0 +1,22 @@
+# Segredos
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+*.egg-info/
+
+# Saídas geradas pelo processamento (não versionar; são reproduzíveis)
+dados/processados/*
+!dados/processados/.gitkeep
+
+# Logs
+logs/*
+!logs/.gitkeep
+
+# Ambientes/IDE
+.vscode/
+.idea/

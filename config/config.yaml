@@ -1,0 +1,51 @@
+# ============================================================
+# Configuração do pipeline - Desafio 1 (Fundamentos de Dados para IA)
+# Escopo desta etapa: ingestão -> validação -> tratamento -> PostgreSQL
+# Segredos (usuário/senha/host) NÃO ficam aqui: veja o arquivo .env
+# ============================================================
+
+fontes:
+  catalogo_csv: "dados/brutos/catalogo.csv"
+  interacoes_json: "dados/brutos/interacoes.json"
+  comentarios_json: "dados/brutos/comentarios.json"
+
+saida:
+  diretorio_processados: "dados/processados"
+  arquivo_resumo: "dados/processados/resumo_ingestao.json"
+  arquivo_rejeitados_catalogo: "dados/processados/rejeitados_catalogo.json"
+  arquivo_rejeitados_interacoes: "dados/processados/rejeitados_interacoes.json"
+  arquivo_rejeitados_comentarios: "dados/processados/rejeitados_comentarios.json"
+  catalogo_tratado: "dados/processados/catalogo_conteudos.csv"
+  interacoes_tratadas: "dados/processados/interacoes_usuarios.json"
+  comentarios_tratados: "dados/processados/comentarios_avaliacoes.json"
+
+logs:
+  diretorio: "logs"
+  arquivo: "logs/execucao.log"
+  nivel: "INFO"
+
+postgres:
+  # host / porta / usuário / senha / nome do banco vêm do .env (variáveis POSTGRES_*)
+  aplicar_schema_ao_iniciar: true
+  script_schema: "sql/criar_banco.sql"
+
+mongodb:
+  # host / porta / usuário / senha / nome do banco vêm do .env (variáveis MONGO_*)
+  colecao_comentarios: "comentarios_avaliacoes"
+  aplicar_indices_ao_iniciar: true
+
+validacao:
+  tipos_conteudo_validos: ["curso", "video", "artigo", "podcast"]
+  niveis_validos: ["basico", "intermediario", "avancado"]
+  tipos_interacao_validos:
+    - "visualizacao"
+    - "inicio"
+    - "conclusao"
+    - "curtida"
+    - "avaliacao"
+    - "compartilhamento"
+  avaliacao_min: 1
+  avaliacao_max: 5
+  percentual_conclusao_min: 0
+  percentual_conclusao_max: 100
+  carga_horaria_min_minutos: 1
