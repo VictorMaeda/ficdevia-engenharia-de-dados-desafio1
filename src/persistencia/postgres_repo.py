@@ -381,3 +381,101 @@ class RepositorioPostgres:
                 for row in cursor.fetchall()
             ]
 
+    # ------------------------------------------------------------
+    # RF08 e RF09 - Embeddings e Busca por Similaridade (pgvector)
+    # ------------------------------------------------------------
+
+    def obter_conteudos_com_detalhes(self) -> list[dict[str, Any]]:
+        assert self._conexao is not None
+        with self._conexao.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT c.conteudo_id, c.titulo, c.descricao, cat.nome AS categoria_nome, c.tipo
+                FROM conteudos c
+                JOIN categorias cat ON c.categoria_id = cat.categoria_id
+                ORDER BY c.conteudo_id
+                """
+            )
+            return [
+                {
+                    "conteudo_id": row[0],
+                    "titulo": row[1],
+                    "descricao": row[2] or "",
+                    "categoria": row[3],
+                    "tipo": row[4],
+                }
+                for row in cursor.fetchall()
+            ]
+
+    def obter_ids_com_embeddings(self) -> set[int]:
+        assert self._conexao is not None
+        with self._conexao.cursor() as cursor:
+            cursor.execute("SELECT conteudo_id FROM conteudo_embeddings")
+            return {row[0] for row in cursor.fetchall()}
+
+    def carregar_embeddings(self, lista_embeddings: list[dict[str, Any]]) -> int:
+        assert self._conexao is not None
+        if not lista_embeddings:
+            return 0
+        try:
+            with self._conexao.cursor() as cursor:
+                valores = [
+                    (
+                        item["conteudo_id"],
+                        item["modelo"],
+                        str(item["embedding"]),
+                    )
+                    for item in lista_embeddings
+                ]
+                psycopg2.extras.execute_values(
+                    cursor,
+                    """
+                    INSERT INTO conteudo_embeddings (conteudo_id, modelo, embedding)
+                    VALUES %s
+                    ON CONFLICT (conteudo_id) DO NOTHING
+                    """,
+                    valores,
+                )
+            self._conexao.commit()
+            self._logger.info("Embeddings persistidos no PostgreSQL: %d", len(lista_embeddings))
+            return len(lista_embeddings)
+        except Exception as erro:
+            self._conexao.rollback()
+            self._logger.error("Falha ao carregar embeddings no PostgreSQL: %s", erro)
+            raise
+
+    def buscar_conteudos_por_similaridade(
+        self, vector_embedding: list[float], top_n: int = 5
+    ) -> list[dict[str, Any]]:
+        assert self._conexao is not None
+        vector_str = str(vector_embedding)
+        sql = """
+            SELECT 
+                ce.conteudo_id,
+                c.titulo,
+                cat.nome AS categoria,
+                c.tipo,
+                ROUND((1 - (ce.embedding <=> %s::vector))::numeric, 4) AS similaridade
+            FROM conteudo_embeddings ce
+            JOIN conteudos c ON ce.conteudo_id = c.conteudo_id
+            JOIN categorias cat ON c.categoria_id = cat.categoria_id
+            ORDER BY ce.embedding <=> %s::vector ASC
+            LIMIT %s
+        """
+        with self._conexao.cursor() as cursor:
+            cursor.execute(sql, (vector_str, vector_str, top_n))
+            resultados = []
+            for pos, row in enumerate(cursor.fetchall(), start=1):
+                resultados.append(
+                    {
+                        "posicao": pos,
+                        "conteudo_id": row[0],
+                        "titulo": row[1],
+                        "categoria": row[2],
+                        "tipo": row[3],
+                        "similaridade": float(row[4]),
+                    }
+                )
+            return resultados
+
+

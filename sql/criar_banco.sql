@@ -84,13 +84,19 @@ CREATE INDEX IF NOT EXISTS idx_avaliacoes_resumo_conteudo ON avaliacoes_resumo (
 CREATE INDEX IF NOT EXISTS idx_recomendacoes_usuario ON recomendacoes (usuario_id);
 
 -- ------------------------------------------------------------
--- Reservado para a próxima etapa do desafio (RF08 - embeddings):
---   CREATE EXTENSION IF NOT EXISTS vector;
---   CREATE TABLE conteudo_embeddings (
---       conteudo_id INTEGER PRIMARY KEY REFERENCES conteudos(conteudo_id),
---       modelo      TEXT NOT NULL,
---       embedding   vector(384)
---   );
+-- RF08 - Embeddings e busca semântica (pgvector)
 -- ------------------------------------------------------------
+CREATE EXTENSION IF NOT EXISTS vector;
+
+CREATE TABLE IF NOT EXISTS conteudo_embeddings (
+    conteudo_id INTEGER PRIMARY KEY REFERENCES conteudos (conteudo_id),
+    modelo      TEXT NOT NULL,
+    embedding   vector(384),
+    criado_em   TIMESTAMP NOT NULL DEFAULT now()
+);
+
+CREATE INDEX IF NOT EXISTS idx_conteudo_embeddings_vector 
+    ON conteudo_embeddings USING hnsw (embedding vector_cosine_ops);
 
 COMMIT;
+
