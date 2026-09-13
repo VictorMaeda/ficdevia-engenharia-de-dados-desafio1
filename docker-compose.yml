@@ -1,35 +1,111 @@
 services:
+
+  # ==========================================================
+  # PostgreSQL principal do desafio
+  # ==========================================================
+
   postgres:
     image: pgvector/pgvector:pg16
     container_name: desafio_dados_postgres
     restart: unless-stopped
+
     env_file:
       - .env
+
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-postgres}
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+
     ports:
       - "${POSTGRES_PORT:-5432}:5432"
+
     volumes:
       - postgres_data:/var/lib/postgresql/data
+
+
+  # ==========================================================
+  # MongoDB
+  # ==========================================================
 
   mongo:
     image: mongo:7
     container_name: desafio_dados_mongo
     restart: unless-stopped
+
     ports:
       - "${MONGO_PORT:-27017}:27017"
+
     volumes:
       - mongo_data:/data/db
-    # Sem autenticação por padrão (ambiente de desenvolvimento local).
-    # Para exigir usuário/senha, defina MONGO_INITDB_ROOT_USERNAME e
-    # MONGO_INITDB_ROOT_PASSWORD aqui e preencha MONGO_USER/MONGO_PASSWORD no .env.
 
-  # A próxima etapa do desafio (embeddings/pgvector) pode reaproveitar
-  # este arquivo, trocando a imagem do serviço "postgres" por uma com
-  # a extensão pgvector ja instalada (ex.: pgvector/pgvector:pg16).
+    # Sem autenticação por padrão no ambiente local.
+
+
+  # ==========================================================
+  # Banco interno de metadados do Apache Superset
+  #
+  # Este banco NÃO contém os dados do desafio.
+  # Ele armazena dashboards, usuários, datasets,
+  # configurações e demais metadados do Superset.
+  # ==========================================================
+
+  superset_meta_db:
+    image: postgres:16
+    container_name: desafio_dados_superset_meta
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_DB: ${SUPERSET_META_DB:-superset}
+      POSTGRES_USER: ${SUPERSET_META_USER:-superset}
+      POSTGRES_PASSWORD: ${SUPERSET_META_PASSWORD:-superset}
+
+    volumes:
+      - superset_meta_db_data:/var/lib/postgresql/data
+
+
+  # ==========================================================
+  # Apache Superset
+  # ==========================================================
+
+  superset:
+    build:
+      context: ./superset
+      dockerfile: Dockerfile
+
+    container_name: desafio_dados_superset
+    restart: unless-stopped
+
+    depends_on:
+      - postgres
+      - superset_meta_db
+
+    environment:
+      SUPERSET_CONFIG_PATH: /app/pythonpath/superset_config.py
+
+      SUPERSET_SECRET_KEY: ${SUPERSET_SECRET_KEY}
+
+      SUPERSET_META_HOST: superset_meta_db
+      SUPERSET_META_PORT: 5432
+      SUPERSET_META_DB: ${SUPERSET_META_DB:-superset}
+      SUPERSET_META_USER: ${SUPERSET_META_USER:-superset}
+      SUPERSET_META_PASSWORD: ${SUPERSET_META_PASSWORD:-superset}
+
+      SUPERSET_ADMIN_USERNAME: ${SUPERSET_ADMIN_USERNAME:-admin}
+      SUPERSET_ADMIN_PASSWORD: ${SUPERSET_ADMIN_PASSWORD:-admin}
+      SUPERSET_ADMIN_FIRSTNAME: ${SUPERSET_ADMIN_FIRSTNAME:-Milton}
+      SUPERSET_ADMIN_LASTNAME: ${SUPERSET_ADMIN_LASTNAME:-Admin}
+      SUPERSET_ADMIN_EMAIL: ${SUPERSET_ADMIN_EMAIL:-admin@example.com}
+
+    ports:
+      - "${SUPERSET_PORT:-8088}:8088"
+
+    volumes:
+      - superset_home:/app/superset_home
+
 
 volumes:
   postgres_data:
   mongo_data:
+  superset_meta_db_data:
+  superset_home:
