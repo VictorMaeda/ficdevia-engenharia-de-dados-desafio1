@@ -13,6 +13,7 @@
 | `interacoes`         | Eventos de consumo (visualização, início, conclusão, curtida etc.).        |
 | `avaliacoes_resumo`  | Resumo relacional das avaliações/comentários no PostgreSQL (contagens e joins simples). O documento completo — com texto, tags e a categoria denormalizada — fica no MongoDB (coleção `comentarios_avaliacoes`). |
 | `recomendacoes`      | Registros de recomendações geradas pelo motor (RF10/RF11): pontuação, posição no ranking, status e data de geração. |
+| `conteudo_embeddings`| Vetores de embeddings 384D (`pgvector`) para busca por similaridade semântica (RF08/RF09). |
 
 ## Observação importante sobre `usuarios`
 
@@ -40,6 +41,18 @@ Armazena as recomendações personalizadas calculadas para cada usuário com bas
 
 **Chave Única:** `UNIQUE (usuario_id, conteudo_id, data_geracao)` garante a idempotência das execuções.
 
+## Entidade `conteudo_embeddings` (RF08 / RF09)
+
+Armazena os vetores de embeddings de 384 dimensões gerados via `sentence-transformers/all-MiniLM-L6-v2` a partir de `titulo` e `descricao` de cada conteúdo.
+
+| Campo | Tipo | Descrição |
+|---|---|---|
+| `conteudo_id` | `INTEGER PRIMARY KEY REFERENCES conteudos` | Identificador do conteúdo vetorizado. |
+| `modelo` | `TEXT` | Modelo de embedding (`sentence-transformers/all-MiniLM-L6-v2`). |
+| `embedding` | `vector(384)` | Vetor denso de 384 dimensões no `pgvector`. |
+| `criado_em` | `TIMESTAMP` | Data/hora de gravação do vetor no banco. |
+
+**Índice de Busca Rápida:** `CREATE INDEX idx_conteudo_embeddings_vector ON conteudo_embeddings USING hnsw (embedding vector_cosine_ops);`.
 
 ## Relacionamentos
 
@@ -50,6 +63,8 @@ Armazena as recomendações personalizadas calculadas para cada usuário com bas
 - `avaliacoes_resumo.conteudo_id` → `conteudos.conteudo_id`
 - `recomendacoes.usuario_id` → `usuarios.usuario_id`
 - `recomendacoes.conteudo_id` → `conteudos.conteudo_id`
+- `conteudo_embeddings.conteudo_id` → `conteudos.conteudo_id`
+
 
 ## Diagrama (a incluir)
 

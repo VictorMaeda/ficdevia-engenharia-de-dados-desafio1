@@ -14,9 +14,10 @@ Este repositório contém a implementação **da ingestão até a persistência 
 | RF05      | Resumo da ingestão                                       | ✅ |
 | RF06      | Persistência no PostgreSQL                               | ✅ |
 | RF07      | Persistência no MongoDB                                  | ✅ |
+| RF08      | Geração e Armazenamento de Embeddings (`pgvector`)       | ✅ |
+| RF09      | Busca por Similaridade Semântica em Linguagem Natural    | ✅ |
 | RF10      | Motor de recomendação (Fórmula $I_{vis}$, $I_{cur}$, $I_{conc}$) | ✅ |
 | RF11      | Persistência das recomendações no PostgreSQL            | ✅ |
-| RF08/RF09 | Embeddings / busca semântica, KPIs e dashboard          | ⏳ próxima etapa |
 
 ## Estrutura do projeto
 
@@ -34,7 +35,7 @@ desafio_dados/
 │   └── processados/       # gerado pela execução do pipeline
 ├── logs/                  # gerado pela execução do pipeline
 ├── sql/
-│   ├── criar_banco.sql    # schema do PostgreSQL (RF06 / RF11)
+│   ├── criar_banco.sql    # schema do PostgreSQL (RF06 / RF08 / RF11)
 │   └── consultas.sql      # consultas de apoio
 ├── mongodb/
 │   └── consultas.js       # consultas de apoio no MongoDB (RF07)
@@ -51,7 +52,8 @@ desafio_dados/
     ├── resumo/            # RF05
     ├── saida/             # gravação dos dados tratados/rejeitados
     ├── persistencia/      # RF06 (PostgreSQL) e RF07 (MongoDB)
-    └── recomendacao/      # RF10 e RF11 (motor.py)
+    ├── recomendacao/      # RF10 e RF11 (motor.py)
+    └── ia/                # RF08 e RF09 (embeddings.py)
 ```
 
 ## Dados de entrada
@@ -72,7 +74,7 @@ Os arquivos reais fornecidos para o desafio já estão em
 ### 1. Pré-requisitos
 
 - Python 3.11+
-- Docker (opcional, para subir o PostgreSQL local rapidamente)
+- Docker (opcional, para subir o PostgreSQL com pgvector localmente)
 
 ### 2. Instalar dependências
 
@@ -89,13 +91,13 @@ cp .env.example .env
 # edite .env com usuário/senha/host do PostgreSQL
 ```
 
-### 4. Subir o PostgreSQL e o MongoDB (opcional, via Docker)
+### 4. Subir o PostgreSQL e o MongoDB (via Docker)
 
 ```bash
 docker compose up -d postgres mongo
 ```
 
-### 5. Executar o pipeline de ingestão e o motor de recomendação
+### 5. Executar o pipeline de ingestão, recomendações e busca semântica
 
 ```bash
 # Executa a ingestão e tratamento dos dados
@@ -103,6 +105,9 @@ python -m src.main
 
 # Executa a geração e persistência das recomendações (RF10 e RF11)
 python -m src.recomendacao.motor
+
+# Executa a geração de embeddings e demonstração da busca semântica (RF08 e RF09)
+python -m src.ia.embeddings
 ```
 
 O sistema irá:
@@ -113,7 +118,10 @@ O sistema irá:
 5. aplicar o schema e carregar os dados no PostgreSQL, dentro de transações;
 6. carregar os comentários/avaliações no MongoDB (coleção `comentarios_avaliacoes`), evitando duplicidade em reexecuções;
 7. calcular as pontuações de recomendação personalizadas ($I_{vis}$, $I_{cur}$, $I_{conc}$) e persistir a ordenação/status na tabela `recomendacoes` no PostgreSQL;
-8. registrar cada etapa em `logs/execucao.log`.
+8. gerar os embeddings vetoriais (384D) via `sentence-transformers` para o catálogo e salvar na tabela `conteudo_embeddings` do PostgreSQL via `pgvector`;
+9. demonstrar buscas por similaridade semântica em linguagem natural via operador `<=>` no PostgreSQL;
+10. registrar cada etapa em `logs/execucao.log`.
+
 
 > **Nenhuma saída é versionada no repositório**: os arquivos em
 > `dados/processados/` e `logs/` são gerados pela execução do
