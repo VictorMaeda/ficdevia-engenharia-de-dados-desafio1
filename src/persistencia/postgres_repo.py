@@ -270,7 +270,7 @@ class RepositorioPostgres:
                 """
             )
             return cursor.fetchall()
-    def carregar_recomendacoes(self, recomendacoes: list[dict]) -> int:
+    def carregar_recomendacoes(self,recomendacoes: list[dict],substituir_existentes: bool = False,) -> int:
         if not recomendacoes:
             return 0
 
@@ -306,6 +306,9 @@ class RepositorioPostgres:
             })
 
         with self._conexao.cursor() as cursor:
+            if substituir_existentes:
+                cursor.execute("DELETE FROM recomendacoes")
+
             cursor.executemany(sql, preparados)
 
         self._conexao.commit()

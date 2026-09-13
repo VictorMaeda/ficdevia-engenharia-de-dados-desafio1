@@ -183,6 +183,8 @@ class MotorRecomendacao:
             ivis = self.calcular_ivis(usuario_id, cid)
             icur = self.calcular_icur(usuario_id, cid)
             iconc = self.calcular_iconc(usuario_id, cid)
+            if iconc == 0:
+                continue
 
             pontuacao = self.calcular_pontuacao(ivis, icur, iconc)
             status = self.classificar_status(pontuacao, iconc)
@@ -242,7 +244,7 @@ def gerar_e_persistir_recomendacoes(logger: logging.Logger | None = None) -> int
         motor = MotorRecomendacao(conteudos, interacoes, avaliacoes)
         todas_recs = motor.gerar_todas_recomendacoes(usuarios_ids)
 
-        total_salvo = repo.carregar_recomendacoes(todas_recs)
+        total_salvo = repo.carregar_recomendacoes(todas_recs,substituir_existentes=True,)
         logger.info(
             "Persistidas %d recomendações no PostgreSQL com sucesso!", total_salvo
         )
