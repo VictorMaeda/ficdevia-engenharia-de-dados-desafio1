@@ -40,7 +40,8 @@ desafio_dados/
 ├── mongodb/
 │   └── consultas.js       # consultas de apoio no MongoDB (RF07)
 ├── documentacao/
-│   ├── modelo_de_dados.md
+│   ├── arquitetura.md     # documentação da arquitetura técnica da solução
+│   ├── modelo_de_dados.md # modelo lógico relacional e NoSQL
 │   └── uso_da_ia.md       # registro de uso de IA (seção 10 do edital)
 └── src/
     ├── main.py            # ponto de entrada do pipeline (python -m src.main)
