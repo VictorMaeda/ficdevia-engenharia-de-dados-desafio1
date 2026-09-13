@@ -280,20 +280,202 @@ class RepositorioPostgres:
                 conteudo_id,
                 pontuacao,
                 posicao,
-                status
+                status,
+                data_geracao
             )
             VALUES (
                 %(usuario_id)s,
                 %(conteudo_id)s,
                 %(pontuacao)s,
                 %(posicao)s,
-                %(status)s
+                %(status)s,
+                COALESCE(%(data_geracao)s, NOW())
             )
+            ON CONFLICT (usuario_id, conteudo_id, data_geracao) DO NOTHING
         """
 
+        preparados = []
+        for r in recomendacoes:
+            preparados.append({
+                "usuario_id": r["usuario_id"],
+                "conteudo_id": r["conteudo_id"],
+                "pontuacao": r["pontuacao"],
+                "posicao": r["posicao"],
+                "status": r["status"],
+                "data_geracao": r.get("data_geracao"),
+            })
+
         with self._conexao.cursor() as cursor:
-            cursor.executemany(sql, recomendacoes)
+            cursor.executemany(sql, preparados)
 
         self._conexao.commit()
 
         return len(recomendacoes)
+
+    def obter_todos_usuarios_ids(self) -> list[int]:
+        assert self._conexao is not None
+        with self._conexao.cursor() as cursor:
+            cursor.execute("SELECT usuario_id FROM usuarios ORDER BY usuario_id")
+            return [row[0] for row in cursor.fetchall()]
+
+    def obter_todos_conteudos(self) -> list[dict[str, Any]]:
+        assert self._conexao is not None
+        with self._conexao.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT c.conteudo_id, c.categoria_id, cat.nome AS categoria_nome
+                FROM conteudos c
+                JOIN categorias cat ON c.categoria_id = cat.categoria_id
+                ORDER BY c.conteudo_id
+                """
+            )
+            return [
+                {
+                    "conteudo_id": row[0],
+                    "categoria_id": row[1],
+                    "categoria_nome": row[2],
+                }
+                for row in cursor.fetchall()
+            ]
+
+    def obter_interacoes_todas(self) -> list[dict[str, Any]]:
+        assert self._conexao is not None
+        with self._conexao.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT i.usuario_id, i.conteudo_id, i.tipo_interacao,
+                       i.tempo_consumido_min, i.percentual_conclusao, i.avaliacao,
+                       c.categoria_id
+                FROM interacoes i
+                JOIN conteudos c ON i.conteudo_id = c.conteudo_id
+                """
+            )
+            return [
+                {
+                    "usuario_id": row[0],
+                    "conteudo_id": row[1],
+                    "tipo_interacao": row[2],
+                    "tempo_consumido_min": float(row[3]) if row[3] is not None else 0.0,
+                    "percentual_conclusao": float(row[4]) if row[4] is not None else 0.0,
+                    "avaliacao": row[5],
+                    "categoria_id": row[6],
+                }
+                for row in cursor.fetchall()
+            ]
+
+    def obter_avaliacoes_resumo_todas(self) -> list[dict[str, Any]]:
+        assert self._conexao is not None
+        with self._conexao.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT usuario_id, conteudo_id, nota
+                FROM avaliacoes_resumo
+                """
+            )
+            return [
+                {
+                    "usuario_id": row[0],
+                    "conteudo_id": row[1],
+                    "nota": row[2],
+                }
+                for row in cursor.fetchall()
+            ]
+
+    # ------------------------------------------------------------
+    # RF08 e RF09 - Embeddings e Busca por Similaridade (pgvector)
+    # ------------------------------------------------------------
+
+    def obter_conteudos_com_detalhes(self) -> list[dict[str, Any]]:
+        assert self._conexao is not None
+        with self._conexao.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT c.conteudo_id, c.titulo, c.descricao, cat.nome AS categoria_nome, c.tipo
+                FROM conteudos c
+                JOIN categorias cat ON c.categoria_id = cat.categoria_id
+                ORDER BY c.conteudo_id
+                """
+            )
+            return [
+                {
+                    "conteudo_id": row[0],
+                    "titulo": row[1],
+                    "descricao": row[2] or "",
+                    "categoria": row[3],
+                    "tipo": row[4],
+                }
+                for row in cursor.fetchall()
+            ]
+
+    def obter_ids_com_embeddings(self) -> set[int]:
+        assert self._conexao is not None
+        with self._conexao.cursor() as cursor:
+            cursor.execute("SELECT conteudo_id FROM conteudo_embeddings")
+            return {row[0] for row in cursor.fetchall()}
+
+    def carregar_embeddings(self, lista_embeddings: list[dict[str, Any]]) -> int:
+        assert self._conexao is not None
+        if not lista_embeddings:
+            return 0
+        try:
+            with self._conexao.cursor() as cursor:
+                valores = [
+                    (
+                        item["conteudo_id"],
+                        item["modelo"],
+                        str(item["embedding"]),
+                    )
+                    for item in lista_embeddings
+                ]
+                psycopg2.extras.execute_values(
+                    cursor,
+                    """
+                    INSERT INTO conteudo_embeddings (conteudo_id, modelo, embedding)
+                    VALUES %s
+                    ON CONFLICT (conteudo_id) DO NOTHING
+                    """,
+                    valores,
+                )
+            self._conexao.commit()
+            self._logger.info("Embeddings persistidos no PostgreSQL: %d", len(lista_embeddings))
+            return len(lista_embeddings)
+        except Exception as erro:
+            self._conexao.rollback()
+            self._logger.error("Falha ao carregar embeddings no PostgreSQL: %s", erro)
+            raise
+
+    def buscar_conteudos_por_similaridade(
+        self, vector_embedding: list[float], top_n: int = 5
+    ) -> list[dict[str, Any]]:
+        assert self._conexao is not None
+        vector_str = str(vector_embedding)
+        sql = """
+            SELECT 
+                ce.conteudo_id,
+                c.titulo,
+                cat.nome AS categoria,
+                c.tipo,
+                ROUND((1 - (ce.embedding <=> %s::vector))::numeric, 4) AS similaridade
+            FROM conteudo_embeddings ce
+            JOIN conteudos c ON ce.conteudo_id = c.conteudo_id
+            JOIN categorias cat ON c.categoria_id = cat.categoria_id
+            ORDER BY ce.embedding <=> %s::vector ASC
+            LIMIT %s
+        """
+        with self._conexao.cursor() as cursor:
+            cursor.execute(sql, (vector_str, vector_str, top_n))
+            resultados = []
+            for pos, row in enumerate(cursor.fetchall(), start=1):
+                resultados.append(
+                    {
+                        "posicao": pos,
+                        "conteudo_id": row[0],
+                        "titulo": row[1],
+                        "categoria": row[2],
+                        "tipo": row[3],
+                        "similaridade": float(row[4]),
+                    }
+                )
+            return resultados
+
+

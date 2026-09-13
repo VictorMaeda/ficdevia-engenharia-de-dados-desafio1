@@ -1,21 +1,21 @@
 """
-Ponto de entrada do pipeline (RF01).
+Ponto de entrada único e orquestração do pipeline completo (RF01 a RF11).
 
 Execução:
     python -m src.main
 
-Etapas orquestradas nesta fase do desafio (RF01 a RF07):
-    1. leitura das fontes (CSV + JSON);
-    2. validação dos registros (valido/invalido/incompleto/duplicado);
-    3. tratamento e padronização dos registros válidos;
-    4. gravação dos dados tratados e dos rejeitados em dados/processados/;
-    5. persistência no PostgreSQL (schema + carga transacional);
-    6. persistência no MongoDB dos comentários/avaliações;
-    7. geração do resumo da ingestão (RF05).
-
-As etapas de embeddings/pgvector, busca semântica, recomendação, KPIs
-e o dashboard no Superset fazem parte das próximas etapas do desafio e
-não são executadas por este script.
+Etapas orquestradas:
+    1. leitura das fontes (CSV + JSON) (RF02);
+    2. validação dos registros (valido/invalido/incompleto/duplicado) (RF03);
+    3. tratamento e padronização dos registros válidos (RF04);
+    4. gravação dos dados tratados e rejeitados em dados/processados/ (RF04);
+    5. persistência no PostgreSQL (schema + carga transacional) (RF06);
+    6. persistência no MongoDB dos comentários/avaliações (RF07);
+    7. motor de recomendação personalizada e pontuação Ivis/Icur/Iconc (RF10);
+    8. persistência das recomendações no PostgreSQL (RF11);
+    9. geração e armazenamento vetorial de embeddings 384D (pgvector) (RF08);
+    10. demonstração de busca por similaridade semântica em linguagem natural (RF09);
+    11. geração do resumo da ingestão e log estruturado (RF05/RF14).
 """
 
 from __future__ import annotations
@@ -36,6 +36,9 @@ from src.saida.escritores import gravar_csv, gravar_json, separar_validos_e_reje
 from src.resumo.resumo_ingestao import ResumoIngestao, gravar_resumo, montar_resumo_fonte
 from src.persistencia.postgres_repo import RepositorioPostgres
 from src.persistencia.mongo_repo import RepositorioMongo
+from src.recomendacao.motor import gerar_e_persistir_recomendacoes
+from src.ia.embeddings import gerar_e_persistir_embeddings_conteudos, exibir_demonstracao_buscas
+
 
 
 def _contar_diferencas(brutos: list[dict], tratados: list[dict]) -> int:
@@ -192,7 +195,22 @@ def executar() -> int:
                 config.dir_processados,
             )
 
-        # 7) Resumo da ingestão (RF05)
+        # 7) Motor de Recomendação Personalizada (RF10/RF11)
+        try:
+            carregados["recomendacoes"] = gerar_e_persistir_recomendacoes(logger)
+        except Exception as erro:
+            logger.error("Falha ao gerar e persistir recomendacoes: %s", erro)
+            carregados["recomendacoes"] = 0
+
+        # 8) Embeddings e Busca por Similaridade Semântica (RF08/RF09)
+        try:
+            carregados["embeddings"] = gerar_e_persistir_embeddings_conteudos(logger)
+            exibir_demonstracao_buscas()
+        except Exception as erro:
+            logger.error("Falha na geracao ou busca de embeddings: %s", erro)
+            carregados["embeddings"] = 0
+
+        # 9) Resumo da ingestão (RF05)
         resumo.fontes.append(
             montar_resumo_fonte(
                 "catalogo.csv",
@@ -224,15 +242,18 @@ def executar() -> int:
                 + carregados["usuarios"]
                 + carregados["interacoes"]
                 + carregados["avaliacoes_resumo"]
+                + carregados.get("recomendacoes", 0)
+                + carregados.get("embeddings", 0)
             ),
             "mongodb": carregados["mongo_comentarios"],
         }
         gravar_resumo(resumo, config.arquivo_resumo, logger)
 
         logger.info("=" * 60)
-        logger.info("FIM DO PROCESSAMENTO - concluido com sucesso")
+        logger.info("FIM DO PROCESSAMENTO - concluido com sucesso (RF01 a RF11)")
         logger.info("=" * 60)
         return 0
+
 
     except Exception as erro:
         logger.exception("Falha nao tratada durante o processamento: %s", erro)
