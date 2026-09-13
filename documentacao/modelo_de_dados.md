@@ -12,7 +12,7 @@
 | `conteudos`          | Catálogo de conteúdos educacionais (cursos, vídeos, artigos, podcasts).     |
 | `interacoes`         | Eventos de consumo (visualização, início, conclusão, curtida etc.).        |
 | `avaliacoes_resumo`  | Resumo relacional das avaliações/comentários no PostgreSQL (contagens e joins simples). O documento completo — com texto, tags e a categoria denormalizada — fica no MongoDB (coleção `comentarios_avaliacoes`). |
-| `recomendacoes`      | Reservada para a próxima etapa do desafio (RF10/RF11).                     |
+| `recomendacoes`      | Registros de recomendações geradas pelo motor (RF10/RF11): pontuação, posição no ranking, status e data de geração. |
 
 ## Observação importante sobre `usuarios`
 
@@ -23,6 +23,23 @@ usuário — não há um cadastro com nome, e-mail etc. Por isso a entidade
 com `primeira_ocorrencia` (data/hora do primeiro registro em que o
 usuário aparece) e `origem_primeiro_registro` (`interacao` ou
 `comentario`).
+
+## Entidade `recomendacoes` (RF10 / RF11)
+
+Armazena as recomendações personalizadas calculadas para cada usuário com base nas métricas $I_{vis}$, $I_{cur}$ e $I_{conc}$.
+
+| Campo | Tipo | Descrição |
+|---|---|---|
+| `recomendacao_id` | `SERIAL PRIMARY KEY` | Identificador sequencial da recomendação. |
+| `usuario_id` | `INTEGER REFERENCES usuarios` | Usuário para o qual a recomendação foi gerada. |
+| `conteudo_id` | `INTEGER REFERENCES conteudos` | Conteúdo recomendado. |
+| `pontuacao` | `NUMERIC(5, 2)` | Pontuação final obtida ($0.00$ a $100.00$). |
+| `posicao` | `INTEGER` | Posição no ranking ordenado do usuário ($1, 2, 3 \dots$). |
+| `status` | `TEXT` | Classificação (`positivo`, `estavel` ou `negativo`). |
+| `data_geracao` | `TIMESTAMP` | Timestamp da geração do resultado. |
+
+**Chave Única:** `UNIQUE (usuario_id, conteudo_id, data_geracao)` garante a idempotência das execuções.
+
 
 ## Relacionamentos
 
