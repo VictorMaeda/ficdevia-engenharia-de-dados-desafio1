@@ -280,20 +280,104 @@ class RepositorioPostgres:
                 conteudo_id,
                 pontuacao,
                 posicao,
-                status
+                status,
+                data_geracao
             )
             VALUES (
                 %(usuario_id)s,
                 %(conteudo_id)s,
                 %(pontuacao)s,
                 %(posicao)s,
-                %(status)s
+                %(status)s,
+                COALESCE(%(data_geracao)s, NOW())
             )
+            ON CONFLICT (usuario_id, conteudo_id, data_geracao) DO NOTHING
         """
 
+        preparados = []
+        for r in recomendacoes:
+            preparados.append({
+                "usuario_id": r["usuario_id"],
+                "conteudo_id": r["conteudo_id"],
+                "pontuacao": r["pontuacao"],
+                "posicao": r["posicao"],
+                "status": r["status"],
+                "data_geracao": r.get("data_geracao"),
+            })
+
         with self._conexao.cursor() as cursor:
-            cursor.executemany(sql, recomendacoes)
+            cursor.executemany(sql, preparados)
 
         self._conexao.commit()
 
         return len(recomendacoes)
+
+    def obter_todos_usuarios_ids(self) -> list[int]:
+        assert self._conexao is not None
+        with self._conexao.cursor() as cursor:
+            cursor.execute("SELECT usuario_id FROM usuarios ORDER BY usuario_id")
+            return [row[0] for row in cursor.fetchall()]
+
+    def obter_todos_conteudos(self) -> list[dict[str, Any]]:
+        assert self._conexao is not None
+        with self._conexao.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT c.conteudo_id, c.categoria_id, cat.nome AS categoria_nome
+                FROM conteudos c
+                JOIN categorias cat ON c.categoria_id = cat.categoria_id
+                ORDER BY c.conteudo_id
+                """
+            )
+            return [
+                {
+                    "conteudo_id": row[0],
+                    "categoria_id": row[1],
+                    "categoria_nome": row[2],
+                }
+                for row in cursor.fetchall()
+            ]
+
+    def obter_interacoes_todas(self) -> list[dict[str, Any]]:
+        assert self._conexao is not None
+        with self._conexao.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT i.usuario_id, i.conteudo_id, i.tipo_interacao,
+                       i.tempo_consumido_min, i.percentual_conclusao, i.avaliacao,
+                       c.categoria_id
+                FROM interacoes i
+                JOIN conteudos c ON i.conteudo_id = c.conteudo_id
+                """
+            )
+            return [
+                {
+                    "usuario_id": row[0],
+                    "conteudo_id": row[1],
+                    "tipo_interacao": row[2],
+                    "tempo_consumido_min": float(row[3]) if row[3] is not None else 0.0,
+                    "percentual_conclusao": float(row[4]) if row[4] is not None else 0.0,
+                    "avaliacao": row[5],
+                    "categoria_id": row[6],
+                }
+                for row in cursor.fetchall()
+            ]
+
+    def obter_avaliacoes_resumo_todas(self) -> list[dict[str, Any]]:
+        assert self._conexao is not None
+        with self._conexao.cursor() as cursor:
+            cursor.execute(
+                """
+                SELECT usuario_id, conteudo_id, nota
+                FROM avaliacoes_resumo
+                """
+            )
+            return [
+                {
+                    "usuario_id": row[0],
+                    "conteudo_id": row[1],
+                    "nota": row[2],
+                }
+                for row in cursor.fetchall()
+            ]
+
