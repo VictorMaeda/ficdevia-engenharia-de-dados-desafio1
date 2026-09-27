@@ -1,0 +1,177 @@
+-- ============================================================
+-- Script DDL idempotente - pg_desafio2
+-- Cria (se nao existirem) os schemas bronze, silver e quarentena
+-- e todas as tabelas correspondentes.
+-- Pode ser executado quantas vezes forem necessarias sem erro.
+-- ============================================================
+
+-- ============================================================
+-- SCHEMAS
+-- ============================================================
+CREATE SCHEMA IF NOT EXISTS bronze;
+CREATE SCHEMA IF NOT EXISTS silver;
+CREATE SCHEMA IF NOT EXISTS quarentena;
+
+-- ============================================================
+-- BRONZE
+-- ============================================================
+
+-- bronze.catalogo
+CREATE TABLE IF NOT EXISTS bronze.catalogo (
+	conteudo_id text NULL,
+	titulo text NULL,
+	tipo text NULL,
+	categoria text NULL,
+	nivel text NULL,
+	carga_horaria_min text NULL,
+	data_publicacao text NULL,
+	descricao text NULL,
+	autor text NULL,
+	origem_arquivo text NOT NULL,
+	data_hora_ingestao timestamp DEFAULT now() NOT NULL,
+	execucao_id text NOT NULL
+);
+
+-- bronze.comentarios
+CREATE TABLE IF NOT EXISTS bronze.comentarios (
+	id serial4 NOT NULL,
+	conteudo_json jsonb NOT NULL,
+	origem_arquivo varchar(100) NOT NULL,
+	execucao_id varchar(50) NOT NULL,
+	data_hora_ingestao timestamp DEFAULT now() NOT NULL,
+	CONSTRAINT comentarios_pkey PRIMARY KEY (id)
+);
+
+-- bronze.interacoes
+CREATE TABLE IF NOT EXISTS bronze.interacoes (
+	id serial4 NOT NULL,
+	conteudo_json jsonb NOT NULL,
+	origem_arquivo varchar(100) NOT NULL,
+	execucao_id varchar(50) NOT NULL,
+	data_hora_ingestao timestamp DEFAULT now() NOT NULL,
+	CONSTRAINT interacoes_pkey PRIMARY KEY (id)
+);
+
+-- bronze.recomendacoes
+CREATE TABLE IF NOT EXISTS bronze.recomendacoes (
+	usuario_id text NULL,
+	conteudo_id text NULL,
+	pontuacao text NULL,
+	posicao text NULL,
+	status text NULL,
+	data_geracao text NULL,
+	origem_arquivo text NOT NULL,
+	data_hora_ingestao timestamp DEFAULT now() NOT NULL,
+	execucao_id text NOT NULL
+);
+
+-- ============================================================
+-- SILVER
+-- ============================================================
+
+-- silver.catalogo
+CREATE TABLE IF NOT EXISTS silver.catalogo (
+	titulo text NOT NULL,
+	tipo text NULL,
+	categoria text NULL,
+	nivel text NULL,
+	data_publicacao date NULL,
+	descricao text NULL,
+	autor text NULL,
+	origem_arquivo text NULL,
+	execucao_id text NULL,
+	conteudo_id float8 NULL,
+	carga_horaria_min float8 NULL
+);
+
+-- silver.comentarios
+CREATE TABLE IF NOT EXISTS silver.comentarios (
+	usuario_id int4 NULL,
+	conteudo_id int4 NULL,
+	avaliacao int2 NULL,
+	comentario text NULL,
+	"data" date NULL,
+	execucao_id text NULL,
+	data_hora_padronizacao timestamp DEFAULT now() NOT NULL
+);
+
+-- silver.interacoes
+CREATE TABLE IF NOT EXISTS silver.interacoes (
+	usuario_id int4 NULL,
+	conteudo_id int4 NULL,
+	tipo_interacao text NULL,
+	data_hora timestamp NULL,
+	tempo_consumido int4 NULL,
+	percentual_conclusao numeric(5, 2) NULL,
+	avaliacao_atribuida int2 NULL,
+	execucao_id text NULL,
+	data_hora_padronizacao timestamp DEFAULT now() NOT NULL
+);
+
+-- silver.recomendacoes
+CREATE TABLE IF NOT EXISTS silver.recomendacoes (
+	usuario_id int4 NULL,
+	conteudo_id int4 NULL,
+	pontuacao numeric(5, 2) NULL,
+	posicao int4 NULL,
+	status text NULL,
+	data_geracao timestamp NULL,
+	execucao_id text NULL,
+	data_hora_padronizacao timestamp DEFAULT now() NOT NULL
+);
+
+-- ============================================================
+-- QUARENTENA
+-- ============================================================
+-- Atencao: comentarios, interacoes e recomendacoes usam a MESMA
+-- sequence gerada pela coluna bigserial de quarentena.catalogo
+-- (quarentena.catalogo_registro_id_seq), entao catalogo precisa
+-- ser criada primeiro.
+
+-- quarentena.catalogo (cria a sequence catalogo_registro_id_seq)
+CREATE TABLE IF NOT EXISTS quarentena.catalogo (
+	registro_id bigserial NOT NULL,
+	origem text NOT NULL,
+	regra_violada text NOT NULL,
+	data_erro timestamp DEFAULT now() NOT NULL,
+	mensagem_erro text NULL,
+	execucao_id text NULL,
+	payload jsonb NULL,
+	CONSTRAINT catalogo_pkey PRIMARY KEY (registro_id)
+);
+
+-- quarentena.comentarios (reaproveita a sequence de catalogo)
+CREATE TABLE IF NOT EXISTS quarentena.comentarios (
+	registro_id int8 DEFAULT nextval('quarentena.catalogo_registro_id_seq'::regclass) NOT NULL,
+	origem text NOT NULL,
+	regra_violada text NOT NULL,
+	data_erro timestamp DEFAULT now() NOT NULL,
+	mensagem_erro text NULL,
+	execucao_id text NULL,
+	payload jsonb NULL,
+	CONSTRAINT comentarios_pkey PRIMARY KEY (registro_id)
+);
+
+-- quarentena.interacoes (reaproveita a sequence de catalogo)
+CREATE TABLE IF NOT EXISTS quarentena.interacoes (
+	registro_id int8 DEFAULT nextval('quarentena.catalogo_registro_id_seq'::regclass) NOT NULL,
+	origem text NOT NULL,
+	regra_violada text NOT NULL,
+	data_erro timestamp DEFAULT now() NOT NULL,
+	mensagem_erro text NULL,
+	execucao_id text NULL,
+	payload jsonb NULL,
+	CONSTRAINT interacoes_pkey PRIMARY KEY (registro_id)
+);
+
+-- quarentena.recomendacoes (reaproveita a sequence de catalogo)
+CREATE TABLE IF NOT EXISTS quarentena.recomendacoes (
+	registro_id int8 DEFAULT nextval('quarentena.catalogo_registro_id_seq'::regclass) NOT NULL,
+	origem text NOT NULL,
+	regra_violada text NOT NULL,
+	data_erro timestamp DEFAULT now() NOT NULL,
+	mensagem_erro text NULL,
+	execucao_id text NULL,
+	payload jsonb NULL,
+	CONSTRAINT recomendacoes_pkey PRIMARY KEY (registro_id)
+);

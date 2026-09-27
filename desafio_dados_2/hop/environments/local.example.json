@@ -1,0 +1,29 @@
+﻿{
+  "variables": [
+    {
+      "name": "DB_HOST",
+      "value": "localhost",
+      "description": "Host do PostgreSQL"
+    },
+    {
+      "name": "DB_PORT",
+      "value": "5433",
+      "description": "Porta local do PostgreSQL"
+    },
+    {
+      "name": "DB_NAME",
+      "value": "desafio2",
+      "description": "Banco de dados"
+    },
+    {
+      "name": "DB_USER",
+      "value": "postgres",
+      "description": "Usuario do PostgreSQL"
+    },
+    {
+      "name": "DB_PASSWORD",
+      "value": "",
+      "description": "Senha local - nao preencher no arquivo versionado"
+    }
+  ]
+}

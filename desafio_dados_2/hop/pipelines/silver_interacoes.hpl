@@ -1,0 +1,610 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pipeline>
+  <info>
+    <pipeline_version/>
+    <capture_transform_performance>N</capture_transform_performance>
+    <transform_performance_capturing_delay>1000</transform_performance_capturing_delay>
+    <transform_performance_capturing_size_limit>100</transform_performance_capturing_size_limit>
+    <pipeline_type>Normal</pipeline_type>
+    <pipeline_status>0</pipeline_status>
+    <parameters/>
+    <name>silver_interacoes</name>
+    <name_sync_with_filename>Y</name_sync_with_filename>
+    <description>Padroniza bronze.interacoes, remove duplicidade por (usuario_id, conteudo_id, tipo_interacao, data_hora), valida referencia contra silver.catalogo e regras de negocio, e separa aprovados (silver.interacoes) de rejeitados (quarentena.interacoes). RF21.</description>
+    <extended_description/>
+    <created_user>-</created_user>
+    <modified_user>-</modified_user>
+    <created_date>2026/09/26 00:00:00.000</created_date>
+    <modified_date>2026/09/27 00:00:00.000</modified_date>
+  </info>
+  <transform>
+    <type>TableInput</type>
+    <name>Ler bronze.interacoes</name>
+    <sql>SELECT 
+       (conteudo_json -> '' -> 0 ->> 'usuario_id') AS usuario_id, 
+       (conteudo_json -> '' -> 0 ->> 'conteudo_id') AS conteudo_id, 
+       (conteudo_json -> '' -> 0 ->> 'tipo_interacao') AS tipo_interacao, 
+       (conteudo_json -> '' -> 0 ->> 'data_hora') AS data_hora, 
+       (conteudo_json -> '' -> 0 ->> 'tempo_consumido') AS tempo_consumido,
+       (conteudo_json -> '' -> 0 ->> 'percentual_conclusao') AS percentual_conclusao, 
+       (conteudo_json -> '' -> 0 ->> 'avaliacao_atribuida') AS avaliacao_atribuida, 
+       execucao_id
+FROM bronze.interacoes
+WHERE execucao_id = '${EXECUCAO_ID}'</sql>
+    <limit>0</limit>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>Y</variables_active>
+    <connection>pg_desafio2</connection>
+    <lookup/>
+    <sql_from_file/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+    <GUI>
+      <xloc>112</xloc>
+      <yloc>128</yloc>
+    </GUI>
+    <description/>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <attributes/>
+  </transform>
+  <transform>
+    <type>UniqueRowsByHashSet</type>
+    <name>Remover duplicados</name>
+    <store_values>N</store_values>
+    <fields>
+      <field>
+        <name>usuario_id</name>
+      </field>
+      <field>
+        <name>conteudo_id</name>
+      </field>
+      <field>
+        <name>tipo_interacao</name>
+      </field>
+      <field>
+        <name>data_hora</name>
+      </field>
+    </fields>
+    <reject_duplicate_row>N</reject_duplicate_row>
+    <error_description/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+    <GUI>
+      <xloc>288</xloc>
+      <yloc>128</yloc>
+    </GUI>
+    <description>Dedup por chave de negocio, sem precisar de sort previo.</description>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <attributes/>
+  </transform>
+  <transform>
+    <type>DBLookup</type>
+    <name>Validar conteudo existe</name>
+    <connection>pg_desafio2</connection>
+    <cache>N</cache>
+    <cache_size>0</cache_size>
+    <cache_load_all>N</cache_load_all>
+    <lookup>
+      <schema>silver</schema>
+      <table>catalogo</table>
+      <key>
+        <name>conteudo_id</name>
+        <name2/>
+        <condition>=</condition>
+        <field>conteudo_id</field>
+      </key>
+      <value>
+        <name>titulo</name>
+        <rename>titulo_ref</rename>
+        <default/>
+        <type>String</type>
+        <trim_type>none</trim_type>
+      </value>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+    </lookup>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+    <GUI>
+      <xloc>464</xloc>
+      <yloc>128</yloc>
+    </GUI>
+    <description>Verifica se conteudo_id existe em silver.catalogo (RF21 - integridade referencial).</description>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <attributes/>
+  </transform>
+  <transform>
+    <type>ScriptValueMod</type>
+    <name>Validar regras</name>
+    <jsScripts>
+      <jsScript>
+        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>
+var regra_violada = null;
+
+var u_id = (usuario_id != null) ? usuario_id.toString().trim() : "";
+var c_id = (conteudo_id != null) ? conteudo_id.toString().trim() : "";
+var t_int = (tipo_interacao != null) ? tipo_interacao.toString().trim().toLowerCase() : "";
+var p_conc = (percentual_conclusao != null) ? percentual_conclusao.toString().trim() : "";
+var a_atr = (avaliacao_atribuida != null) ? avaliacao_atribuida.toString().trim() : "";
+
+if (u_id == "") {
+    regra_violada = "usuario_id ausente";
+} else if (c_id == "") {
+    regra_violada = "conteudo_id ausente";
+} else if (titulo_ref == null) {
+    regra_violada = "conteudo_id inexistente no catalogo";
+} else if (!t_int.match(/^(inicio|in[ií]cio|visualiza[cç][aã]o|conclus[aã]o|avalia[cç][aã]o|curtida|compartilhamento)$/)) {
+    regra_violada = "tipo_interacao invalido";
+} else if (p_conc != "" &amp;&amp; !p_conc.match(/^(100(\.0+)?|[0-9]{1,2}(\.[0-9]+)?)$/)) {
+    regra_violada = "percentual_conclusao invalido";
+} else if (a_atr != "" &amp;&amp; !a_atr.match(/^[1-5]$/)) {
+    regra_violada = "avaliacao invalida";
+}
+        </jsScript_script>
+      </jsScript>
+    </jsScripts>
+    <fields>
+      <field>
+        <name>regra_violada</name>
+        <rename>regra_violada</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+    </fields>
+    <optimizationLevel>9</optimizationLevel>
+    <languageVersion>ES6</languageVersion>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+    <GUI>
+      <xloc>640</xloc>
+      <yloc>128</yloc>
+    </GUI>
+    <description>Calcula regra_violada via Javascript substituindo plugin faltante.</description>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <attributes/>
+  </transform>
+  <transform>
+    <type>FilterRows</type>
+    <name>Aprovado?</name>
+    <compare>
+      <condition>
+        <negated>N</negated>
+        <operator>-</operator>
+        <leftvalue>regra_violada</leftvalue>
+        <function>IS NULL</function>
+        <conditions/>
+      </condition>
+    </compare>
+    <send_true_to>Padronizar tipos</send_true_to>
+    <send_false_to>Preparar quarentena</send_false_to>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+    <GUI>
+      <xloc>640</xloc>
+      <yloc>256</yloc>
+    </GUI>
+    <description/>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <attributes/>
+  </transform>
+  <transform>
+    <type>SelectValues</type>
+    <name>Padronizar tipos</name>
+    <fields>
+      <select_unspecified>Y</select_unspecified>
+      <remove>
+        <name>titulo_ref</name>
+      </remove>
+      <remove>
+        <name>regra_violada</name>
+      </remove>
+      <meta>
+        <name>usuario_id</name>
+        <rename>usuario_id</rename>
+        <type>Integer</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <storage_type/>
+        <conversion_mask/>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>N</lenient_string_to_number>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <encoding/>
+        <roundingType>half_even</roundingType>
+      </meta>
+      <meta>
+        <name>conteudo_id</name>
+        <rename>conteudo_id</rename>
+        <type>Integer</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <storage_type/>
+        <conversion_mask/>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>N</lenient_string_to_number>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <encoding/>
+        <roundingType>half_even</roundingType>
+      </meta>
+      <meta>
+        <name>data_hora</name>
+        <rename>data_hora</rename>
+        <type>Timestamp</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <storage_type/>
+        <conversion_mask>yyyy-MM-dd'T'HH:mm:ss</conversion_mask>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>N</lenient_string_to_number>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <encoding/>
+        <roundingType>half_even</roundingType>
+      </meta>
+      <meta>
+        <name>tempo_consumido</name>
+        <rename>tempo_consumido</rename>
+        <type>Integer</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <storage_type/>
+        <conversion_mask/>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>N</lenient_string_to_number>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <encoding/>
+        <roundingType>half_even</roundingType>
+      </meta>
+      <meta>
+        <name>percentual_conclusao</name>
+        <rename>percentual_conclusao</rename>
+        <type>Number</type>
+        <length>5</length>
+        <precision>2</precision>
+        <storage_type/>
+        <conversion_mask/>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>N</lenient_string_to_number>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol></grouping_symbol>
+        <currency_symbol/>
+        <encoding/>
+        <roundingType>half_even</roundingType>
+      </meta>
+      <meta>
+        <name>avaliacao_atribuida</name>
+        <rename>avaliacao_atribuida</rename>
+        <type>Integer</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <storage_type/>
+        <conversion_mask/>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>N</lenient_string_to_number>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <encoding/>
+        <roundingType>half_even</roundingType>
+      </meta>
+    </fields>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+    <GUI>
+      <xloc>816</xloc>
+      <yloc>96</yloc>
+    </GUI>
+    <description>Converte tipos para o schema da silver.interacoes e remove campos auxiliares. decimal_symbol fixado em "." para percentual_conclusao, independente da locale da JVM.</description>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <attributes/>
+  </transform>
+  <transform>
+    <type>TableOutput</type>
+    <name>Gravar silver.interacoes</name>
+    <connection>pg_desafio2</connection>
+    <schema>silver</schema>
+    <table>interacoes</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <only_when_have_rows>N</only_when_have_rows>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>N</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_in_table>N</tablename_in_table>
+    <return_keys>N</return_keys>
+    <specify_fields>N</specify_fields>
+    <auto_update_table_structure>N</auto_update_table_structure>
+    <always_drop_and_recreate>N</always_drop_and_recreate>
+    <add_columns>N</add_columns>
+    <drop_columns>N</drop_columns>
+    <change_column_types>N</change_column_types>
+    <fields/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+    <GUI>
+      <xloc>992</xloc>
+      <yloc>96</yloc>
+    </GUI>
+    <description/>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <attributes/>
+  </transform>
+  <transform>
+    <type>ScriptValueMod</type>
+    <name>Preparar quarentena</name>
+    <jsScripts>
+      <jsScript>
+        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>
+var origem = "interacoes";
+var mensagem_erro = "Falha de validacao na Silver: " + (regra_violada != null ? regra_violada : "Erro desconhecido");
+// Correcao: new Date() do Rhino gera um NativeDate, que o Hop nao
+// consegue converter para java.sql.Timestamp (ClassCastException em
+// "Selecionar campos quarentena" e na gravacao do estado de execucao).
+// Construir o objeto Java diretamente resolve o problema.
+var data_erro = new java.sql.Timestamp(java.lang.System.currentTimeMillis());
+        </jsScript_script>
+      </jsScript>
+    </jsScripts>
+    <fields>
+      <field>
+        <name>origem</name>
+        <rename>origem</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+      <field>
+        <name>mensagem_erro</name>
+        <rename>mensagem_erro</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+      <field>
+        <name>data_erro</name>
+        <rename>data_erro</rename>
+        <type>Timestamp</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+    </fields>
+    <optimizationLevel>9</optimizationLevel>
+    <languageVersion>ES6</languageVersion>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+    <GUI>
+      <xloc>816</xloc>
+      <yloc>320</yloc>
+    </GUI>
+    <description>Acrescenta origem, mensagem_erro e data_erro para o registro rejeitado. data_erro construido como java.sql.Timestamp para evitar ClassCastException com NativeDate.</description>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <attributes/>
+  </transform>
+  <transform>
+    <type>SelectValues</type>
+    <name>Selecionar campos quarentena</name>
+    <fields>
+      <field>
+        <name>origem</name>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>
+      <field>
+        <name>regra_violada</name>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>
+      <field>
+        <name>data_erro</name>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>
+      <field>
+        <name>mensagem_erro</name>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>
+      <field>
+        <name>execucao_id</name>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+    <GUI>
+      <xloc>992</xloc>
+      <yloc>320</yloc>
+    </GUI>
+    <description>Mantem so as colunas que existem em quarentena.interacoes.</description>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <attributes/>
+  </transform>
+  <transform>
+    <type>TableOutput</type>
+    <name>Gravar quarentena.interacoes</name>
+    <connection>pg_desafio2</connection>
+    <schema>quarentena</schema>
+    <table>interacoes</table>
+    <commit>100</commit>
+    <truncate>N</truncate>
+    <only_when_have_rows>N</only_when_have_rows>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>N</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_in_table>N</tablename_in_table>
+    <return_keys>N</return_keys>
+    <specify_fields>N</specify_fields>
+    <auto_update_table_structure>N</auto_update_table_structure>
+    <always_drop_and_recreate>N</always_drop_and_recreate>
+    <add_columns>N</add_columns>
+    <drop_columns>N</drop_columns>
+    <change_column_types>N</change_column_types>
+    <fields/>
+    <distribute>Y</distribute>
+    <copies>1</copies>
+    <GUI>
+      <xloc>1168</xloc>
+      <yloc>320</yloc>
+    </GUI>
+    <description/>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <attributes/>
+  </transform>
+  <order>
+    <hop>
+      <from>Ler bronze.interacoes</from>
+      <to>Remover duplicados</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Remover duplicados</from>
+      <to>Validar conteudo existe</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Validar conteudo existe</from>
+      <to>Validar regras</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Validar regras</from>
+      <to>Aprovado?</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Aprovado?</from>
+      <to>Padronizar tipos</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Aprovado?</from>
+      <to>Preparar quarentena</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Padronizar tipos</from>
+      <to>Gravar silver.interacoes</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Preparar quarentena</from>
+      <to>Selecionar campos quarentena</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Selecionar campos quarentena</from>
+      <to>Gravar quarentena.interacoes</to>
+      <enabled>Y</enabled>
+    </hop>
+  </order>
+  <notepads>
+    <notepad>
+      <note>Estudante 1 - Silver
+Regras: usuario_id e conteudo_id obrigatorios; conteudo_id precisa
+existir em silver.catalogo; tipo_interacao precisa ser um dos valores
+validos; percentual_conclusao (se preenchido) entre 0 e 100;
+avaliacao (se preenchida) entre 1 e 5.
+Dedup por (usuario_id, conteudo_id, tipo_interacao, data_hora).
+Nao ha upsert aqui: cada execucao filtra por execucao_id, entao
+reprocessar a mesma execucao pode duplicar linhas se rodar 2x sem
+limpar. Ajuste com um DELETE por execucao_id antes de recarregar,
+se quiser reprocessamento idempotente.
+
+CORRECOES (27/09/2026):
+1) "Padronizar tipos" -&gt; percentual_conclusao: decimal_symbol
+   fixado em "." (antes vazio, sujeito a locale da JVM, causava
+   overflow numerico ao interpretar "100.0" como 1000).
+2) "Preparar quarentena": data_erro agora criado como
+   java.sql.Timestamp (antes new Date() gerava NativeDate do Rhino,
+   causando ClassCastException em "Selecionar campos quarentena" e
+   falha ao gravar o estado final de execucao).</note>
+      <markdown>N</markdown>
+      <notetype>GENERAL</notetype>
+      <fontsize>-1</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>14</fontcolorred>
+      <fontcolorgreen>58</fontcolorgreen>
+      <fontcolorblue>90</fontcolorblue>
+      <backgroundcolorred>201</backgroundcolorred>
+      <backgroundcolorgreen>232</backgroundcolorgreen>
+      <backgroundcolorblue>251</backgroundcolorblue>
+      <bordercolorred>14</bordercolorred>
+      <bordercolorgreen>58</bordercolorgreen>
+      <bordercolorblue>90</bordercolorblue>
+      <xloc>32</xloc>
+      <yloc>16</yloc>
+      <width>340</width>
+      <height>-1</height>
+    </notepad>
+  </notepads>
+  <attributes/>
+  <transform_error_handling/>
+</pipeline>

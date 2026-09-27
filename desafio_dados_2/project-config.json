@@ -1,0 +1,34 @@
+{
+  "metadataBaseFolder" : "${PROJECT_HOME}/hop/metadata",
+  "unitTestsBasePath" : "${PROJECT_HOME}",
+  "dataSetsCsvFolder" : "${PROJECT_HOME}/datasets",
+  "enforcingExecutionInHome" : true,
+  "parentProjectName" : "default",
+  "config" : {
+    "variables" : [ {
+      "name" : "SOURCE_CATALOGO_CSV",
+      "value" : "${PROJECT_HOME}/dados/entrada/catalogo.csv"
+    }, {
+      "name" : "SOURCE_INTERACOES_JSON",
+      "value" : "${PROJECT_HOME}/dados/entrada/interacoes.json"
+    }, {
+      "name" : "SOURCE_COMENTARIOS_JSON",
+      "value" : "${PROJECT_HOME}/dados/entrada/comentarios.json"
+    }, {
+      "name" : "EXECUCAO_ID",
+      "value" : "1"
+    }, {
+      "name" : "DB_HOST",
+      "value" : "localhost"
+    }, {
+      "name" : "DB_PORT",
+      "value" : "5433"
+    }, {
+      "name" : "DB_NAME",
+      "value" : "desafio2"
+    }, {
+      "name" : "DB_USER",
+      "value" : "postgres"
+    } ]
+  }
+}
