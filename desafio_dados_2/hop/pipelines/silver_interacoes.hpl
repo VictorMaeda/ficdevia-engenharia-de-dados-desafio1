@@ -53,7 +53,7 @@ WHERE execucao_id = '${EXECUCAO_ID}'</sql>
   <transform>
     <type>UniqueRowsByHashSet</type>
     <name>Remover duplicados</name>
-    <store_values>N</store_values>
+    <store_values>Y</store_values>
     <fields>
       <field>
         <name>usuario_id</name>
@@ -303,7 +303,7 @@ if (u_id == "") {
         <date_format_timezone/>
         <lenient_string_to_number>N</lenient_string_to_number>
         <decimal_symbol>.</decimal_symbol>
-        <grouping_symbol></grouping_symbol>
+        <grouping_symbol/>
         <currency_symbol/>
         <encoding/>
         <roundingType>half_even</roundingType>
@@ -578,7 +578,7 @@ limpar. Ajuste com um DELETE por execucao_id antes de recarregar,
 se quiser reprocessamento idempotente.
 
 CORRECOES (27/09/2026):
-1) "Padronizar tipos" -&gt; percentual_conclusao: decimal_symbol
+1) "Padronizar tipos" -> percentual_conclusao: decimal_symbol
    fixado em "." (antes vazio, sujeito a locale da JVM, causava
    overflow numerico ao interpretar "100.0" como 1000).
 2) "Preparar quarentena": data_erro agora criado como
