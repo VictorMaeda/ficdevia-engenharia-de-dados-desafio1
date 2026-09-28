@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workflow>
+  <name>workflow_master_pipeline</name>
+  <name_sync_with_filename>Y</name_sync_with_filename>
+  <description>Workflow Master de Orquestração Automatizada (RF22) - Executa em sequência: Ingestão Bronze, Padronização Silver com Quarentena, Quality Gate automatizado, Agregação Apache Beam na Gold e Publicação de Metadados.</description>
+  <extended_description/>
+  <created_user>-</created_user>
+  <modified_user>-</modified_user>
+  <created_date>2026/09/28 12:00:00.000</created_date>
+  <modified_date>2026/09/28 12:00:00.000</modified_date>
+  <workflow_version>2.0</workflow_version>
+  <parameters>
+    <parameter>
+      <name>EXECUCAO_ID</name>
+      <description>Identificador único da execução de ponta a ponta do pipeline.</description>
+      <default_value>EXEC_MASTER_AUTO</default_value>
+    </parameter>
+    <parameter>
+      <name>AMBIENTE</name>
+      <description>Ambiente de execução (local, homologacao, producao).</description>
+      <default_value>local</default_value>
+    </parameter>
+  </parameters>
+  <actions>
+    <action>
+      <repeat>N</repeat>
+      <schedulerType>0</schedulerType>
+      <intervalSeconds>0</intervalSeconds>
+      <intervalMinutes>60</intervalMinutes>
+      <DayOfMonth>1</DayOfMonth>
+      <weekDay>1</weekDay>
+      <minutes>0</minutes>
+      <hour>6</hour>
+      <doNotWaitOnFirstExecution>N</doNotWaitOnFirstExecution>
+      <name>START</name>
+      <description>Início da execução orquestrada</description>
+      <type>SPECIAL</type>
+      <attributes/>
+      <xloc>64</xloc>
+      <yloc>160</yloc>
+      <parallel>N</parallel>
+    </action>
+    <action>
+      <filename>${PROJECT_HOME}/hop/workflows/orquestracao_bronze_silver.hwf</filename>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <create_parent_folder>N</create_parent_folder>
+      <set_logfile>N</set_logfile>
+      <set_append_logfile>N</set_append_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <wait_until_finished>Y</wait_until_finished>
+      <parameters>
+        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>
+      <run_configuration>local</run_configuration>
+      <name>1. Executar Camadas Bronze e Silver</name>
+      <description>Ingestão e padronização com desvio de registros inválidos para quarentena</description>
+      <type>WORKFLOW</type>
+      <attributes/>
+      <xloc>272</xloc>
+      <yloc>160</yloc>
+      <parallel>N</parallel>
+    </action>
+    <action>
+      <command>python ${PROJECT_HOME}/qualidade/executar_testes.py</command>
+      <exec_per_row>N</exec_per_row>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <set_append_logfile>N</set_append_logfile>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <insertScript>N</insertScript>
+      <script/>
+      <loglevel>Basic</loglevel>
+      <name>2. Quality Gate - Testes Automatizados (RF31)</name>
+      <description>Executa testes de completude, validade, unicidade, consistência e integridade</description>
+      <type>SHELL</type>
+      <attributes/>
+      <xloc>512</xloc>
+      <yloc>160</yloc>
+      <parallel>N</parallel>
+    </action>
+    <action>
+      <command>python ${PROJECT_HOME}/beam/pipeline.py</command>
+      <exec_per_row>N</exec_per_row>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <set_append_logfile>N</set_append_logfile>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <insertScript>N</insertScript>
+      <script/>
+      <loglevel>Basic</loglevel>
+      <name>3. Apache Beam - Agregação Parquet (RF25)</name>
+      <description>Processamento distribuído de engajamento e métricas de retenção</description>
+      <type>SHELL</type>
+      <attributes/>
+      <xloc>768</xloc>
+      <yloc>160</yloc>
+      <parallel>N</parallel>
+    </action>
+    <action>
+      <command>python ${PROJECT_HOME}/beam/carregar_gold.py</command>
+      <exec_per_row>N</exec_per_row>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <set_append_logfile>N</set_append_logfile>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <insertScript>N</insertScript>
+      <script/>
+      <loglevel>Basic</loglevel>
+      <name>4. Carga e Publicação na Camada Gold (RF26)</name>
+      <description>Atualização das tabelas e visões consolidadas da Gold no PostgreSQL</description>
+      <type>SHELL</type>
+      <attributes/>
+      <xloc>1008</xloc>
+      <yloc>160</yloc>
+      <parallel>N</parallel>
+    </action>
+    <action>
+      <name>5. Pipeline Master Concluído com Sucesso</name>
+      <description>Estado final aprovado sem ressalvas</description>
+      <type>SUCCESS</type>
+      <attributes/>
+      <xloc>1248</xloc>
+      <yloc>160</yloc>
+      <parallel>N</parallel>
+    </action>
+    <action>
+      <message>FALHA CRÍTICA NO PIPELINE: A etapa anterior falhou ou violou o Quality Gate. Carga interrompida.</message>
+      <comment>Interrupção imediata conforme RF22 e RF23</comment>
+      <name>Abortar por Falha Crítica</name>
+      <description>Gera log de incidente e aborta o pipeline</description>
+      <type>ABORT</type>
+      <attributes/>
+      <xloc>640</xloc>
+      <yloc>336</yloc>
+      <parallel>N</parallel>
+    </action>
+  </actions>
+  <hops>
+    <hop>
+      <from>START</from>
+      <to>1. Executar Camadas Bronze e Silver</to>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>Y</unconditional>
+    </hop>
+    <hop>
+      <from>1. Executar Camadas Bronze e Silver</from>
+      <to>2. Quality Gate - Testes Automatizados (RF31)</to>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>1. Executar Camadas Bronze e Silver</from>
+      <to>Abortar por Falha Crítica</to>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>2. Quality Gate - Testes Automatizados (RF31)</from>
+      <to>3. Apache Beam - Agregação Parquet (RF25)</to>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>2. Quality Gate - Testes Automatizados (RF31)</from>
+      <to>Abortar por Falha Crítica</to>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>3. Apache Beam - Agregação Parquet (RF25)</from>
+      <to>4. Carga e Publicação na Camada Gold (RF26)</to>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>3. Apache Beam - Agregação Parquet (RF25)</from>
+      <to>Abortar por Falha Crítica</to>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>4. Carga e Publicação na Camada Gold (RF26)</from>
+      <to>5. Pipeline Master Concluído com Sucesso</to>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>4. Carga e Publicação na Camada Gold (RF26)</from>
+      <to>Abortar por Falha Crítica</to>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+  </hops>
+  <notepads>
+    <notepad>
+      <note>PIPELINE MASTER ORQUESTRADO (FIC DEV IA)
+Garante fluxo Bronze -> Silver -> Qualidade -> Beam -> Gold.
+Qualquer violação de severidade crítica interrompe imediatamente a cadeia.</note>
+      <xloc>64</xloc>
+      <yloc>48</yloc>
+      <width>490</width>
+      <heigth>58</heigth>
+      <fontname>Segoe UI</fontname>
+      <fontsize>9</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>205</backgroundcolorgreen>
+      <backgroundcolorblue>112</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+    </notepad>
+  </notepads>
+  <attributes/>
+</workflow>
