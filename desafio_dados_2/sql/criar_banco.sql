@@ -175,3 +175,99 @@ CREATE TABLE IF NOT EXISTS quarentena.recomendacoes (
 	payload jsonb NULL,
 	CONSTRAINT recomendacoes_pkey PRIMARY KEY (registro_id)
 );
+
+-- ============================================================
+-- GOLD
+-- ============================================================
+
+CREATE SCHEMA IF NOT EXISTS gold;
+
+-- ------------------------------------------------------------
+-- gold.engajamento_conteudo
+--
+-- Granularidade:
+--   1 linha = 1 conteudo_id
+--
+-- Origem:
+--   agregacao Apache Beam + silver.catalogo
+--
+-- Medidas:
+--   total_interacoes
+--   tempo_total_segundos
+--   media_percentual_conclusao
+--   quantidade_conclusoes
+-- ------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS gold.engajamento_conteudo (
+    conteudo_id int4 NOT NULL,
+    titulo text NOT NULL,
+    tipo text NULL,
+    categoria text NULL,
+    nivel text NULL,
+
+    total_interacoes int8 NOT NULL,
+    tempo_total_segundos int8 NOT NULL,
+    media_percentual_conclusao numeric(7, 2) NULL,
+    quantidade_conclusoes int8 NOT NULL,
+
+    data_carga timestamp DEFAULT now() NOT NULL,
+
+    CONSTRAINT engajamento_conteudo_pkey
+        PRIMARY KEY (conteudo_id)
+);
+
+
+-- ------------------------------------------------------------
+-- Visao resumida por categoria
+--
+-- Pergunta de negocio:
+-- Quais categorias concentram mais engajamento?
+-- ------------------------------------------------------------
+
+CREATE OR REPLACE VIEW gold.vw_resumo_categoria AS
+SELECT
+    categoria,
+
+    COUNT(*) AS total_conteudos,
+
+    SUM(total_interacoes) AS total_interacoes,
+
+    SUM(tempo_total_segundos) AS tempo_total_segundos,
+
+    ROUND(
+        AVG(media_percentual_conclusao),
+        2
+    ) AS media_percentual_conclusao,
+
+    SUM(quantidade_conclusoes) AS quantidade_conclusoes
+
+FROM gold.engajamento_conteudo
+
+GROUP BY categoria;
+
+
+-- ------------------------------------------------------------
+-- Ranking de engajamento por conteudo
+--
+-- Pergunta de negocio:
+-- Quais conteudos apresentam maior volume de interacoes?
+-- ------------------------------------------------------------
+
+CREATE OR REPLACE VIEW gold.vw_ranking_engajamento AS
+SELECT
+    conteudo_id,
+    titulo,
+    tipo,
+    categoria,
+    nivel,
+
+    total_interacoes,
+    tempo_total_segundos,
+    media_percentual_conclusao,
+    quantidade_conclusoes,
+
+    RANK() OVER (
+        ORDER BY total_interacoes DESC
+    ) AS ranking_interacoes
+
+FROM gold.engajamento_conteudo;
