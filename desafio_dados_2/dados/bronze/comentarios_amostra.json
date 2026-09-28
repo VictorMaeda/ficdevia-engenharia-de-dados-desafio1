@@ -1,0 +1,902 @@
+[
+  {
+    "id": 1,
+    "conteudo_json": {
+      "data": "2026-03-02",
+      "tags": [
+        "anonimizacao",
+        "lgpd",
+        "essencial"
+      ],
+      "avaliacao": 5,
+      "comentario": "Conte\u00fado introdut\u00f3rio, claro e objetivo. Superou minhas expectativas!",
+      "usuario_id": 137,
+      "conteudo_id": 587
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  },
+  {
+    "id": 2,
+    "conteudo_json": {
+      "data": "2026-06-29",
+      "tags": [
+        "nlp",
+        "llm",
+        "pr\u00e1tico"
+      ],
+      "avaliacao": 4,
+      "comentario": "Material de alta qualidade e de f\u00e1cil compreens\u00e3o.",
+      "usuario_id": 4,
+      "conteudo_id": 349
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  },
+  {
+    "id": 3,
+    "conteudo_json": {
+      "data": "2026-06-18",
+      "tags": [
+        "etl",
+        "spark",
+        "recomendado"
+      ],
+      "avaliacao": 2,
+      "comentario": "Faltou clareza na explica\u00e7\u00e3o de conceitos-chave no in\u00edcio.",
+      "usuario_id": 97,
+      "conteudo_id": 553
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  },
+  {
+    "id": 4,
+    "conteudo_json": {
+      "data": "2026-06-01",
+      "tags": [
+        "docker",
+        "devops",
+        "pr\u00e1tico"
+      ],
+      "avaliacao": 4,
+      "comentario": "Conte\u00fado bastante completo e relevante. Apenas gostaria de mais exerc\u00edcios pr\u00e1ticos.",
+      "usuario_id": 98,
+      "conteudo_id": 35
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  },
+  {
+    "id": 5,
+    "conteudo_json": {
+      "data": "2026-08-12",
+      "tags": [
+        "rag",
+        "ia",
+        "iniciante"
+      ],
+      "avaliacao": 5,
+      "comentario": "Conte\u00fado introdut\u00f3rio, claro e objetivo. Superou minhas expectativas!",
+      "usuario_id": 115,
+      "conteudo_id": 512
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  },
+  {
+    "id": 6,
+    "conteudo_json": {
+      "data": "2026-02-04",
+      "tags": [
+        "rag",
+        "embeddings",
+        "essencial"
+      ],
+      "avaliacao": 2,
+      "comentario": "Faltou clareza na explica\u00e7\u00e3o de conceitos-chave no in\u00edcio.",
+      "usuario_id": 119,
+      "conteudo_id": 172
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  },
+  {
+    "id": 7,
+    "conteudo_json": {
+      "data": "2026-05-13",
+      "tags": [
+        "mongodb",
+        "pgvector",
+        "iniciante"
+      ],
+      "avaliacao": 5,
+      "comentario": "Uma das melhores explica\u00e7\u00f5es sobre o assunto que j\u00e1 encontrei na plataforma.",
+      "usuario_id": 67,
+      "conteudo_id": 998
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  },
+  {
+    "id": 8,
+    "conteudo_json": {
+      "data": "2026-04-09",
+      "tags": [
+        "kubernetes",
+        "devops",
+        "did\u00e1tico"
+      ],
+      "avaliacao": 3,
+      "comentario": "Explica\u00e7\u00f5es adequadas, mas faltou demonstrar mais casos reais de uso.",
+      "usuario_id": 85,
+      "conteudo_id": 940
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  },
+  {
+    "id": 9,
+    "conteudo_json": {
+      "data": "2026-04-20",
+      "tags": [
+        "python",
+        "oop",
+        "did\u00e1tico"
+      ],
+      "avaliacao": 5,
+      "comentario": "Uma das melhores explica\u00e7\u00f5es sobre o assunto que j\u00e1 encontrei na plataforma.",
+      "usuario_id": 81,
+      "conteudo_id": 70
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  },
+  {
+    "id": 10,
+    "conteudo_json": {
+      "data": "2026-07-08",
+      "tags": [
+        "cloud",
+        "kubernetes",
+        "did\u00e1tico"
+      ],
+      "avaliacao": 4,
+      "comentario": "Muito bom material, bem estruturado e com explica\u00e7\u00f5es coerentes.",
+      "usuario_id": 117,
+      "conteudo_id": 260
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  },
+  {
+    "id": 11,
+    "conteudo_json": {
+      "data": "2026-08-01",
+      "tags": [
+        "lakehouse",
+        "dados",
+        "iniciante"
+      ],
+      "avaliacao": 5,
+      "comentario": "Uma das melhores explica\u00e7\u00f5es sobre o assunto que j\u00e1 encontrei na plataforma.",
+      "usuario_id": 15,
+      "conteudo_id": 643
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  },
+  {
+    "id": 12,
+    "conteudo_json": {
+      "data": "2026-07-06",
+      "tags": [
+        "ci-cd",
+        "docker",
+        "recomendado"
+      ],
+      "avaliacao": 3,
+      "comentario": "Cobre o essencial para iniciantes, por\u00e9m esperado t\u00f3picos mais avan\u00e7ados no final.",
+      "usuario_id": 88,
+      "conteudo_id": 412
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  },
+  {
+    "id": 13,
+    "conteudo_json": {
+      "data": "2026-05-17",
+      "tags": [
+        "rag",
+        "deep-learning",
+        "pr\u00e1tico"
+      ],
+      "avaliacao": 3,
+      "comentario": "Boa introdu\u00e7\u00e3o ao tema, por\u00e9m o ritmo em alguns momentos ficou um pouco arrastado.",
+      "usuario_id": 117,
+      "conteudo_id": 869
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  },
+  {
+    "id": 14,
+    "conteudo_json": {
+      "data": "2026-04-21",
+      "tags": [
+        "spark",
+        "streaming",
+        "pr\u00e1tico"
+      ],
+      "avaliacao": 3,
+      "comentario": "Conte\u00fado razo\u00e1vel, atende ao b\u00e1sico, mas senti falta de maior aprofundamento.",
+      "usuario_id": 104,
+      "conteudo_id": 761
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  },
+  {
+    "id": 15,
+    "conteudo_json": {
+      "data": "2026-03-26",
+      "tags": [
+        "eda",
+        "machine-learning",
+        "te\u00f3rico"
+      ],
+      "avaliacao": 4,
+      "comentario": "Material de alta qualidade e de f\u00e1cil compreens\u00e3o.",
+      "usuario_id": 100,
+      "conteudo_id": 51
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  },
+  {
+    "id": 16,
+    "conteudo_json": {
+      "data": "2026-07-19",
+      "tags": [
+        "terraform",
+        "ci-cd",
+        "pr\u00e1tico"
+      ],
+      "avaliacao": 4,
+      "comentario": "Apresenta\u00e7\u00e3o muito clara e objetiva. Recomendo para quem est\u00e1 estudando a \u00e1rea.",
+      "usuario_id": 75,
+      "conteudo_id": 414
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  },
+  {
+    "id": 17,
+    "conteudo_json": {
+      "data": "2026-03-19",
+      "tags": [
+        "nosql",
+        "indices",
+        "iniciante"
+      ],
+      "avaliacao": 3,
+      "comentario": "Explica\u00e7\u00f5es adequadas, mas faltou demonstrar mais casos reais de uso.",
+      "usuario_id": 5,
+      "conteudo_id": 731
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  },
+  {
+    "id": 18,
+    "conteudo_json": {
+      "data": "2026-01-19",
+      "tags": [
+        "embeddings",
+        "rag",
+        "avan\u00e7ado"
+      ],
+      "avaliacao": 4,
+      "comentario": "Apresenta\u00e7\u00e3o muito clara e objetiva. Recomendo para quem est\u00e1 estudando a \u00e1rea.",
+      "usuario_id": 120,
+      "conteudo_id": 413
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  },
+  {
+    "id": 19,
+    "conteudo_json": {
+      "data": "2026-03-24",
+      "tags": [
+        "pipeline",
+        "dataops",
+        "pr\u00e1tico"
+      ],
+      "avaliacao": 5,
+      "comentario": "Excelente abordagem! Did\u00e1tica impec\u00e1vel e ritmo perfeito.",
+      "usuario_id": 116,
+      "conteudo_id": 689
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  },
+  {
+    "id": 20,
+    "conteudo_json": {
+      "data": "2026-01-21",
+      "tags": [
+        "anonimizacao",
+        "lgpd",
+        "iniciante"
+      ],
+      "avaliacao": 4,
+      "comentario": "Muito bom material, bem estruturado e com explica\u00e7\u00f5es coerentes.",
+      "usuario_id": 101,
+      "conteudo_id": 435
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  },
+  {
+    "id": 21,
+    "conteudo_json": {
+      "data": "2026-08-20",
+      "tags": [
+        "metricas",
+        "analytics",
+        "pr\u00e1tico"
+      ],
+      "avaliacao": 4,
+      "comentario": "\u00d3tima did\u00e1tica e vis\u00e3o geral s\u00f3lida do tema.",
+      "usuario_id": 36,
+      "conteudo_id": 119
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  },
+  {
+    "id": 22,
+    "conteudo_json": {
+      "data": "2026-08-23",
+      "tags": [
+        "dashboard",
+        "analytics",
+        "did\u00e1tico"
+      ],
+      "avaliacao": 5,
+      "comentario": "Excelente abordagem! Did\u00e1tica impec\u00e1vel e ritmo perfeito.",
+      "usuario_id": 26,
+      "conteudo_id": 488
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  },
+  {
+    "id": 23,
+    "conteudo_json": {
+      "data": "2026-05-08",
+      "tags": [
+        "ia",
+        "llm",
+        "te\u00f3rico"
+      ],
+      "avaliacao": 4,
+      "comentario": "Conte\u00fado bastante completo e relevante. Apenas gostaria de mais exerc\u00edcios pr\u00e1ticos.",
+      "usuario_id": 96,
+      "conteudo_id": 193
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  },
+  {
+    "id": 24,
+    "conteudo_json": {
+      "data": "2026-06-14",
+      "tags": [
+        "mongodb",
+        "sql",
+        "avan\u00e7ado"
+      ],
+      "avaliacao": 4,
+      "comentario": "\u00d3tima did\u00e1tica e vis\u00e3o geral s\u00f3lida do tema.",
+      "usuario_id": 96,
+      "conteudo_id": 753
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  },
+  {
+    "id": 25,
+    "conteudo_json": {
+      "data": "2026-01-19",
+      "tags": [
+        "linhagem",
+        "metadados",
+        "iniciante"
+      ],
+      "avaliacao": 3,
+      "comentario": "Explica\u00e7\u00f5es adequadas, mas faltou demonstrar mais casos reais de uso.",
+      "usuario_id": 45,
+      "conteudo_id": 57
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  },
+  {
+    "id": 26,
+    "conteudo_json": {
+      "data": "2026-03-30",
+      "tags": [
+        "metadados",
+        "lgpd",
+        "pr\u00e1tico"
+      ],
+      "avaliacao": 5,
+      "comentario": "Excelente abordagem! Did\u00e1tica impec\u00e1vel e ritmo perfeito.",
+      "usuario_id": 130,
+      "conteudo_id": 292
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  },
+  {
+    "id": 27,
+    "conteudo_json": {
+      "data": "2026-08-16",
+      "tags": [
+        "bi",
+        "metricas",
+        "recomendado"
+      ],
+      "avaliacao": 5,
+      "comentario": "Excelente abordagem! Did\u00e1tica impec\u00e1vel e ritmo perfeito.",
+      "usuario_id": 123,
+      "conteudo_id": 127
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  },
+  {
+    "id": 28,
+    "conteudo_json": {
+      "data": "2026-08-08",
+      "tags": [
+        "kpis",
+        "storytelling",
+        "recomendado"
+      ],
+      "avaliacao": 1,
+      "comentario": "Exemplos com erros conceituais e ritmo muito acelerado.",
+      "usuario_id": 87,
+      "conteudo_id": 527
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  },
+  {
+    "id": 29,
+    "conteudo_json": {
+      "data": "2026-01-28",
+      "tags": [
+        "kpis",
+        "superset",
+        "iniciante"
+      ],
+      "avaliacao": 5,
+      "comentario": "Muito enriquecedor. Direto ao ponto, com foco nas melhores pr\u00e1ticas de mercado.",
+      "usuario_id": 106,
+      "conteudo_id": 405
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  },
+  {
+    "id": 30,
+    "conteudo_json": {
+      "data": "2026-05-27",
+      "tags": [
+        "backend",
+        "python",
+        "hands-on"
+      ],
+      "avaliacao": 5,
+      "comentario": "Uma das melhores explica\u00e7\u00f5es sobre o assunto que j\u00e1 encontrei na plataforma.",
+      "usuario_id": 90,
+      "conteudo_id": 876
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  },
+  {
+    "id": 31,
+    "conteudo_json": {
+      "data": "2026-08-15",
+      "tags": [
+        "postgresql",
+        "mongodb",
+        "did\u00e1tico"
+      ],
+      "avaliacao": 5,
+      "comentario": "Uma das melhores explica\u00e7\u00f5es sobre o assunto que j\u00e1 encontrei na plataforma.",
+      "usuario_id": 16,
+      "conteudo_id": 520
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  },
+  {
+    "id": 32,
+    "conteudo_json": {
+      "data": "2026-04-28",
+      "tags": [
+        "machine-learning",
+        "pandas",
+        "pr\u00e1tico"
+      ],
+      "avaliacao": 4,
+      "comentario": "Material de alta qualidade e de f\u00e1cil compreens\u00e3o.",
+      "usuario_id": 60,
+      "conteudo_id": 513
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  },
+  {
+    "id": 33,
+    "conteudo_json": {
+      "data": "2026-02-28",
+      "tags": [
+        "pandas",
+        "estatistica",
+        "essencial"
+      ],
+      "avaliacao": 5,
+      "comentario": "Uma das melhores explica\u00e7\u00f5es sobre o assunto que j\u00e1 encontrei na plataforma.",
+      "usuario_id": 4,
+      "conteudo_id": 607
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  },
+  {
+    "id": 34,
+    "conteudo_json": {
+      "data": "2026-02-21",
+      "tags": [
+        "solid",
+        "pytest",
+        "essencial"
+      ],
+      "avaliacao": 5,
+      "comentario": "Material de alt\u00edssimo n\u00edvel. Ajudou muito a destravar meu projeto pr\u00e1tico.",
+      "usuario_id": 70,
+      "conteudo_id": 911
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  },
+  {
+    "id": 35,
+    "conteudo_json": {
+      "data": "2026-05-11",
+      "tags": [
+        "terraform",
+        "linux",
+        "iniciante"
+      ],
+      "avaliacao": 4,
+      "comentario": "Muito bom material, bem estruturado e com explica\u00e7\u00f5es coerentes.",
+      "usuario_id": 19,
+      "conteudo_id": 608
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  },
+  {
+    "id": 36,
+    "conteudo_json": {
+      "data": "2026-06-30",
+      "tags": [
+        "analytics",
+        "metricas",
+        "avan\u00e7ado"
+      ],
+      "avaliacao": 2,
+      "comentario": "Material muito resumido, necessita de pesquisas externas para complementar.",
+      "usuario_id": 125,
+      "conteudo_id": 641
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  },
+  {
+    "id": 37,
+    "conteudo_json": {
+      "data": "2026-03-16",
+      "tags": [
+        "bi",
+        "superset",
+        "did\u00e1tico"
+      ],
+      "avaliacao": 2,
+      "comentario": "Material muito resumido, necessita de pesquisas externas para complementar.",
+      "usuario_id": 149,
+      "conteudo_id": 190
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  },
+  {
+    "id": 38,
+    "conteudo_json": {
+      "data": "2026-03-18",
+      "tags": [
+        "linux",
+        "kubernetes",
+        "recomendado"
+      ],
+      "avaliacao": 4,
+      "comentario": "Apresenta\u00e7\u00e3o muito clara e objetiva. Recomendo para quem est\u00e1 estudando a \u00e1rea.",
+      "usuario_id": 87,
+      "conteudo_id": 877
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  },
+  {
+    "id": 39,
+    "conteudo_json": {
+      "data": "2026-05-15",
+      "tags": [
+        "superset",
+        "dashboard",
+        "hands-on"
+      ],
+      "avaliacao": 5,
+      "comentario": "Conte\u00fado excelente, muito did\u00e1tico e com exemplos pr\u00e1ticos aplic\u00e1veis.",
+      "usuario_id": 70,
+      "conteudo_id": 133
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  },
+  {
+    "id": 40,
+    "conteudo_json": {
+      "data": "2026-08-03",
+      "tags": [
+        "spark",
+        "etl",
+        "recomendado"
+      ],
+      "avaliacao": 3,
+      "comentario": "Boa introdu\u00e7\u00e3o ao tema, por\u00e9m o ritmo em alguns momentos ficou um pouco arrastado.",
+      "usuario_id": 52,
+      "conteudo_id": 338
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  },
+  {
+    "id": 41,
+    "conteudo_json": {
+      "data": "2026-04-21",
+      "tags": [
+        "kubernetes",
+        "ci-cd",
+        "avan\u00e7ado"
+      ],
+      "avaliacao": 5,
+      "comentario": "Excelente abordagem! Did\u00e1tica impec\u00e1vel e ritmo perfeito.",
+      "usuario_id": 40,
+      "conteudo_id": 970
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  },
+  {
+    "id": 42,
+    "conteudo_json": {
+      "data": "2026-05-29",
+      "tags": [
+        "kubernetes",
+        "linux",
+        "recomendado"
+      ],
+      "avaliacao": 5,
+      "comentario": "Muito enriquecedor. Direto ao ponto, com foco nas melhores pr\u00e1ticas de mercado.",
+      "usuario_id": 50,
+      "conteudo_id": 507
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  },
+  {
+    "id": 43,
+    "conteudo_json": {
+      "data": "2026-05-25",
+      "tags": [
+        "python",
+        "pytest",
+        "pr\u00e1tico"
+      ],
+      "avaliacao": 5,
+      "comentario": "Sensacional! O instrutor domina o assunto e os conceitos ficaram cristalinos.",
+      "usuario_id": 67,
+      "conteudo_id": 817
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  },
+  {
+    "id": 44,
+    "conteudo_json": {
+      "data": "2026-04-06",
+      "tags": [
+        "kpis",
+        "metricas",
+        "essencial"
+      ],
+      "avaliacao": 4,
+      "comentario": "Apresenta\u00e7\u00e3o muito clara e objetiva. Recomendo para quem est\u00e1 estudando a \u00e1rea.",
+      "usuario_id": 42,
+      "conteudo_id": 645
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  },
+  {
+    "id": 45,
+    "conteudo_json": {
+      "data": "2026-06-09",
+      "tags": [
+        "dashboard",
+        "kpis",
+        "recomendado"
+      ],
+      "avaliacao": 5,
+      "comentario": "Conte\u00fado introdut\u00f3rio, claro e objetivo. Superou minhas expectativas!",
+      "usuario_id": 91,
+      "conteudo_id": 468
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  },
+  {
+    "id": 46,
+    "conteudo_json": {
+      "data": "2026-07-01",
+      "tags": [
+        "kpis",
+        "analytics",
+        "avan\u00e7ado"
+      ],
+      "avaliacao": 5,
+      "comentario": "Sensacional! O instrutor domina o assunto e os conceitos ficaram cristalinos.",
+      "usuario_id": 61,
+      "conteudo_id": 687
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  },
+  {
+    "id": 47,
+    "conteudo_json": {
+      "data": "2026-02-28",
+      "tags": [
+        "docker",
+        "ci-cd",
+        "essencial"
+      ],
+      "avaliacao": 5,
+      "comentario": "Conte\u00fado excelente, muito did\u00e1tico e com exemplos pr\u00e1ticos aplic\u00e1veis.",
+      "usuario_id": 90,
+      "conteudo_id": 516
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  },
+  {
+    "id": 48,
+    "conteudo_json": {
+      "data": "2026-07-15",
+      "tags": [
+        "lgpd",
+        "seguranca",
+        "essencial"
+      ],
+      "avaliacao": 4,
+      "comentario": "Conte\u00fado bastante completo e relevante. Apenas gostaria de mais exerc\u00edcios pr\u00e1ticos.",
+      "usuario_id": 17,
+      "conteudo_id": 221
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  },
+  {
+    "id": 49,
+    "conteudo_json": {
+      "data": "2026-04-21",
+      "tags": [
+        "solid",
+        "pytest",
+        "recomendado"
+      ],
+      "avaliacao": 5,
+      "comentario": "Conte\u00fado introdut\u00f3rio, claro e objetivo. Superou minhas expectativas!",
+      "usuario_id": 127,
+      "conteudo_id": 695
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  },
+  {
+    "id": 50,
+    "conteudo_json": {
+      "data": "2026-02-24",
+      "tags": [
+        "nosql",
+        "jsonb",
+        "did\u00e1tico"
+      ],
+      "avaliacao": 5,
+      "comentario": "Uma das melhores explica\u00e7\u00f5es sobre o assunto que j\u00e1 encontrei na plataforma.",
+      "usuario_id": 144,
+      "conteudo_id": 438
+    },
+    "origem_arquivo": "comentarios.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.606893"
+  }
+]

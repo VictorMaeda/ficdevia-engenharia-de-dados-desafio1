@@ -1,0 +1,752 @@
+[
+  {
+    "id": 1,
+    "conteudo_json": {
+      "data_hora": "2026-03-21T10:54:52",
+      "usuario_id": 3,
+      "conteudo_id": 614,
+      "tipo_interacao": "conclus\u00e3o",
+      "tempo_consumido": 28,
+      "avaliacao_atribuida": null,
+      "percentual_conclusao": 100.0
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  },
+  {
+    "id": 2,
+    "conteudo_json": {
+      "data_hora": "2026-04-11T15:11:01",
+      "usuario_id": 57,
+      "conteudo_id": 165,
+      "tipo_interacao": "curtida",
+      "tempo_consumido": 40,
+      "avaliacao_atribuida": 5,
+      "percentual_conclusao": 68.3
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  },
+  {
+    "id": 3,
+    "conteudo_json": {
+      "data_hora": "2026-05-29T05:37:58",
+      "usuario_id": 117,
+      "conteudo_id": 9,
+      "tipo_interacao": "in\u00edcio",
+      "tempo_consumido": 4,
+      "avaliacao_atribuida": null,
+      "percentual_conclusao": 7.1
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  },
+  {
+    "id": 4,
+    "conteudo_json": {
+      "data_hora": "2026-01-22T10:57:28",
+      "usuario_id": 33,
+      "conteudo_id": 868,
+      "tipo_interacao": "conclus\u00e3o",
+      "tempo_consumido": 1587,
+      "avaliacao_atribuida": 3,
+      "percentual_conclusao": 100.0
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  },
+  {
+    "id": 5,
+    "conteudo_json": {
+      "data_hora": "2026-04-09T15:34:15",
+      "usuario_id": 19,
+      "conteudo_id": 690,
+      "tipo_interacao": "curtida",
+      "tempo_consumido": 10,
+      "avaliacao_atribuida": 5,
+      "percentual_conclusao": 89.0
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  },
+  {
+    "id": 6,
+    "conteudo_json": {
+      "data_hora": "2026-03-08T15:30:29",
+      "usuario_id": 145,
+      "conteudo_id": 234,
+      "tipo_interacao": "visualiza\u00e7\u00e3o",
+      "tempo_consumido": 17,
+      "avaliacao_atribuida": null,
+      "percentual_conclusao": 49.0
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  },
+  {
+    "id": 7,
+    "conteudo_json": {
+      "data_hora": "2026-05-14T20:40:37",
+      "usuario_id": 15,
+      "conteudo_id": 40,
+      "tipo_interacao": "conclus\u00e3o",
+      "tempo_consumido": 16,
+      "avaliacao_atribuida": 4,
+      "percentual_conclusao": 100.0
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  },
+  {
+    "id": 8,
+    "conteudo_json": {
+      "data_hora": "2026-02-09T05:24:43",
+      "usuario_id": 119,
+      "conteudo_id": 331,
+      "tipo_interacao": "conclus\u00e3o",
+      "tempo_consumido": 86,
+      "avaliacao_atribuida": 4,
+      "percentual_conclusao": 100.0
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  },
+  {
+    "id": 9,
+    "conteudo_json": {
+      "data_hora": "2026-01-15T01:24:22",
+      "usuario_id": 116,
+      "conteudo_id": 474,
+      "tipo_interacao": "curtida",
+      "tempo_consumido": 27,
+      "avaliacao_atribuida": 5,
+      "percentual_conclusao": 88.1
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  },
+  {
+    "id": 10,
+    "conteudo_json": {
+      "data_hora": "2026-03-14T19:20:45",
+      "usuario_id": 29,
+      "conteudo_id": 369,
+      "tipo_interacao": "curtida",
+      "tempo_consumido": 14,
+      "avaliacao_atribuida": 5,
+      "percentual_conclusao": 48.0
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  },
+  {
+    "id": 11,
+    "conteudo_json": {
+      "data_hora": "2026-02-11T03:03:01",
+      "usuario_id": 124,
+      "conteudo_id": 59,
+      "tipo_interacao": "in\u00edcio",
+      "tempo_consumido": 2,
+      "avaliacao_atribuida": null,
+      "percentual_conclusao": 6.8
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  },
+  {
+    "id": 12,
+    "conteudo_json": {
+      "data_hora": "2026-05-04T16:12:14",
+      "usuario_id": 97,
+      "conteudo_id": 95,
+      "tipo_interacao": "in\u00edcio",
+      "tempo_consumido": 166,
+      "avaliacao_atribuida": null,
+      "percentual_conclusao": 14.4
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  },
+  {
+    "id": 13,
+    "conteudo_json": {
+      "data_hora": "2026-03-23T13:37:25",
+      "usuario_id": 143,
+      "conteudo_id": 399,
+      "tipo_interacao": "in\u00edcio",
+      "tempo_consumido": 5,
+      "avaliacao_atribuida": null,
+      "percentual_conclusao": 7.5
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  },
+  {
+    "id": 14,
+    "conteudo_json": {
+      "data_hora": "2026-05-23T07:33:27",
+      "usuario_id": 25,
+      "conteudo_id": 354,
+      "tipo_interacao": "avalia\u00e7\u00e3o",
+      "tempo_consumido": 1144,
+      "avaliacao_atribuida": 4,
+      "percentual_conclusao": 65.4
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  },
+  {
+    "id": 15,
+    "conteudo_json": {
+      "data_hora": "2026-07-13T00:39:22",
+      "usuario_id": 26,
+      "conteudo_id": 185,
+      "tipo_interacao": "visualiza\u00e7\u00e3o",
+      "tempo_consumido": 20,
+      "avaliacao_atribuida": null,
+      "percentual_conclusao": 75.1
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  },
+  {
+    "id": 16,
+    "conteudo_json": {
+      "data_hora": "2026-05-07T21:27:46",
+      "usuario_id": 106,
+      "conteudo_id": 66,
+      "tipo_interacao": "curtida",
+      "tempo_consumido": 67,
+      "avaliacao_atribuida": 5,
+      "percentual_conclusao": 64.6
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  },
+  {
+    "id": 17,
+    "conteudo_json": {
+      "data_hora": "2026-02-10T22:43:28",
+      "usuario_id": 95,
+      "conteudo_id": 689,
+      "tipo_interacao": "curtida",
+      "tempo_consumido": 51,
+      "avaliacao_atribuida": 5,
+      "percentual_conclusao": 96.2
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  },
+  {
+    "id": 18,
+    "conteudo_json": {
+      "data_hora": "2026-05-20T20:59:28",
+      "usuario_id": 131,
+      "conteudo_id": 355,
+      "tipo_interacao": "avalia\u00e7\u00e3o",
+      "tempo_consumido": 811,
+      "avaliacao_atribuida": 4,
+      "percentual_conclusao": 73.0
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  },
+  {
+    "id": 19,
+    "conteudo_json": {
+      "data_hora": "2026-04-21T03:09:37",
+      "usuario_id": 126,
+      "conteudo_id": 514,
+      "tipo_interacao": "visualiza\u00e7\u00e3o",
+      "tempo_consumido": 185,
+      "avaliacao_atribuida": null,
+      "percentual_conclusao": 14.4
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  },
+  {
+    "id": 20,
+    "conteudo_json": {
+      "data_hora": "2026-01-26T13:48:08",
+      "usuario_id": 146,
+      "conteudo_id": 569,
+      "tipo_interacao": "visualiza\u00e7\u00e3o",
+      "tempo_consumido": 2,
+      "avaliacao_atribuida": null,
+      "percentual_conclusao": 14.5
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  },
+  {
+    "id": 21,
+    "conteudo_json": {
+      "data_hora": "2026-04-26T18:11:10",
+      "usuario_id": 146,
+      "conteudo_id": 23,
+      "tipo_interacao": "visualiza\u00e7\u00e3o",
+      "tempo_consumido": 15,
+      "avaliacao_atribuida": null,
+      "percentual_conclusao": 49.3
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  },
+  {
+    "id": 22,
+    "conteudo_json": {
+      "data_hora": "2026-05-21T22:12:22",
+      "usuario_id": 139,
+      "conteudo_id": 530,
+      "tipo_interacao": "visualiza\u00e7\u00e3o",
+      "tempo_consumido": 33,
+      "avaliacao_atribuida": null,
+      "percentual_conclusao": 57.8
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  },
+  {
+    "id": 23,
+    "conteudo_json": {
+      "data_hora": "2026-05-12T15:26:27",
+      "usuario_id": 118,
+      "conteudo_id": 125,
+      "tipo_interacao": "in\u00edcio",
+      "tempo_consumido": 7,
+      "avaliacao_atribuida": null,
+      "percentual_conclusao": 14.8
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  },
+  {
+    "id": 24,
+    "conteudo_json": {
+      "data_hora": "2026-04-09T01:14:11",
+      "usuario_id": 87,
+      "conteudo_id": 435,
+      "tipo_interacao": "in\u00edcio",
+      "tempo_consumido": 22,
+      "avaliacao_atribuida": null,
+      "percentual_conclusao": 3.6
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  },
+  {
+    "id": 25,
+    "conteudo_json": {
+      "data_hora": "2026-04-26T23:00:44",
+      "usuario_id": 42,
+      "conteudo_id": 156,
+      "tipo_interacao": "visualiza\u00e7\u00e3o",
+      "tempo_consumido": 150,
+      "avaliacao_atribuida": null,
+      "percentual_conclusao": 32.9
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  },
+  {
+    "id": 26,
+    "conteudo_json": {
+      "data_hora": "2026-08-07T02:17:03",
+      "usuario_id": 117,
+      "conteudo_id": 621,
+      "tipo_interacao": "avalia\u00e7\u00e3o",
+      "tempo_consumido": 6,
+      "avaliacao_atribuida": 4,
+      "percentual_conclusao": 81.9
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  },
+  {
+    "id": 27,
+    "conteudo_json": {
+      "data_hora": "2026-06-22T23:49:04",
+      "usuario_id": 57,
+      "conteudo_id": 274,
+      "tipo_interacao": "visualiza\u00e7\u00e3o",
+      "tempo_consumido": 4,
+      "avaliacao_atribuida": null,
+      "percentual_conclusao": 69.2
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  },
+  {
+    "id": 28,
+    "conteudo_json": {
+      "data_hora": "2026-07-13T03:28:31",
+      "usuario_id": 54,
+      "conteudo_id": 65,
+      "tipo_interacao": "visualiza\u00e7\u00e3o",
+      "tempo_consumido": 10,
+      "avaliacao_atribuida": null,
+      "percentual_conclusao": 84.5
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  },
+  {
+    "id": 29,
+    "conteudo_json": {
+      "data_hora": "2026-02-04T17:17:49",
+      "usuario_id": 139,
+      "conteudo_id": 265,
+      "tipo_interacao": "compartilhamento",
+      "tempo_consumido": 13,
+      "avaliacao_atribuida": null,
+      "percentual_conclusao": 30.5
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  },
+  {
+    "id": 30,
+    "conteudo_json": {
+      "data_hora": "2026-04-20T01:41:41",
+      "usuario_id": 120,
+      "conteudo_id": 501,
+      "tipo_interacao": "conclus\u00e3o",
+      "tempo_consumido": 33,
+      "avaliacao_atribuida": 4,
+      "percentual_conclusao": 100.0
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  },
+  {
+    "id": 31,
+    "conteudo_json": {
+      "data_hora": "2026-06-07T07:07:44",
+      "usuario_id": 97,
+      "conteudo_id": 164,
+      "tipo_interacao": "visualiza\u00e7\u00e3o",
+      "tempo_consumido": 63,
+      "avaliacao_atribuida": null,
+      "percentual_conclusao": 84.6
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  },
+  {
+    "id": 32,
+    "conteudo_json": {
+      "data_hora": "2026-06-07T17:48:35",
+      "usuario_id": 73,
+      "conteudo_id": 174,
+      "tipo_interacao": "visualiza\u00e7\u00e3o",
+      "tempo_consumido": 31,
+      "avaliacao_atribuida": null,
+      "percentual_conclusao": 50.1
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  },
+  {
+    "id": 33,
+    "conteudo_json": {
+      "data_hora": "2026-07-28T12:02:46",
+      "usuario_id": 129,
+      "conteudo_id": 380,
+      "tipo_interacao": "conclus\u00e3o",
+      "tempo_consumido": 11,
+      "avaliacao_atribuida": 5,
+      "percentual_conclusao": 100.0
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  },
+  {
+    "id": 34,
+    "conteudo_json": {
+      "data_hora": "2026-02-09T23:14:03",
+      "usuario_id": 68,
+      "conteudo_id": 582,
+      "tipo_interacao": "conclus\u00e3o",
+      "tempo_consumido": 25,
+      "avaliacao_atribuida": 5,
+      "percentual_conclusao": 100.0
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  },
+  {
+    "id": 35,
+    "conteudo_json": {
+      "data_hora": "2026-02-24T21:52:10",
+      "usuario_id": 110,
+      "conteudo_id": 624,
+      "tipo_interacao": "visualiza\u00e7\u00e3o",
+      "tempo_consumido": 616,
+      "avaliacao_atribuida": null,
+      "percentual_conclusao": 50.7
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  },
+  {
+    "id": 36,
+    "conteudo_json": {
+      "data_hora": "2026-01-24T06:08:02",
+      "usuario_id": 59,
+      "conteudo_id": 452,
+      "tipo_interacao": "visualiza\u00e7\u00e3o",
+      "tempo_consumido": 48,
+      "avaliacao_atribuida": null,
+      "percentual_conclusao": 78.8
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  },
+  {
+    "id": 37,
+    "conteudo_json": {
+      "data_hora": "2026-07-23T14:18:39",
+      "usuario_id": 103,
+      "conteudo_id": 689,
+      "tipo_interacao": "compartilhamento",
+      "tempo_consumido": 53,
+      "avaliacao_atribuida": null,
+      "percentual_conclusao": 99.7
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  },
+  {
+    "id": 38,
+    "conteudo_json": {
+      "data_hora": "2026-06-15T14:26:06",
+      "usuario_id": 133,
+      "conteudo_id": 953,
+      "tipo_interacao": "curtida",
+      "tempo_consumido": 1053,
+      "avaliacao_atribuida": 5,
+      "percentual_conclusao": 54.3
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  },
+  {
+    "id": 39,
+    "conteudo_json": {
+      "data_hora": "2026-03-11T08:02:12",
+      "usuario_id": 105,
+      "conteudo_id": 633,
+      "tipo_interacao": "conclus\u00e3o",
+      "tempo_consumido": 534,
+      "avaliacao_atribuida": 4,
+      "percentual_conclusao": 100.0
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  },
+  {
+    "id": 40,
+    "conteudo_json": {
+      "data_hora": "2026-04-08T22:29:38",
+      "usuario_id": 74,
+      "conteudo_id": 889,
+      "tipo_interacao": "visualiza\u00e7\u00e3o",
+      "tempo_consumido": 23,
+      "avaliacao_atribuida": null,
+      "percentual_conclusao": 59.0
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  },
+  {
+    "id": 41,
+    "conteudo_json": {
+      "data_hora": "2026-02-03T15:15:33",
+      "usuario_id": 74,
+      "conteudo_id": 637,
+      "tipo_interacao": "avalia\u00e7\u00e3o",
+      "tempo_consumido": 52,
+      "avaliacao_atribuida": 4,
+      "percentual_conclusao": 62.2
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  },
+  {
+    "id": 42,
+    "conteudo_json": {
+      "data_hora": "2026-05-08T12:12:45",
+      "usuario_id": 33,
+      "conteudo_id": 476,
+      "tipo_interacao": "in\u00edcio",
+      "tempo_consumido": 1,
+      "avaliacao_atribuida": null,
+      "percentual_conclusao": 1.1
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  },
+  {
+    "id": 43,
+    "conteudo_json": {
+      "data_hora": "2026-07-28T21:29:04",
+      "usuario_id": 73,
+      "conteudo_id": 209,
+      "tipo_interacao": "visualiza\u00e7\u00e3o",
+      "tempo_consumido": 7,
+      "avaliacao_atribuida": null,
+      "percentual_conclusao": 67.2
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  },
+  {
+    "id": 44,
+    "conteudo_json": {
+      "data_hora": "2026-05-02T08:44:07",
+      "usuario_id": 99,
+      "conteudo_id": 411,
+      "tipo_interacao": "visualiza\u00e7\u00e3o",
+      "tempo_consumido": 13,
+      "avaliacao_atribuida": null,
+      "percentual_conclusao": 50.8
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  },
+  {
+    "id": 45,
+    "conteudo_json": {
+      "data_hora": "2026-02-16T19:25:55",
+      "usuario_id": 131,
+      "conteudo_id": 547,
+      "tipo_interacao": "in\u00edcio",
+      "tempo_consumido": 1,
+      "avaliacao_atribuida": null,
+      "percentual_conclusao": 4.4
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  },
+  {
+    "id": 46,
+    "conteudo_json": {
+      "data_hora": "2026-07-30T13:52:35",
+      "usuario_id": 25,
+      "conteudo_id": 879,
+      "tipo_interacao": "visualiza\u00e7\u00e3o",
+      "tempo_consumido": 749,
+      "avaliacao_atribuida": null,
+      "percentual_conclusao": 84.2
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  },
+  {
+    "id": 47,
+    "conteudo_json": {
+      "data_hora": "2026-08-09T16:03:00",
+      "usuario_id": 42,
+      "conteudo_id": 211,
+      "tipo_interacao": "in\u00edcio",
+      "tempo_consumido": 3,
+      "avaliacao_atribuida": null,
+      "percentual_conclusao": 10.0
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  },
+  {
+    "id": 48,
+    "conteudo_json": {
+      "data_hora": "2026-02-11T02:13:49",
+      "usuario_id": 143,
+      "conteudo_id": 601,
+      "tipo_interacao": "visualiza\u00e7\u00e3o",
+      "tempo_consumido": 13,
+      "avaliacao_atribuida": null,
+      "percentual_conclusao": 50.5
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  },
+  {
+    "id": 49,
+    "conteudo_json": {
+      "data_hora": "2026-02-28T18:51:22",
+      "usuario_id": 115,
+      "conteudo_id": 468,
+      "tipo_interacao": "visualiza\u00e7\u00e3o",
+      "tempo_consumido": 11,
+      "avaliacao_atribuida": null,
+      "percentual_conclusao": 48.2
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  },
+  {
+    "id": 50,
+    "conteudo_json": {
+      "data_hora": "2026-01-27T11:30:42",
+      "usuario_id": 40,
+      "conteudo_id": 701,
+      "tipo_interacao": "conclus\u00e3o",
+      "tempo_consumido": 79,
+      "avaliacao_atribuida": null,
+      "percentual_conclusao": 100.0
+    },
+    "origem_arquivo": "interacoes.json",
+    "execucao_id": "EXEC_20260928_171912_823e81",
+    "data_hora_ingestao": "2026-09-28T17:19:13.207334"
+  }
+]
