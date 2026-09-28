@@ -570,47 +570,7 @@ var data_erro = new java.sql.Timestamp(java.lang.System.currentTimeMillis());
       <enabled>Y</enabled>
     </hop>
   </order>
-  <notepads>
-    <notepad>
-      <note>Estudante 1 - Silver
-Regras: usuario_id e conteudo_id obrigatorios; conteudo_id precisa
-existir em silver.catalogo; tipo_interacao precisa ser um dos valores
-validos; percentual_conclusao (se preenchido) entre 0 e 100;
-avaliacao (se preenchida) entre 1 e 5.
-Dedup por (usuario_id, conteudo_id, tipo_interacao, data_hora).
-Nao ha upsert aqui: cada execucao filtra por execucao_id, entao
-reprocessar a mesma execucao pode duplicar linhas se rodar 2x sem
-limpar. Ajuste com um DELETE por execucao_id antes de recarregar,
-se quiser reprocessamento idempotente.
-
-CORRECOES (27/09/2026):
-1) "Padronizar tipos" -> percentual_conclusao: decimal_symbol
-   fixado em "." (antes vazio, sujeito a locale da JVM, causava
-   overflow numerico ao interpretar "100.0" como 1000).
-2) "Preparar quarentena": data_erro agora criado como
-   java.sql.Timestamp (antes new Date() gerava NativeDate do Rhino,
-   causando ClassCastException em "Selecionar campos quarentena" e
-   falha ao gravar o estado final de execucao).</note>
-      <markdown>N</markdown>
-      <notetype>GENERAL</notetype>
-      <fontsize>-1</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>14</fontcolorred>
-      <fontcolorgreen>58</fontcolorgreen>
-      <fontcolorblue>90</fontcolorblue>
-      <backgroundcolorred>201</backgroundcolorred>
-      <backgroundcolorgreen>232</backgroundcolorgreen>
-      <backgroundcolorblue>251</backgroundcolorblue>
-      <bordercolorred>14</bordercolorred>
-      <bordercolorgreen>58</bordercolorgreen>
-      <bordercolorblue>90</bordercolorblue>
-      <xloc>32</xloc>
-      <yloc>16</yloc>
-      <width>340</width>
-      <height>-1</height>
-    </notepad>
-  </notepads>
+  <notepads/>
   <attributes/>
   <transform_error_handling/>
 </pipeline>

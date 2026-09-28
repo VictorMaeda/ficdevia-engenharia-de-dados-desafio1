@@ -492,69 +492,7 @@ var data_erro = new java.sql.Timestamp(java.lang.System.currentTimeMillis());
       <enabled>Y</enabled>
     </hop>
   </order>
-  <notepads>
-    <notepad>
-      <note>Estudante 1 - Silver
-Regras: usuario_id e conteudo_id obrigatorios; conteudo_id precisa
-existir em silver.catalogo; avaliacao (se preenchida) entre 1 e 5;
-data obrigatoria.
-Dedup por (usuario_id, conteudo_id, data).
-
-CORRECOES (27/09/2026):
-1) "Ler bronze.comentarios": bronze.comentarios nao tem colunas soltas
-   usuario_id/conteudo_id/avaliacao/comentario/data - tudo vem dentro
-   de conteudo_json (jsonb, chave ""). A query original selecionava
-   colunas inexistentes e falhava com "column does not exist". Query
-   corrigida para extrair via conteudo_json -> '' -> 0 ->> 'campo',
-   no mesmo padrao usado em bronze.interacoes.
-2) "Validar conteudo existe" (DBLookup): a coluna de origem em
-   silver.catalogo se chama "titulo", nao "titulo_ref" (que e so o
-   alias local). Estava configurado com &lt;name>titulo_ref&lt;/name>,
-   o que causaria "column titulo_ref does not exist" em
-   silver.catalogo. Corrigido para &lt;name>titulo&lt;/name> com
-   &lt;rename>titulo_ref&lt;/rename>.
-3) "Validar regras" e "Preparar quarentena" usavam o plugin
-   UserDefinedJavaExpression, que nao esta instalado neste ambiente
-   ("Can't run pipeline due to plugin missing"). Convertidos para
-   ScriptValueMod (JavaScript/Rhino), igual ao padrao ja usado e
-   testado em silver_interacoes. data_erro construido como
-   java.sql.Timestamp diretamente, evitando o problema de NativeDate
-   ja corrigido naquele outro pipeline.
-4) "Padronizar tipos" (SelectValues): meta/remove precisam ficar
-   DENTRO de &lt;fields>, nao como irmaos - senao o Hop acusa "At
-   least one of select, remove or meta screens should contain data".
-5) "Validar conteudo existe" (DBLookup): &lt;schema> e &lt;table>
-   estavam como filhos diretos de &lt;transform>, mas o parser do
-   Hop exige que fiquem DENTRO de &lt;lookup>. Com isso fora do
-   lugar, a query gerada ficava "SELECT * FROM null limit 1".
-   Corrigido movendo schema/table para dentro de &lt;lookup>.
-6) "Validar regras": faltava validar o FORMATO da data. Valores como
-   "2026-99-99" passavam pela regra (que so checava data vazia) e
-   quebravam depois em "Padronizar tipos" ao converter para Date
-   ("couldn't convert string to a date"). Adicionada checagem via
-   regex (ano-mes-dia com mes 01-12 e dia 01-31) antes de aprovar;
-   nota: nao valida dias por mes especifico (ex: 30/02 passa), mas
-   cobre o caso reportado.</note>
-      <markdown>N</markdown>
-      <notetype>GENERAL</notetype>
-      <fontsize>-1</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>14</fontcolorred>
-      <fontcolorgreen>58</fontcolorgreen>
-      <fontcolorblue>90</fontcolorblue>
-      <backgroundcolorred>201</backgroundcolorred>
-      <backgroundcolorgreen>232</backgroundcolorgreen>
-      <backgroundcolorblue>251</backgroundcolorblue>
-      <bordercolorred>14</bordercolorred>
-      <bordercolorgreen>58</bordercolorgreen>
-      <bordercolorblue>90</bordercolorblue>
-      <xloc>32</xloc>
-      <yloc>16</yloc>
-      <width>340</width>
-      <height>-1</height>
-    </notepad>
-  </notepads>
+  <notepads/>
   <attributes/>
   <transform_error_handling/>
 </pipeline>

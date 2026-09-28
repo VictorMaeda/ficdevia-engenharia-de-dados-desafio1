@@ -235,32 +235,7 @@
       <enabled>Y</enabled>
     </hop>
   </order>
-  <notepads>
-    <notepad>
-      <note>Estudante 1 - Bronze
-Fonte: ${SOURCE_CATALOGO_CSV}
-Destino: bronze.catalogo (conexao ${DB_CONNECTION:pg_desafio2})
-Sem transformacao de tipos/valores: tudo entra como String.</note>
-      <markdown>N</markdown>
-      <notetype>GENERAL</notetype>
-      <fontsize>-1</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>14</fontcolorred>
-      <fontcolorgreen>58</fontcolorgreen>
-      <fontcolorblue>90</fontcolorblue>
-      <backgroundcolorred>201</backgroundcolorred>
-      <backgroundcolorgreen>232</backgroundcolorgreen>
-      <backgroundcolorblue>251</backgroundcolorblue>
-      <bordercolorred>14</bordercolorred>
-      <bordercolorgreen>58</bordercolorgreen>
-      <bordercolorblue>90</bordercolorblue>
-      <xloc>32</xloc>
-      <yloc>16</yloc>
-      <width>260</width>
-      <height>-1</height>
-    </notepad>
-  </notepads>
+  <notepads/>
   <attributes/>
   <transform_error_handling/>
 </pipeline>

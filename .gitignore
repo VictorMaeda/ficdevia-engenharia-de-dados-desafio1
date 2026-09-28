@@ -20,3 +20,13 @@ logs/*
 # Ambientes/IDE
 .vscode/
 .idea/
+
+# Desafio 2 - arquivos operacionais reproduziveis
+desafio_dados_2/runtime/
+
+# Testes locais temporarios do Beam
+desafio_dados_2/beam/saida/teste_windows/
+
+# Novas evidencias geradas automaticamente a cada execucao
+# Os JSONs que ja foram versionados continuam no Git normalmente.
+desafio_dados_2/qualidade/resultados/qualidade_*.json

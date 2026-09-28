@@ -1,3 +1,4 @@
+import argparse
 import glob
 import os
 from decimal import Decimal
@@ -9,7 +10,7 @@ import pyarrow.parquet as pq
 
 BASE_DIR = Path(__file__).resolve().parents[1]
 
-PARQUET_PATTERN = str(
+DEFAULT_PARQUET_PATTERN = str(
     BASE_DIR
     / "beam"
     / "saida"
@@ -62,29 +63,92 @@ VALUES (
 """
 
 
+def obter_argumentos():
+    parser = argparse.ArgumentParser(
+        description=(
+            "Carrega na camada Gold a agregacao "
+            "produzida pelo Apache Beam."
+        )
+    )
+
+    parser.add_argument(
+        "--input",
+        default=DEFAULT_PARQUET_PATTERN,
+        help=(
+            "Padrao dos arquivos Parquet gerados "
+            "pelo Beam."
+        ),
+    )
+
+    return parser.parse_args()
+
+
 def main():
+    argumentos = obter_argumentos()
+
     if not DB_PASSWORD:
         raise RuntimeError(
-            "A variável POSTGRES_PASSWORD não foi definida."
+            "A variavel POSTGRES_PASSWORD "
+            "nao foi definida."
         )
 
-    arquivos = glob.glob(PARQUET_PATTERN)
+    arquivos = sorted(
+        glob.glob(argumentos.input)
+    )
 
     if not arquivos:
         raise RuntimeError(
-            "Nenhum arquivo Parquet do DirectRunner foi encontrado."
+            "Nenhum arquivo Parquet do Beam "
+            "foi encontrado para o padrao: "
+            f"{argumentos.input}"
         )
 
     print("=== CARGA DA CAMADA GOLD ===")
-    print(f"Arquivos Parquet encontrados: {len(arquivos)}")
+    print(
+        f"Padrao de entrada: {argumentos.input}"
+    )
+    print(
+        f"Arquivos Parquet encontrados: "
+        f"{len(arquivos)}"
+    )
 
     tabela = pq.read_table(arquivos)
     df_beam = tabela.to_pandas()
 
-    print(f"Linhas agregadas no Beam: {len(df_beam)}")
+    if df_beam.empty:
+        raise RuntimeError(
+            "A saida do Beam nao possui registros."
+        )
+
+    if df_beam["conteudo_id"].duplicated().any():
+        duplicados = (
+            df_beam.loc[
+                df_beam[
+                    "conteudo_id"
+                ].duplicated(keep=False),
+                "conteudo_id",
+            ]
+            .astype(int)
+            .tolist()
+        )
+
+        raise RuntimeError(
+            "A saida do Beam possui conteudo_id "
+            f"duplicado: {duplicados}"
+        )
+
     print(
-        "Interações representadas:",
-        int(df_beam["total_interacoes"].sum()),
+        f"Linhas agregadas no Beam: "
+        f"{len(df_beam)}"
+    )
+
+    print(
+        "Interacoes representadas:",
+        int(
+            df_beam[
+                "total_interacoes"
+            ].sum()
+        ),
     )
 
     with psycopg.connect(
@@ -111,21 +175,34 @@ def main():
             conteudos_sem_catalogo = []
 
             for _, row in df_beam.iterrows():
-                conteudo_id = int(row["conteudo_id"])
+                conteudo_id = int(
+                    row["conteudo_id"]
+                )
 
-                dados_catalogo = catalogo.get(conteudo_id)
+                dados_catalogo = (
+                    catalogo.get(conteudo_id)
+                )
 
                 if dados_catalogo is None:
-                    conteudos_sem_catalogo.append(conteudo_id)
+                    conteudos_sem_catalogo.append(
+                        conteudo_id
+                    )
                     continue
 
-                media = row["media_percentual_conclusao"]
+                media = row[
+                    "media_percentual_conclusao"
+                ]
 
                 if media is None:
                     media_decimal = None
                 else:
                     media_decimal = Decimal(
-                        str(round(float(media), 2))
+                        str(
+                            round(
+                                float(media),
+                                2,
+                            )
+                        )
                     )
 
                 registros_gold.append(
@@ -135,23 +212,41 @@ def main():
                         dados_catalogo["tipo"],
                         dados_catalogo["categoria"],
                         dados_catalogo["nivel"],
-                        int(row["total_interacoes"]),
-                        int(row["tempo_total_segundos"]),
+                        int(
+                            row[
+                                "total_interacoes"
+                            ]
+                        ),
+                        int(
+                            row[
+                                "tempo_total_segundos"
+                            ]
+                        ),
                         media_decimal,
-                        int(row["quantidade_conclusoes"]),
+                        int(
+                            row[
+                                "quantidade_conclusoes"
+                            ]
+                        ),
                     )
                 )
 
             if conteudos_sem_catalogo:
                 raise RuntimeError(
-                    "Foram encontrados conteúdos da agregação "
-                    "sem correspondência em silver.catalogo: "
+                    "Foram encontrados conteudos "
+                    "da agregacao sem correspondencia "
+                    "em silver.catalogo: "
                     f"{conteudos_sem_catalogo}"
                 )
 
-            # Carga completa e idempotente da Gold.
+            # A operacao ocorre dentro da mesma
+            # transacao. Se o INSERT falhar,
+            # o TRUNCATE tambem sera revertido.
             cursor.execute(
-                "TRUNCATE TABLE gold.engajamento_conteudo"
+                """
+                TRUNCATE TABLE
+                    gold.engajamento_conteudo
+                """
             )
 
             cursor.executemany(
@@ -162,9 +257,13 @@ def main():
         conn.commit()
 
     print()
-    print("Carga Gold concluída com sucesso.")
     print(
-        f"Registros gravados: {len(registros_gold)}"
+        "Carga Gold concluida com sucesso."
+    )
+
+    print(
+        f"Registros gravados: "
+        f"{len(registros_gold)}"
     )
 
 

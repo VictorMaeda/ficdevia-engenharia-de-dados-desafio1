@@ -212,7 +212,7 @@
       <description/>
       <type>WRITE_TO_LOG</type>
       <attributes/>
-      <xloc>1056</xloc>
+      <xloc>1072</xloc>
       <yloc>48</yloc>
       <parallel>N</parallel>
       <attributes_hac/>
@@ -224,7 +224,7 @@
       <description/>
       <type>ABORT</type>
       <attributes/>
-      <xloc>1216</xloc>
+      <xloc>1232</xloc>
       <yloc>48</yloc>
       <parallel>N</parallel>
       <attributes_hac/>
@@ -305,6 +305,250 @@ exit /b %RESULTADO%</script>
       <attributes/>
       <xloc>912</xloc>
       <yloc>176</yloc>
+      <parallel>N</parallel>
+      <attributes_hac/>
+    </action>
+    <action>
+      <filename/>
+      <work_directory>${PROJECT_HOME}</work_directory>
+      <arguments/>
+      <arg_from_previous>N</arg_from_previous>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <exec_per_row>N</exec_per_row>
+      <set_append_logfile>N</set_append_logfile>
+      <insertScript>Y</insertScript>
+      <script>@echo off
+setlocal
+
+echo === RF24 - EXPORTACAO PARQUET VIA APACHE HOP ===
+echo Diretorio: %CD%
+echo.
+
+REM ------------------------------------------------------------
+REM Carrega variaveis locais.
+REM ------------------------------------------------------------
+
+if not exist ".env" (
+    echo ERRO: arquivo .env nao encontrado em %CD%
+    exit /b 2
+)
+
+for /f "usebackq eol=# tokens=1,* delims==" %%A in (".env") do (
+    if not "%%A"=="" set "%%A=%%B"
+)
+
+if not defined POSTGRES_PASSWORD (
+    if defined DB_PASSWORD (
+        set "POSTGRES_PASSWORD=%DB_PASSWORD%"
+    )
+)
+
+if not defined POSTGRES_PASSWORD (
+    echo ERRO: DB_PASSWORD ou POSTGRES_PASSWORD nao foi definido.
+    exit /b 2
+)
+
+REM ------------------------------------------------------------
+REM Valida Python.
+REM ------------------------------------------------------------
+
+if not exist ".venv\Scripts\python.exe" (
+    echo ERRO: Python da venv nao encontrado.
+    exit /b 2
+)
+
+REM ------------------------------------------------------------
+REM Executa exportacao para area runtime.
+REM ------------------------------------------------------------
+
+".venv\Scripts\python.exe" ^
+    "beam\exportar_parquet.py" ^
+    --csv-output "runtime\silver\interacoes.csv" ^
+    --parquet-output "runtime\silver\interacoes_parquet"
+
+set "RESULTADO=%ERRORLEVEL%"
+
+echo.
+echo Exit code da exportacao Parquet: %RESULTADO%
+
+exit /b %RESULTADO%</script>
+      <name>Exportar Parquet</name>
+      <type>SHELL</type>
+      <attributes/>
+      <xloc>1072</xloc>
+      <yloc>176</yloc>
+      <parallel>N</parallel>
+      <attributes_hac/>
+    </action>
+    <action>
+      <filename/>
+      <work_directory>${PROJECT_HOME}</work_directory>
+      <arguments/>
+      <arg_from_previous>N</arg_from_previous>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <exec_per_row>N</exec_per_row>
+      <set_append_logfile>N</set_append_logfile>
+      <insertScript>Y</insertScript>
+      <script>@echo off
+setlocal
+
+echo === RF25 - APACHE BEAM DIRECTRUNNER VIA APACHE HOP ===
+echo Diretorio: %CD%
+echo.
+
+REM ------------------------------------------------------------
+REM Valida o ambiente Python do Desafio 2.
+REM ------------------------------------------------------------
+
+if not exist ".venv\Scripts\python.exe" (
+    echo ERRO: Python da venv nao encontrado.
+    exit /b 2
+)
+
+REM ------------------------------------------------------------
+REM Valida a entrada Parquet produzida pelo RF24.
+REM ------------------------------------------------------------
+
+if not exist "runtime\silver\interacoes_parquet" (
+    echo ERRO: Diretorio Parquet de entrada nao encontrado.
+    exit /b 2
+)
+
+REM ------------------------------------------------------------
+REM Limpa somente a saida operacional anterior do Beam.
+REM ------------------------------------------------------------
+
+if exist "runtime\beam" (
+    rmdir /s /q "runtime\beam"
+)
+
+mkdir "runtime\beam"
+
+REM ------------------------------------------------------------
+REM Executa a mesma regra do RF25 com DirectRunner.
+REM ------------------------------------------------------------
+
+".venv\Scripts\python.exe" "beam\pipeline_beam.py" --input "runtime\silver\interacoes_parquet\*\*.parquet" --output "runtime\beam\agregacao_conteudo" --runner=DirectRunner
+
+set "RESULTADO=%ERRORLEVEL%"
+
+echo.
+echo Exit code do Beam DirectRunner: %RESULTADO%
+
+exit /b %RESULTADO%</script>
+      <name>Beam DirectRunner</name>
+      <type>SHELL</type>
+      <attributes/>
+      <xloc>1232</xloc>
+      <yloc>176</yloc>
+      <parallel>N</parallel>
+      <attributes_hac/>
+    </action>
+    <action>
+      <filename/>
+      <work_directory>${PROJECT_HOME}</work_directory>
+      <arguments/>
+      <arg_from_previous>N</arg_from_previous>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <exec_per_row>N</exec_per_row>
+      <set_append_logfile>N</set_append_logfile>
+      <insertScript>Y</insertScript>
+      <script>@echo off
+setlocal
+
+echo === RF26 - CARGA GOLD VIA APACHE HOP ===
+echo Diretorio: %CD%
+echo.
+
+REM ------------------------------------------------------------
+REM Carrega variaveis locais.
+REM ------------------------------------------------------------
+
+if not exist ".env" (
+    echo ERRO: arquivo .env nao encontrado em %CD%
+    exit /b 2
+)
+
+for /f "usebackq eol=# tokens=1,* delims==" %%A in (".env") do (
+    if not "%%A"=="" set "%%A=%%B"
+)
+
+if not defined POSTGRES_PASSWORD (
+    if defined DB_PASSWORD (
+        set "POSTGRES_PASSWORD=%DB_PASSWORD%"
+    )
+)
+
+if not defined POSTGRES_PASSWORD (
+    echo ERRO: DB_PASSWORD ou POSTGRES_PASSWORD nao foi definido.
+    exit /b 2
+)
+
+REM ------------------------------------------------------------
+REM Valida Python.
+REM ------------------------------------------------------------
+
+if not exist ".venv\Scripts\python.exe" (
+    echo ERRO: Python da venv nao encontrado.
+    exit /b 2
+)
+
+REM ------------------------------------------------------------
+REM Valida a saida do Beam.
+REM ------------------------------------------------------------
+
+if not exist "runtime\beam" (
+    echo ERRO: Diretorio de saida do Beam nao encontrado.
+    exit /b 2
+)
+
+REM ------------------------------------------------------------
+REM Publica a agregacao na camada Gold.
+REM ------------------------------------------------------------
+
+".venv\Scripts\python.exe" ^
+    "beam\carregar_gold.py" ^
+    --input "runtime\beam\*.parquet"
+
+set "RESULTADO=%ERRORLEVEL%"
+
+echo.
+echo Exit code da Carga Gold: %RESULTADO%
+
+exit /b %RESULTADO%</script>
+      <name>Carga Gold</name>
+      <type>SHELL</type>
+      <attributes/>
+      <xloc>1376</xloc>
+      <yloc>176</yloc>
+      <parallel>N</parallel>
+      <attributes_hac/>
+    </action>
+    <action>
+      <loglevel>Basic</loglevel>
+      <logsubject/>
+      <logmessage>Etapas Bronze, Silver, qualidade, Parquet, Beam e Gold concluidas com sucesso. execucao_id=${EXECUCAO_ID}</logmessage>
+      <name>Sucesso - Gold concluida</name>
+      <description/>
+      <type>WRITE_TO_LOG</type>
+      <attributes/>
+      <xloc>1376</xloc>
+      <yloc>352</yloc>
       <parallel>N</parallel>
       <attributes_hac/>
     </action>
@@ -415,36 +659,56 @@ exit /b %RESULTADO%</script>
       <unconditional>N</unconditional>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from>Qualidade RF31</from>
+      <to>Exportar Parquet</to>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Exportar Parquet</from>
+      <to>Falha - registrar log</to>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Exportar Parquet</from>
+      <to>Beam DirectRunner</to>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Beam DirectRunner</from>
+      <to>Falha - registrar log</to>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Beam DirectRunner</from>
+      <to>Carga Gold</to>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Carga Gold</from>
+      <to>Falha - registrar log</to>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Carga Gold</from>
+      <to>Sucesso - Gold concluida</to>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+      <enabled>Y</enabled>
+    </hop>
   </hops>
-  <notepads>
-    <notepad>
-      <note>Estudante 1 - Workflow
-Ordem: Bronze (catalogo -> interacoes -> comentarios) depois
-Silver (catalogo -> interacoes -> comentarios), pois a Silver
-depende da Bronze e a validacao referencial da Silver usa
-silver.catalogo ja carregado.
-Hops verdes = sucesso segue adiante. Qualquer falha desvia
-para "Falha - registrar log" e a cadeia principal para (RF22/RF23).
-Rode com o parametro EXECUCAO_ID preenchido (ex.: data/hora ou UUID).</note>
-      <markdown>N</markdown>
-      <notetype>GENERAL</notetype>
-      <fontsize>-1</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>14</fontcolorred>
-      <fontcolorgreen>58</fontcolorgreen>
-      <fontcolorblue>90</fontcolorblue>
-      <backgroundcolorred>201</backgroundcolorred>
-      <backgroundcolorgreen>232</backgroundcolorgreen>
-      <backgroundcolorblue>251</backgroundcolorblue>
-      <bordercolorred>14</bordercolorred>
-      <bordercolorgreen>58</bordercolorgreen>
-      <bordercolorblue>90</bordercolorblue>
-      <xloc>1088</xloc>
-      <yloc>176</yloc>
-      <width>340</width>
-      <height>-1</height>
-    </notepad>
-  </notepads>
+  <notepads/>
   <attributes/>
 </workflow>
