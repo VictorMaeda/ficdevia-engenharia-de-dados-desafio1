@@ -217,6 +217,97 @@
       <parallel>N</parallel>
       <attributes_hac/>
     </action>
+    <action>
+      <message>Pipeline interrompido devido a falha em uma etapa dependente.</message>
+      <loglevel>Error</loglevel>
+      <name>Falha - abortar workflow</name>
+      <description/>
+      <type>ABORT</type>
+      <attributes/>
+      <xloc>1216</xloc>
+      <yloc>48</yloc>
+      <parallel>N</parallel>
+      <attributes_hac/>
+    </action>
+    <action>
+      <filename/>
+      <work_directory>${PROJECT_HOME}</work_directory>
+      <arguments/>
+      <arg_from_previous>N</arg_from_previous>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <exec_per_row>N</exec_per_row>
+      <set_append_logfile>N</set_append_logfile>
+      <insertScript>Y</insertScript>
+      <script>@echo off
+setlocal
+
+REM ============================================================
+REM RF31 - Qualidade de Dados
+REM O diretorio de trabalho e o PROJECT_HOME do Apache Hop.
+REM ============================================================
+
+echo === RF31 - QUALIDADE DE DADOS VIA APACHE HOP ===
+echo Diretorio: %CD%
+echo.
+
+REM ------------------------------------------------------------
+REM Carrega variaveis locais do arquivo .env.
+REM O arquivo .env nao e versionado.
+REM ------------------------------------------------------------
+
+if not exist ".env" (
+    echo ERRO: arquivo .env nao encontrado em %CD%
+    exit /b 2
+)
+
+for /f "usebackq eol=# tokens=1,* delims==" %%A in (".env") do (
+    if not "%%A"=="" set "%%A=%%B"
+)
+
+REM O projeto Hop utiliza DB_PASSWORD.
+REM Os scripts Python aceitam POSTGRES_PASSWORD.
+if not defined POSTGRES_PASSWORD (
+    if defined DB_PASSWORD (
+        set "POSTGRES_PASSWORD=%DB_PASSWORD%"
+    )
+)
+
+if not defined POSTGRES_PASSWORD (
+    echo ERRO: DB_PASSWORD ou POSTGRES_PASSWORD nao foi definido.
+    exit /b 2
+)
+
+REM ------------------------------------------------------------
+REM A venv fica na raiz do repositorio, um nivel acima
+REM de desafio_dados_2.
+REM ------------------------------------------------------------
+
+if not exist ".venv\Scripts\python.exe" (
+    echo ERRO: Python da venv nao encontrado.
+    exit /b 2
+)
+
+".venv\Scripts\python.exe" "qualidade\executar_testes.py"
+
+set "RESULTADO=%ERRORLEVEL%"
+
+echo.
+echo Exit code da qualidade: %RESULTADO%
+
+exit /b %RESULTADO%</script>
+      <name>Qualidade RF31</name>
+      <type>SHELL</type>
+      <attributes/>
+      <xloc>912</xloc>
+      <yloc>176</yloc>
+      <parallel>N</parallel>
+      <attributes_hac/>
+    </action>
   </actions>
   <hops>
     <hop>
@@ -298,6 +389,27 @@
     </hop>
     <hop>
       <from>Silver - comentarios</from>
+      <to>Falha - registrar log</to>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Falha - registrar log</from>
+      <to>Falha - abortar workflow</to>
+      <evaluation>N</evaluation>
+      <unconditional>Y</unconditional>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Silver - comentarios</from>
+      <to>Qualidade RF31</to>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Qualidade RF31</from>
       <to>Falha - registrar log</to>
       <evaluation>N</evaluation>
       <unconditional>N</unconditional>
