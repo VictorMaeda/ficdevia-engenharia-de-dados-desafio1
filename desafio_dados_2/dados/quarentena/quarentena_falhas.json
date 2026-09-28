@@ -3,9 +3,9 @@
     "registro_id": 1,
     "origem": "interacoes.json",
     "regra_violada": "REGRA_PERCENTUAL_INVALIDO",
-    "data_erro": "2026-09-28T17:19:14.015084",
+    "data_erro": "2026-09-28T23:14:10.235398",
     "mensagem_erro": "percentual_conclusao fora da faixa permitida [0, 100]: valor = -15.5",
-    "execucao_id": "EXEC_20260928_171912_823e81",
+    "execucao_id": "EXEC_20260928_231409_6797dc",
     "payload": {
       "usuario_id": 9991,
       "conteudo_id": 105,
@@ -17,9 +17,9 @@
     "registro_id": 2,
     "origem": "catalogo_corrompido.csv",
     "regra_violada": "FALHA_FORMATO_ARQUIVO",
-    "data_erro": "2026-09-28T17:19:14.015084",
+    "data_erro": "2026-09-28T23:14:10.235398",
     "mensagem_erro": "Cabe\u00e7alho inv\u00e1lido ou colunas ausentes: delimitador corrompido ou payload truncado na linha 42",
-    "execucao_id": "EXEC_20260928_171912_823e81",
+    "execucao_id": "EXEC_20260928_231409_6797dc",
     "payload": {
       "raw_line": "1002;;;Invalido;;NULL;;;",
       "conteudo_id": "ERR_FORMAT_404"
@@ -29,13 +29,47 @@
     "registro_id": 3,
     "origem": "api_streaming_interacoes",
     "regra_violada": "FALHA_CONEXAO_TIMEOUT",
-    "data_erro": "2026-09-28T17:19:14.015084",
+    "data_erro": "2026-09-28T23:14:10.235398",
     "mensagem_erro": "Falha de conex\u00e3o com a fonte: Connection timeout (30000ms) ao consultar servi\u00e7o upstream de eventos",
-    "execucao_id": "EXEC_20260928_171912_823e81",
+    "execucao_id": "EXEC_20260928_231409_6797dc",
     "payload": {
       "status": "CONNECTION_REFUSED",
       "endpoint": "https://api.stream.ficdevia.edu.br/v1/events",
       "tentativas": 3
+    }
+  },
+  {
+    "registro_id": 6,
+    "origem": "bronze.interacoes",
+    "regra_violada": "duplicata por (usuario_id, conteudo_id, data_hora)",
+    "data_erro": "2026-09-28T23:18:46.802024",
+    "mensagem_erro": null,
+    "execucao_id": "SILVER_EXEC_20260928_231846_3d021e",
+    "payload": {
+      "data_hora": "2026-03-21T10:54:52",
+      "usuario_id": "3",
+      "conteudo_id": "614",
+      "tipo_interacao": "conclus\u00e3o",
+      "tempo_consumido": "28",
+      "avaliacao_atribuida": "None",
+      "percentual_conclusao": "100.0"
+    }
+  },
+  {
+    "registro_id": 7,
+    "origem": "bronze.interacoes",
+    "regra_violada": "percentual_conclusao fora da faixa [0,100]: 250.0",
+    "data_erro": "2026-09-28T23:18:46.802024",
+    "mensagem_erro": null,
+    "execucao_id": "SILVER_EXEC_20260928_231846_3d021e",
+    "payload": {
+      "data_hora": "2026-04-02T11:00:00",
+      "usuario_id": "11",
+      "conteudo_id": "21",
+      "tipo_interacao": "visualiza\u00e7\u00e3o",
+      "tempo_consumido": "200",
+      "avaliacao_atribuida": "None",
+      "percentual_conclusao": "250.0"
     }
   }
 ]

@@ -1,4 +1,6 @@
 registro_id,origem,regra_violada,data_erro,mensagem_erro,execucao_id
-1,interacoes.json,REGRA_PERCENTUAL_INVALIDO,2026-09-28 17:19:14.015084,"percentual_conclusao fora da faixa permitida [0, 100]: valor = -15.5",EXEC_20260928_171912_823e81
-2,catalogo_corrompido.csv,FALHA_FORMATO_ARQUIVO,2026-09-28 17:19:14.015084,Cabeçalho inválido ou colunas ausentes: delimitador corrompido ou payload truncado na linha 42,EXEC_20260928_171912_823e81
-3,api_streaming_interacoes,FALHA_CONEXAO_TIMEOUT,2026-09-28 17:19:14.015084,Falha de conexão com a fonte: Connection timeout (30000ms) ao consultar serviço upstream de eventos,EXEC_20260928_171912_823e81
+1,interacoes.json,REGRA_PERCENTUAL_INVALIDO,2026-09-28 23:14:10.235398,"percentual_conclusao fora da faixa permitida [0, 100]: valor = -15.5",EXEC_20260928_231409_6797dc
+2,catalogo_corrompido.csv,FALHA_FORMATO_ARQUIVO,2026-09-28 23:14:10.235398,Cabeçalho inválido ou colunas ausentes: delimitador corrompido ou payload truncado na linha 42,EXEC_20260928_231409_6797dc
+3,api_streaming_interacoes,FALHA_CONEXAO_TIMEOUT,2026-09-28 23:14:10.235398,Falha de conexão com a fonte: Connection timeout (30000ms) ao consultar serviço upstream de eventos,EXEC_20260928_231409_6797dc
+6,bronze.interacoes,"duplicata por (usuario_id, conteudo_id, data_hora)",2026-09-28 23:18:46.802024,,SILVER_EXEC_20260928_231846_3d021e
+7,bronze.interacoes,"percentual_conclusao fora da faixa [0,100]: 250.0",2026-09-28 23:18:46.802024,,SILVER_EXEC_20260928_231846_3d021e

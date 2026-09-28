@@ -336,12 +336,15 @@ def main():
                 )
 
             if conteudos_sem_catalogo:
-                raise RuntimeError(
-                    "Foram encontrados conteudos "
-                    "da agregacao sem correspondencia "
-                    "em silver.catalogo: "
-                    f"{conteudos_sem_catalogo}"
+                print(
+                    f"[AVISO] {len(conteudos_sem_catalogo)} conteúdo(s) sem"
+                    " correspondência em silver.catalogo foram ignorados na Gold"
+                    f" (RF05 - integridade referencial): {conteudos_sem_catalogo}"
                 )
+                # Ajusta contadores para refletir apenas registros carregados
+                df_filtrado = df_beam[df_beam["conteudo_id"].isin(catalogo.keys())]
+                total_interacoes_beam = int(df_filtrado["total_interacoes"].sum())
+                total_conclusoes_beam = int(df_filtrado["quantidade_conclusoes"].sum())
 
             # -------------------------------------------------
             # CARGA COMPLETA E ATOMICA

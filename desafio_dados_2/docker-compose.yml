@@ -1,26 +1,104 @@
+# ==============================================================================
+# DESAFIO PRÁTICO 2 — FIC DEV IA: FUNDAMENTOS DE DADOS PARA IA
+# ARQUIVO: desafio_dados_2/docker-compose.yml
+#
+# ATENÇÃO: Use preferencialmente o docker-compose.yml da raiz do repositório,
+#          pois ele já inclui Superset, MongoDB e PostgreSQL unificados.
+#
+#          Este arquivo serve apenas como referência isolada da infraestrutura
+#          mínima necessária para o Desafio 2 caso queira executar de forma
+#          independente do Desafio 1.
+#
+# RF15: Infraestrutura versionada com configuração por variáveis de ambiente.
+# ==============================================================================
+
 services:
+
+  # ─── PostgreSQL Principal (Bronze, Silver, Gold, Quarentena, Qualidade) ────
   postgres:
-    image: postgres:16
+    image: pgvector/pgvector:pg16
     container_name: desafio2-postgres
     restart: unless-stopped
 
     environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER:     ${POSTGRES_USER:-desafio_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-troque_esta_senha}
+      POSTGRES_DB:       ${POSTGRES_DB:-desafio_dados}
 
     ports:
-      - "${POSTGRES_PORT}:5432"
+      - "${POSTGRES_PORT:-5432}:5432"
 
     volumes:
-      - desafio2_postgres_data:/var/lib/postgresql
+      - desafio2_postgres_data:/var/lib/postgresql/data
       - ./sql/criar_banco.sql:/docker-entrypoint-initdb.d/01-criar-banco.sql:ro
 
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-desafio_user} -d ${POSTGRES_DB:-desafio_dados}"]
       interval: 5s
       timeout: 5s
       retries: 10
 
+  # ─── Banco de Metadados Interno do Apache Superset ────────────────────────
+  superset_meta_db:
+    image: postgres:16
+    container_name: desafio2-superset-meta
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_DB:       ${SUPERSET_META_DB:-superset}
+      POSTGRES_USER:     ${SUPERSET_META_USER:-superset}
+      POSTGRES_PASSWORD: ${SUPERSET_META_PASSWORD:-superset_senha}
+
+    volumes:
+      - desafio2_superset_meta_data:/var/lib/postgresql/data
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${SUPERSET_META_USER:-superset}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # ─── Apache Superset (Dashboard, SQL Lab, Alertas) ────────────────────────
+  superset:
+    image: apache/superset:4.1.0
+    container_name: desafio2-superset
+    restart: unless-stopped
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+      superset_meta_db:
+        condition: service_healthy
+
+    environment:
+      SUPERSET_SECRET_KEY:    ${SUPERSET_SECRET_KEY:-troque_esta_chave_secreta_32chars}
+      DATABASE_HOST:          superset_meta_db
+      DATABASE_PORT:          5432
+      DATABASE_DB:            ${SUPERSET_META_DB:-superset}
+      DATABASE_USER:          ${SUPERSET_META_USER:-superset}
+      DATABASE_PASSWORD:      ${SUPERSET_META_PASSWORD:-superset_senha}
+      SUPERSET_LOAD_EXAMPLES: "no"
+
+    ports:
+      - "${SUPERSET_PORT:-8088}:8088"
+
+    volumes:
+      - desafio2_superset_home:/app/superset_home
+
+    command: >
+      /bin/sh -c "
+        superset db upgrade &&
+        superset fab create-admin
+          --username ${SUPERSET_ADMIN_USERNAME:-admin}
+          --firstname Admin
+          --lastname Superset
+          --email admin@example.com
+          --password ${SUPERSET_ADMIN_PASSWORD:-troque_esta_senha} &&
+        superset init &&
+        gunicorn --bind 0.0.0.0:8088 --workers 2 --timeout 120 'superset.app:create_app()'
+      "
+
 volumes:
   desafio2_postgres_data:
+  desafio2_superset_meta_data:
+  desafio2_superset_home:

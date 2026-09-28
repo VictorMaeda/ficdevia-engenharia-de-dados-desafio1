@@ -1,5 +1,25 @@
+# ==============================================================================
+# DESAFIO PRÁTICO 2 — FIC DEV IA: FUNDAMENTOS DE DADOS PARA IA
+# ARQUIVO: desafio_dados_2/requirements.txt
+# FINALIDADE: Dependências Python necessárias para execução completa do pipeline.
+# RF15: Registro de dependências da solução.
+# ==============================================================================
+
+# ─── Processamento distribuído (RF24, RF25) ───────────────────────────────────
 apache-beam==2.76.0
+
+# ─── Manipulação de dados e formato colunar (RF24, RF25, RF26) ───────────────
 pandas==3.0.6
 pyarrow==25.0.1
+
+# ─── Conexão PostgreSQL — psycopg3 (RF26, RF31, RF33) ────────────────────────
 psycopg[binary]==3.3.6
+
+# ─── Conexão PostgreSQL — psycopg2 (usado em carregar_e_exportar_amostras.py) ─
+psycopg2-binary==2.9.10
+
+# ─── Documentação (geração de PDFs, RF19, RF29, RF30) ────────────────────────
 markdown==3.11
+
+# ─── HTTP para OpenMetadata API (RF27, RF28) ─────────────────────────────────
+requests==2.32.3

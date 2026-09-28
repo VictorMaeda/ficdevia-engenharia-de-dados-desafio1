@@ -18,8 +18,32 @@ import csv
 import json
 import uuid
 from datetime import datetime
-import psycopg2
-from psycopg2.extras import Json
+
+# Suporte dual: psycopg2 (preferencial) ou psycopg3 como fallback
+try:
+    import psycopg2
+    from psycopg2.extras import Json
+    _DRIVER = "psycopg2"
+except ImportError:
+    import psycopg as psycopg2  # type: ignore[no-redef]
+
+    class Json:  # type: ignore[no-redef]
+        """Adaptador mínimo para serializar dict como JSON no psycopg3."""
+        def __init__(self, obj):
+            self._obj = obj
+
+        def __conform__(self, protocol):
+            return self
+
+        def getquoted(self):
+            return json.dumps(self._obj).encode()
+
+        def __str__(self):
+            return json.dumps(self._obj)
+
+    _DRIVER = "psycopg3"
+
+print(f"[INFO] Driver PostgreSQL: {_DRIVER}")
 
 DB_HOST = os.getenv("POSTGRES_HOST", "localhost")
 DB_PORT = os.getenv("POSTGRES_PORT", "5432")

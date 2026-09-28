@@ -34,7 +34,7 @@ def mascarar_nome(nome: str) -> str:
 def pseudonimizar_usuario(usuario_id: int) -> str:
     """Gera token determinístico curto usando HMAC-SHA256."""
     msg = str(usuario_id).encode("utf-8")
-    token_hex = hmac.new(PEPPER_KEY, msg, hashlib.sha256).hexdigest()[:12]
+    token_hex = hmac.new(PEPPER_KEY, msg, digestmod=hashlib.sha256).hexdigest()[:12]
     return f"usr_{token_hex}"
 
 def gerar_hash_salt(texto: str, salt: str = None) -> tuple[str, str]:
