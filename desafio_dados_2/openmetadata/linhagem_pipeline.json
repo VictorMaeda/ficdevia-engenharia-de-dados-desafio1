@@ -1,0 +1,84 @@
+{
+  "edge": {
+    "fromEntity": {
+      "type": "table",
+      "fqn": "pg_desafio2_service.desafio2.gold.engajamento_conteudo"
+    },
+    "toEntity": {
+      "type": "dashboard",
+      "fqn": "superset_service.dashboard_engajamento_educacional_desafio2"
+    },
+    "lineageDetails": {
+      "sqlQuery": "SELECT g.conteudo_id, g.titulo, g.total_interacoes, g.quantidade_conclusoes, ROUND(100.0 * g.quantidade_conclusoes / NULLIF(g.total_interacoes, 0), 2) AS taxa_conclusao_pct FROM gold.engajamento_conteudo g LEFT JOIN silver.catalogo c ON c.conteudo_id = g.conteudo_id;",
+      "columnsLineage": [
+        {
+          "fromColumns": ["pg_desafio2_service.desafio2.gold.engajamento_conteudo.total_interacoes"],
+          "toColumn": "superset_service.dashboard_engajamento_educacional_desafio2.total_interacoes"
+        },
+        {
+          "fromColumns": ["pg_desafio2_service.desafio2.gold.engajamento_conteudo.quantidade_conclusoes"],
+          "toColumn": "superset_service.dashboard_engajamento_educacional_desafio2.taxa_conclusao_pct",
+          "function": "ROUND(100.0 * quantidade_conclusoes / total_interacoes, 2)"
+        }
+      ],
+      "pipeline": {
+        "type": "pipeline",
+        "fqn": "hop_orchestration.pipeline_bronze_silver_beam_gold",
+        "displayName": "Pipeline Unificado de Dados Educacionais"
+      },
+      "description": "Linhagem ponta a ponta registrada manualmente conectando a Camada Gold ao Dashboard Executivo do Superset com mapeamento a nível de coluna."
+    }
+  },
+  "nodes": [
+    {
+      "name": "catalogo.csv",
+      "type": "file",
+      "layer": "source"
+    },
+    {
+      "name": "interacoes.json",
+      "type": "file",
+      "layer": "source"
+    },
+    {
+      "name": "bronze.catalogo",
+      "type": "table",
+      "layer": "bronze"
+    },
+    {
+      "name": "bronze.interacoes",
+      "type": "table",
+      "layer": "bronze"
+    },
+    {
+      "name": "silver.catalogo",
+      "type": "table",
+      "layer": "silver"
+    },
+    {
+      "name": "silver.interacoes",
+      "type": "table",
+      "layer": "silver"
+    },
+    {
+      "name": "interacoes_parquet",
+      "type": "parquet_dataset",
+      "layer": "distributed_staging"
+    },
+    {
+      "name": "gold.engajamento_conteudo",
+      "type": "table",
+      "layer": "gold"
+    },
+    {
+      "name": "ds_virtual_desempenho_engajamento_conteudos",
+      "type": "virtual_dataset",
+      "layer": "sql_lab"
+    },
+    {
+      "name": "dashboard_engajamento_educacional_desafio2",
+      "type": "dashboard",
+      "layer": "consumption"
+    }
+  ]
+}

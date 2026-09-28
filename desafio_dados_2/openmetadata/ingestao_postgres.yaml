@@ -1,0 +1,49 @@
+# ==============================================================================
+# DESAFIO PRATICO 2 - FIC DEV IA: FUNDAMENTOS DE DADOS PARA IA
+# ARQUIVO: desafio_dados_2/openmetadata/ingestao_postgres.yaml
+# REQUISITO: RF27 — Implantação e Integração do OpenMetadata
+# FINALIDADE: Workflow de ingestão técnica de metadados do PostgreSQL para o OpenMetadata
+# ==============================================================================
+
+source:
+  type: postgres
+  serviceName: pg_desafio2_service
+  serviceConnection:
+    config:
+      type: Postgres
+      scheme: postgresql+psycopg2
+      username: ${POSTGRES_USER:-postgres}
+      password: ${POSTGRES_PASSWORD:-postgres}
+      hostPort: ${POSTGRES_HOST:-localhost}:${POSTGRES_PORT:-5433}
+      database: ${POSTGRES_DB:-desafio2}
+  sourceConfig:
+    config:
+      type: DatabaseMetadata
+      # Schemas filtrados para evitar ingestão de dados não governados
+      schemaFilterPattern:
+        includes:
+          - silver
+          - gold
+          - qualidade
+        excludes:
+          - information_schema
+          - pg_catalog
+      tableFilterPattern:
+        includes:
+          - .*
+      # Ingestão de comentários de tabelas e colunas (DDL comments)
+      includeViews: true
+      includeTables: true
+      markDeletedTables: true
+
+sink:
+  type: metadata-rest
+  config:
+    mode: backup
+
+workflowConfig:
+  openMetadataServerConnection:
+    hostPort: http://localhost:8585/api
+    authProvider: openmetadata
+    securityConfig:
+      jwtToken: ${OPENMETADATA_JWT_TOKEN:-"token_ficticio_governanca_desafio2"}

@@ -1,0 +1,103 @@
+{
+  "name": "GlossarioEducacional",
+  "displayName": "Glossário Corporativo de Métricas Educacionais",
+  "description": "Termos oficiais de negócio, métricas de engajamento e regras de cálculo para a plataforma FIC DEV IA.",
+  "owner": {
+    "name": "coordenacao_pedagogica",
+    "type": "team",
+    "displayName": "Coordenação Pedagógica e Acadêmica"
+  },
+  "terms": [
+    {
+      "name": "UsuarioAtivo",
+      "displayName": "Usuário Ativo",
+      "description": "Estudante que registrou ao menos uma interação de consumo no período de referência.",
+      "synonyms": [
+        "Active User",
+        "Aluno Engajado"
+      ],
+      "calculationRule": "COUNT(DISTINCT usuario_id) WHERE data_hora BETWEEN inicio_mes AND fim_mes",
+      "owner": "gestao.alunos@ficdevia.edu.br",
+      "tags": [
+        "Tier.Tier1_Critical",
+        "DataQuality.Audited"
+      ],
+      "associatedEntities": [
+        "pg_desafio2_service.desafio2.silver.interacoes.usuario_id",
+        "pg_desafio2_service.desafio2.gold.engajamento_conteudo.total_interacoes"
+      ]
+    },
+    {
+      "name": "TaxaConclusao",
+      "displayName": "Taxa de Conclusão",
+      "description": "Percentual de interações concluídas integralmente (100% de progresso) sobre o total iniciado.",
+      "synonyms": [
+        "Completion Rate",
+        "Taxa de Finalização"
+      ],
+      "calculationRule": "(SUM(quantidade_conclusoes) / SUM(total_interacoes)) * 100",
+      "owner": "diretoria.pedagogica@ficdevia.edu.br",
+      "tags": [
+        "Tier.Tier1_Critical"
+      ],
+      "associatedEntities": [
+        "pg_desafio2_service.desafio2.gold.engajamento_conteudo.quantidade_conclusoes",
+        "pg_desafio2_service.desafio2.gold.vw_resumo_categoria.taxa_conclusao_geral"
+      ]
+    },
+    {
+      "name": "ConversaoRecomendacao",
+      "displayName": "Conversão de Recomendação",
+      "description": "Proporção de sugestões emitidas pelo motor de IA que resultaram em consumo efetivo pelo estudante.",
+      "synonyms": [
+        "Recommendation Conversion",
+        "Aproveitamento do Algoritmo"
+      ],
+      "calculationRule": "(COUNT(DISTINCT recomendacoes_consumidas) / COUNT(DISTINCT recomendacoes_ativas)) * 100",
+      "owner": "ia.recomendacao@ficdevia.edu.br",
+      "tags": [
+        "Tier.Tier2_Standard"
+      ],
+      "associatedEntities": [
+        "pg_desafio2_service.desafio2.silver.recomendacoes.status"
+      ]
+    },
+    {
+      "name": "TempoMedioEngajamento",
+      "displayName": "Tempo Médio de Engajamento por Conteúdo",
+      "description": "Duração média em minutos dedicada por sessão de estudo de um título educacional.",
+      "synonyms": [
+        "Average Engagement Time",
+        "Tempo Médio de Sessão"
+      ],
+      "calculationRule": "SUM(tempo_total_segundos) / (SUM(total_interacoes) * 60)",
+      "owner": "design.instrucional@ficdevia.edu.br",
+      "tags": [
+        "Tier.Tier1_Critical"
+      ],
+      "associatedEntities": [
+        "pg_desafio2_service.desafio2.gold.engajamento_conteudo.tempo_total_segundos"
+      ]
+    }
+  ],
+  "classifications": [
+    {
+      "name": "PII",
+      "description": "Classificação de Dados Pessoais e Privacidade sob LGPD",
+      "tags": [
+        "Identifiable",
+        "Pseudonymized",
+        "NonPII"
+      ]
+    },
+    {
+      "name": "Tier",
+      "description": "Nível de criticidade operacional e analítica do ativo",
+      "tags": [
+        "Tier1_Critical",
+        "Tier2_Standard",
+        "Tier3_Auxiliary"
+      ]
+    }
+  ]
+}
