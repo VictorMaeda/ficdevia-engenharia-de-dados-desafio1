@@ -19,10 +19,10 @@ DEFAULT_PARQUET_PATTERN = str(
 )
 
 DB_HOST = os.getenv("POSTGRES_HOST", "localhost")
-DB_PORT = os.getenv("POSTGRES_PORT", "5433")
-DB_NAME = os.getenv("POSTGRES_DB", "desafio2")
-DB_USER = os.getenv("POSTGRES_USER", "postgres")
-DB_PASSWORD = os.getenv("POSTGRES_PASSWORD")
+DB_PORT = os.getenv("POSTGRES_PORT", "5432")
+DB_NAME = os.getenv("POSTGRES_DB", "desafio_dados")
+DB_USER = os.getenv("POSTGRES_USER", "desafio_user")
+DB_PASSWORD = os.getenv("POSTGRES_PASSWORD", "troque_esta_senha")
 
 
 SQL_CATALOGO = """
