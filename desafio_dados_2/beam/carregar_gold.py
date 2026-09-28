@@ -37,7 +37,7 @@ WHERE conteudo_id IS NOT NULL
 """
 
 
-SQL_INSERT = """
+SQL_INSERT_ENGAJAMENTO = """
 INSERT INTO gold.engajamento_conteudo (
     conteudo_id,
     titulo,
@@ -63,11 +63,81 @@ VALUES (
 """
 
 
+SQL_INSERT_MENSAL = """
+INSERT INTO gold.engajamento_conteudo_mensal (
+    mes_referencia,
+    conteudo_id,
+    titulo,
+    tipo,
+    categoria,
+    nivel,
+    total_interacoes,
+    tempo_total_segundos,
+    media_percentual_conclusao,
+    quantidade_conclusoes
+)
+SELECT
+    DATE_TRUNC(
+        'month',
+        i.data_hora
+    )::date AS mes_referencia,
+
+    i.conteudo_id::int,
+
+    c.titulo,
+    c.tipo,
+    c.categoria,
+    c.nivel,
+
+    COUNT(*)::bigint
+        AS total_interacoes,
+
+    SUM(
+        COALESCE(
+            i.tempo_consumido,
+            0
+        )
+    )::bigint
+        AS tempo_total_segundos,
+
+    ROUND(
+        AVG(
+            i.percentual_conclusao
+        ),
+        2
+    ) AS media_percentual_conclusao,
+
+    COUNT(*) FILTER (
+        WHERE LOWER(
+            TRIM(i.tipo_interacao)
+        ) = 'conclusão'
+    )::bigint
+        AS quantidade_conclusoes
+
+FROM silver.interacoes i
+
+INNER JOIN silver.catalogo c
+    ON c.conteudo_id = i.conteudo_id
+
+GROUP BY
+    DATE_TRUNC(
+        'month',
+        i.data_hora
+    )::date,
+    i.conteudo_id,
+    c.titulo,
+    c.tipo,
+    c.categoria,
+    c.nivel
+"""
+
+
 def obter_argumentos():
     parser = argparse.ArgumentParser(
         description=(
             "Carrega na camada Gold a agregacao "
-            "produzida pelo Apache Beam."
+            "produzida pelo Apache Beam e a "
+            "agregacao mensal derivada da Silver."
         )
     )
 
@@ -104,13 +174,20 @@ def main():
         )
 
     print("=== CARGA DA CAMADA GOLD ===")
+
     print(
-        f"Padrao de entrada: {argumentos.input}"
+        f"Padrao de entrada: "
+        f"{argumentos.input}"
     )
+
     print(
         f"Arquivos Parquet encontrados: "
         f"{len(arquivos)}"
     )
+
+    # ---------------------------------------------------------
+    # LEITURA DA AGREGACAO PRODUZIDA PELO BEAM
+    # ---------------------------------------------------------
 
     tabela = pq.read_table(arquivos)
     df_beam = tabela.to_pandas()
@@ -137,6 +214,18 @@ def main():
             f"duplicado: {duplicados}"
         )
 
+    total_interacoes_beam = int(
+        df_beam[
+            "total_interacoes"
+        ].sum()
+    )
+
+    total_conclusoes_beam = int(
+        df_beam[
+            "quantidade_conclusoes"
+        ].sum()
+    )
+
     print(
         f"Linhas agregadas no Beam: "
         f"{len(df_beam)}"
@@ -144,12 +233,17 @@ def main():
 
     print(
         "Interacoes representadas:",
-        int(
-            df_beam[
-                "total_interacoes"
-            ].sum()
-        ),
+        total_interacoes_beam,
     )
+
+    print(
+        "Conclusoes representadas:",
+        total_conclusoes_beam,
+    )
+
+    # ---------------------------------------------------------
+    # TRANSACAO GOLD
+    # ---------------------------------------------------------
 
     with psycopg.connect(
         host=DB_HOST,
@@ -158,7 +252,13 @@ def main():
         user=DB_USER,
         password=DB_PASSWORD,
     ) as conn:
+
         with conn.cursor() as cursor:
+
+            # -------------------------------------------------
+            # CATALOGO SILVER
+            # -------------------------------------------------
+
             cursor.execute(SQL_CATALOGO)
 
             catalogo = {
@@ -173,6 +273,10 @@ def main():
 
             registros_gold = []
             conteudos_sem_catalogo = []
+
+            # -------------------------------------------------
+            # PREPARA GOLD CONSOLIDADA
+            # -------------------------------------------------
 
             for _, row in df_beam.iterrows():
                 conteudo_id = int(
@@ -239,31 +343,125 @@ def main():
                     f"{conteudos_sem_catalogo}"
                 )
 
-            # A operacao ocorre dentro da mesma
-            # transacao. Se o INSERT falhar,
-            # o TRUNCATE tambem sera revertido.
+            # -------------------------------------------------
+            # CARGA COMPLETA E ATOMICA
+            # -------------------------------------------------
+
             cursor.execute(
                 """
                 TRUNCATE TABLE
-                    gold.engajamento_conteudo
+                    gold.engajamento_conteudo,
+                    gold.engajamento_conteudo_mensal
                 """
             )
 
             cursor.executemany(
-                SQL_INSERT,
+                SQL_INSERT_ENGAJAMENTO,
                 registros_gold,
             )
 
+            cursor.execute(
+                SQL_INSERT_MENSAL
+            )
+
+            # -------------------------------------------------
+            # VALIDACAO DA GOLD MENSAL
+            # -------------------------------------------------
+
+            cursor.execute(
+                """
+                SELECT
+                    COUNT(*),
+                    COUNT(
+                        DISTINCT mes_referencia
+                    ),
+                    SUM(total_interacoes),
+                    SUM(quantidade_conclusoes)
+                FROM
+                    gold.engajamento_conteudo_mensal
+                """
+            )
+
+            (
+                registros_mensais,
+                meses,
+                interacoes_mensais,
+                conclusoes_mensais,
+            ) = cursor.fetchone()
+
+            interacoes_mensais = int(
+                interacoes_mensais or 0
+            )
+
+            conclusoes_mensais = int(
+                conclusoes_mensais or 0
+            )
+
+            # A soma mensal deve representar
+            # exatamente o mesmo universo do Beam.
+            if (
+                interacoes_mensais
+                != total_interacoes_beam
+            ):
+                raise RuntimeError(
+                    "Divergencia entre Beam e "
+                    "Gold mensal. "
+                    "Interacoes Beam: "
+                    f"{total_interacoes_beam}; "
+                    "interacoes mensais: "
+                    f"{interacoes_mensais}."
+                )
+
+            if (
+                conclusoes_mensais
+                != total_conclusoes_beam
+            ):
+                raise RuntimeError(
+                    "Divergencia entre Beam e "
+                    "Gold mensal. "
+                    "Conclusoes Beam: "
+                    f"{total_conclusoes_beam}; "
+                    "conclusoes mensais: "
+                    f"{conclusoes_mensais}."
+                )
+
+        # O commit acontece somente depois
+        # de todas as validacoes.
         conn.commit()
 
+    # ---------------------------------------------------------
+    # RESULTADO
+    # ---------------------------------------------------------
+
     print()
+
     print(
         "Carga Gold concluida com sucesso."
     )
 
     print(
-        f"Registros gravados: "
-        f"{len(registros_gold)}"
+        "Gold consolidada - registros:",
+        len(registros_gold),
+    )
+
+    print(
+        "Gold mensal - registros:",
+        registros_mensais,
+    )
+
+    print(
+        "Gold mensal - meses:",
+        meses,
+    )
+
+    print(
+        "Gold mensal - interacoes:",
+        interacoes_mensais,
+    )
+
+    print(
+        "Gold mensal - conclusoes:",
+        conclusoes_mensais,
     )
 
 

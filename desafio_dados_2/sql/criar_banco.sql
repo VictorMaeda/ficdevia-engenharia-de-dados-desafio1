@@ -273,6 +273,139 @@ SELECT
 FROM gold.engajamento_conteudo;
 
 -- ============================================================
+-- GOLD - ENGAJAMENTO MENSAL POR CONTEUDO
+-- ============================================================
+--
+-- Granularidade:
+--   1 linha = 1 conteudo_id em 1 mes
+--
+-- Objetivo:
+--   permitir analise temporal do consumo dos conteudos,
+--   comparacao entre meses e construcao de series temporais
+--   no Superset.
+--
+-- Dimensoes:
+--   mes_referencia
+--   conteudo_id
+--   titulo
+--   tipo
+--   categoria
+--   nivel
+--
+-- Medidas:
+--   total_interacoes
+--   tempo_total_segundos
+--   media_percentual_conclusao
+--   quantidade_conclusoes
+-- ============================================================
+
+CREATE TABLE IF NOT EXISTS gold.engajamento_conteudo_mensal (
+    mes_referencia date NOT NULL,
+
+    conteudo_id int4 NOT NULL,
+    titulo text NOT NULL,
+    tipo text NULL,
+    categoria text NULL,
+    nivel text NULL,
+
+    total_interacoes int8 NOT NULL,
+    tempo_total_segundos int8 NOT NULL,
+    media_percentual_conclusao numeric(7, 2) NULL,
+    quantidade_conclusoes int8 NOT NULL,
+
+    data_carga timestamp DEFAULT now() NOT NULL,
+
+    CONSTRAINT engajamento_conteudo_mensal_pkey
+        PRIMARY KEY (
+            mes_referencia,
+            conteudo_id
+        )
+);
+
+
+-- ============================================================
+-- GOLD - CONTEUDOS QUE MERECEM ATENCAO
+-- ============================================================
+--
+-- Pergunta de negocio:
+-- Quais conteudos recebem engajamento acima da media,
+-- mas apresentam conclusao abaixo da media geral?
+--
+-- Interpretacao:
+-- Sao conteudos que conseguem atrair usuarios, mas cujo
+-- consumo/conclusao apresenta desempenho inferior ao
+-- comportamento medio da plataforma.
+--
+-- O criterio utiliza medias calculadas dinamicamente,
+-- evitando limites arbitrarios fixos.
+-- ============================================================
+
+CREATE OR REPLACE VIEW gold.vw_conteudos_atencao AS
+WITH referencia AS (
+    SELECT
+        AVG(total_interacoes)::numeric
+            AS media_interacoes_geral,
+
+        AVG(media_percentual_conclusao)::numeric
+            AS media_conclusao_geral
+
+    FROM gold.engajamento_conteudo
+
+    WHERE media_percentual_conclusao IS NOT NULL
+)
+SELECT
+    e.conteudo_id,
+    e.titulo,
+    e.tipo,
+    e.categoria,
+    e.nivel,
+
+    e.total_interacoes,
+    e.tempo_total_segundos,
+    e.media_percentual_conclusao,
+    e.quantidade_conclusoes,
+
+    ROUND(
+        100.0
+        * e.quantidade_conclusoes
+        / NULLIF(e.total_interacoes, 0),
+        2
+    ) AS taxa_conclusao_interacoes,
+
+    ROUND(
+        r.media_interacoes_geral,
+        2
+    ) AS media_interacoes_geral,
+
+    ROUND(
+        r.media_conclusao_geral,
+        2
+    ) AS media_conclusao_geral,
+
+    ROUND(
+        e.total_interacoes
+        - r.media_interacoes_geral,
+        2
+    ) AS diferenca_interacoes_media,
+
+    ROUND(
+        e.media_percentual_conclusao
+        - r.media_conclusao_geral,
+        2
+    ) AS diferenca_conclusao_media
+
+FROM gold.engajamento_conteudo e
+
+CROSS JOIN referencia r
+
+WHERE
+    e.total_interacoes
+        >= r.media_interacoes_geral
+
+    AND e.media_percentual_conclusao
+        < r.media_conclusao_geral;
+
+-- ============================================================
 -- QUALIDADE DE DADOS
 -- RF31
 -- ============================================================
