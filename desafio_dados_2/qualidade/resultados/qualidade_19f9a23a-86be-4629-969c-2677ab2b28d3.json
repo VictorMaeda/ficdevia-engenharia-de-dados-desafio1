@@ -1,0 +1,78 @@
+{
+  "execucao_qualidade_id": "19f9a23a-86be-4629-969c-2677ab2b28d3",
+  "execucao_dados_id": "1",
+  "data_execucao": "2026-09-27T20:25:22",
+  "status_geral": "SUCESSO",
+  "resultados": [
+    {
+      "codigo": "Q01_COMPLETUDE",
+      "nome": "Completude dos campos obrigatórios de interações",
+      "dimensao": "completude",
+      "fonte": "silver.interacoes",
+      "formula": "(registros válidos / total de registros) * 100",
+      "limite": 100.0,
+      "severidade": "CRITICA",
+      "acao": "Bloquear publicação da Gold e revisar a etapa Silver/quarentena.",
+      "total_registros": 1001,
+      "registros_invalidos": 0,
+      "valor_metrica": 100.0,
+      "status": "APROVADO"
+    },
+    {
+      "codigo": "Q02_VALIDADE_PERCENTUAL",
+      "nome": "Validade do percentual de conclusão",
+      "dimensao": "validade",
+      "fonte": "silver.interacoes",
+      "formula": "(registros com percentual entre 0 e 100 / total de registros) * 100",
+      "limite": 100.0,
+      "severidade": "ALTA",
+      "acao": "Registrar ocorrência e revisar a regra de validação da Silver antes da próxima publicação.",
+      "total_registros": 1001,
+      "registros_invalidos": 0,
+      "valor_metrica": 100.0,
+      "status": "APROVADO"
+    },
+    {
+      "codigo": "Q03_UNICIDADE_CATALOGO",
+      "nome": "Unicidade da chave de conteúdo no catálogo",
+      "dimensao": "unicidade",
+      "fonte": "silver.catalogo",
+      "formula": "(conteúdos únicos / total de registros) * 100",
+      "limite": 100.0,
+      "severidade": "CRITICA",
+      "acao": "Bloquear publicação da Gold e revisar deduplicação do catálogo.",
+      "total_registros": 1003,
+      "registros_invalidos": 0,
+      "valor_metrica": 100.0,
+      "status": "APROVADO"
+    },
+    {
+      "codigo": "Q04_CONSISTENCIA_CONCLUSAO",
+      "nome": "Consistência entre conclusão e percentual",
+      "dimensao": "consistencia",
+      "fonte": "silver.interacoes",
+      "formula": "(registros consistentes / total de registros) * 100",
+      "limite": 100.0,
+      "severidade": "MEDIA",
+      "acao": "Registrar ressalva e investigar interações de conclusão com percentual diferente de 100.",
+      "total_registros": 1001,
+      "registros_invalidos": 0,
+      "valor_metrica": 100.0,
+      "status": "APROVADO"
+    },
+    {
+      "codigo": "Q05_INTEGRIDADE_REFERENCIAL",
+      "nome": "Integridade referencial das interações com o catálogo",
+      "dimensao": "integridade_referencial",
+      "fonte": "silver.interacoes -> silver.catalogo",
+      "formula": "(interações com conteúdo existente / total de interações) * 100",
+      "limite": 100.0,
+      "severidade": "CRITICA",
+      "acao": "Bloquear publicação da Gold e encaminhar registros órfãos para investigação/quarentena.",
+      "total_registros": 1001,
+      "registros_invalidos": 0,
+      "valor_metrica": 100.0,
+      "status": "APROVADO"
+    }
+  ]
+}

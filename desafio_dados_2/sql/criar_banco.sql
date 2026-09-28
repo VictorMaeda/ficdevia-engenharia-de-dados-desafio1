@@ -271,3 +271,75 @@ SELECT
     ) AS ranking_interacoes
 
 FROM gold.engajamento_conteudo;
+
+-- ============================================================
+-- QUALIDADE DE DADOS
+-- RF31
+-- ============================================================
+
+CREATE SCHEMA IF NOT EXISTS qualidade;
+
+
+-- ------------------------------------------------------------
+-- Historico dos testes de qualidade
+--
+-- Uma linha representa o resultado de um teste de qualidade
+-- em uma determinada execucao e fonte.
+-- ------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS qualidade.resultados (
+    id bigserial PRIMARY KEY,
+
+    execucao_qualidade_id varchar(36) NOT NULL,
+    execucao_dados_id text NULL,
+
+    fonte text NOT NULL,
+    teste_codigo varchar(50) NOT NULL,
+    teste_nome text NOT NULL,
+    dimensao varchar(30) NOT NULL,
+
+    formula text NOT NULL,
+    limite_aceitavel numeric(7, 3) NOT NULL,
+    severidade varchar(20) NOT NULL,
+    acao text NOT NULL,
+
+    total_registros int8 NOT NULL,
+    registros_invalidos int8 NOT NULL,
+    valor_metrica numeric(7, 3) NOT NULL,
+
+    status varchar(20) NOT NULL,
+
+    data_execucao timestamp DEFAULT now() NOT NULL
+);
+
+
+-- ------------------------------------------------------------
+-- Evolucao das metricas de qualidade
+--
+-- Q01 = completude dos dados de interacao
+-- Q05 = integridade referencial com o catalogo
+--
+-- Estas duas metricas serao utilizadas para demonstrar
+-- a evolucao historica exigida pelo RF31.
+-- ------------------------------------------------------------
+
+CREATE OR REPLACE VIEW qualidade.vw_evolucao_metricas AS
+SELECT
+    data_execucao,
+    execucao_qualidade_id,
+    execucao_dados_id,
+    fonte,
+    teste_codigo,
+    teste_nome,
+    dimensao,
+    valor_metrica,
+    limite_aceitavel,
+    status
+FROM qualidade.resultados
+WHERE teste_codigo IN (
+    'Q01_COMPLETUDE',
+    'Q05_INTEGRIDADE_REFERENCIAL'
+)
+ORDER BY
+    data_execucao,
+    teste_codigo;
