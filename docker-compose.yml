@@ -102,6 +102,7 @@ services:
 
     volumes:
       - superset_home:/app/superset_home
+      - ./superset/superset_config.py:/app/pythonpath/superset_config.py:ro
 
 
 volumes:

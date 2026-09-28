@@ -30,3 +30,12 @@ SQLALCHEMY_DATABASE_URI = (
 
 
 SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+# Habilita recursos do Desafio 2 e desativa persistência com erro de tab_state
+FEATURE_FLAGS = {
+    "SQLLAB_BACKEND_PERSISTENCE": False,
+    "DASHBOARD_CROSS_FILTERS": True,
+    "ALERT_REPORTS": True,
+}
+
+ENABLE_TEMPLATE_PROCESSING = True

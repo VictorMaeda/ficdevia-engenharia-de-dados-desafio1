@@ -22,13 +22,13 @@
       "value" : "localhost"
     }, {
       "name" : "DB_PORT",
-      "value" : "5433"
+      "value" : "5432"
     }, {
       "name" : "DB_NAME",
-      "value" : "desafio2"
+      "value" : "desafio_dados"
     }, {
       "name" : "DB_USER",
-      "value" : "postgres"
+      "value" : "desafio_user"
     } ]
   }
 }

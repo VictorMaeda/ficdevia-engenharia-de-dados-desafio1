@@ -1,6 +1,6 @@
-﻿services:
+services:
   postgres:
-    image: postgres:18
+    image: postgres:16
     container_name: desafio2-postgres
     restart: unless-stopped
 
