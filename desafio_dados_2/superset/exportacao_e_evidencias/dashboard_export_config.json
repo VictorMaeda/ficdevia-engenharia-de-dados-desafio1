@@ -1,0 +1,81 @@
+{
+  "dashboard_title": "Dashboard Executivo - Engajamento e Desempenho Educacional",
+  "description": "Painel gerencial governado com filtros cruzados, análise temporal e monitoramento de abandono escolar",
+  "css": "",
+  "slug": "dashboard-engajamento-educacional-desafio2",
+  "certified_by": "Equipe de Engenharia de Dados FIC DEV IA",
+  "certification_details": "Auditado a partir da Camada Gold com testes de qualidade e linhagem no OpenMetadata",
+  "cross_filters_enabled": true,
+  "default_filters": "{\"categoria\": [\"Inteligência Artificial\", \"Data & Analytics\"]}",
+  "datasets": [
+    {
+      "table_name": "ds_virtual_desempenho_engajamento_conteudos",
+      "schema": "gold",
+      "is_virtual": true,
+      "sql": "SELECT g.conteudo_id, g.titulo, g.tipo, g.categoria, g.nivel, c.autor, c.data_publicacao, g.total_interacoes, g.tempo_total_segundos, ROUND(g.tempo_total_segundos / 60.0, 2) AS tempo_total_minutos, ROUND(g.tempo_total_segundos / NULLIF(g.total_interacoes, 0) / 60.0, 2) AS tempo_medio_por_interacao_min, g.media_percentual_conclusao, g.quantidade_conclusoes, ROUND(100.0 * g.quantidade_conclusoes / NULLIF(g.total_interacoes, 0), 2) AS taxa_conclusao_pct, CASE WHEN g.total_interacoes >= 30 AND (100.0 * g.quantidade_conclusoes / NULLIF(g.total_interacoes, 0)) < 25.0 THEN 'Crítico: Alta Atração / Baixa Retenção' WHEN (100.0 * g.quantidade_conclusoes / NULLIF(g.total_interacoes, 0)) >= 60.0 THEN 'Excelente: Alta Retenção' ELSE 'Satisfatório / Moderado' END AS status_retencao_pedagogica FROM gold.engajamento_conteudo g LEFT JOIN silver.catalogo c ON c.conteudo_id = g.conteudo_id;"
+    },
+    {
+      "table_name": "ds_virtual_evolucao_temporal_eficiencia",
+      "schema": "gold",
+      "is_virtual": true,
+      "sql": "SELECT DATE_TRUNC('month', m.mes_referencia)::DATE AS mes_referencia, TO_CHAR(m.mes_referencia, 'YYYY-MM') AS ano_mes_rotulo, m.categoria, COUNT(DISTINCT m.conteudo_id) AS qtd_conteudos_ativos, SUM(m.total_interacoes) AS total_interacoes_mes, SUM(m.quantidade_conclusoes) AS total_conclusoes_mes, ROUND(SUM(m.tempo_total_segundos) / 3600.0, 2) AS total_horas_estudo_mes, ROUND(AVG(m.media_percentual_conclusao), 2) AS media_percentual_conclusao_mes, ROUND(100.0 * SUM(m.quantidade_conclusoes) / NULLIF(SUM(m.total_interacoes), 0), 2) AS taxa_conclusao_mensal_pct FROM gold.engajamento_conteudo_mensal m GROUP BY DATE_TRUNC('month', m.mes_referencia)::DATE, TO_CHAR(m.mes_referencia, 'YYYY-MM'), m.categoria ORDER BY mes_referencia ASC, m.categoria ASC;"
+    },
+    {
+      "table_name": "vw_resumo_categoria",
+      "schema": "gold",
+      "is_virtual": false
+    },
+    {
+      "table_name": "vw_conteudos_atencao",
+      "schema": "gold",
+      "is_virtual": false
+    }
+  ],
+  "charts": [
+    {
+      "slice_name": "Volume de Interações e Taxa de Conclusão por Categoria",
+      "viz_type": "mixed_timeseries",
+      "datasource": "vw_resumo_categoria",
+      "params": {
+        "x_axis": "categoria",
+        "metrics": ["SUM(total_interacoes)", "AVG(taxa_conclusao_geral)"],
+        "emit_cross_filters": true
+      }
+    },
+    {
+      "slice_name": "Conteúdos Críticos com Risco de Evasão",
+      "viz_type": "table",
+      "datasource": "vw_conteudos_atencao",
+      "params": {
+        "all_columns": ["conteudo_id", "titulo", "categoria", "nivel", "total_interacoes", "taxa_conclusao_interacoes", "diferenca_conclusao_media"],
+        "order_by_cols": ["[\"diferenca_conclusao_media\", true]"]
+      }
+    },
+    {
+      "slice_name": "Evolução Mensal de Conclusões e Horas de Estudo",
+      "viz_type": "echarts_timeseries_line",
+      "datasource": "ds_virtual_evolucao_temporal_eficiencia",
+      "params": {
+        "x_axis": "mes_referencia",
+        "metrics": ["SUM(total_conclusoes_mes)", "SUM(total_horas_estudo_mes)"],
+        "groupby": ["categoria"]
+      }
+    }
+  ],
+  "alerts_reports": [
+    {
+      "name": "[ALERTA-CRITICO] Conteúdos com Evasão Severa",
+      "type": "alert",
+      "crontab": "0 8 * * 1",
+      "recipients": [
+        {
+          "type": "email",
+          "recipient_config_json": "{\"target\": \"coordenacao.pedagogica@ficdevia.edu.br\"}"
+        }
+      ],
+      "sql": "SELECT COUNT(*) FROM gold.vw_conteudos_atencao WHERE total_interacoes >= 30 AND taxa_conclusao_interacoes < 25.0;",
+      "validator_type": "operator",
+      "validator_config_json": "{\"op\": \">=\", \"threshold\": 1}"
+    }
+  ]
+}
