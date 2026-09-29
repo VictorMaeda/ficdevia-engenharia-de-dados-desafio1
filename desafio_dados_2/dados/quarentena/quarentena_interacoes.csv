@@ -4,3 +4,11 @@ registro_id,origem,regra_violada,data_erro,mensagem_erro,execucao_id
 3,api_streaming_interacoes,FALHA_CONEXAO_TIMEOUT,2026-09-28 23:14:10.235398,Falha de conexão com a fonte: Connection timeout (30000ms) ao consultar serviço upstream de eventos,EXEC_20260928_231409_6797dc
 6,bronze.interacoes,"duplicata por (usuario_id, conteudo_id, data_hora)",2026-09-28 23:18:46.802024,,SILVER_EXEC_20260928_231846_3d021e
 7,bronze.interacoes,"percentual_conclusao fora da faixa [0,100]: 250.0",2026-09-28 23:18:46.802024,,SILVER_EXEC_20260928_231846_3d021e
+11,bronze.interacoes,"duplicata por (usuario_id, conteudo_id, data_hora)",2026-09-29 02:33:23.877026,,SILVER_EXEC_20260929_023323_eba2e4
+12,bronze.interacoes,"percentual_conclusao fora da faixa [0,100]: 250.0",2026-09-29 02:33:23.877026,,SILVER_EXEC_20260929_023323_eba2e4
+16,bronze.interacoes,"duplicata por (usuario_id, conteudo_id, data_hora)",2026-09-29 02:34:29.101969,,SILVER_EXEC_20260929_023428_8d54fe
+17,bronze.interacoes,"percentual_conclusao fora da faixa [0,100]: 250.0",2026-09-29 02:34:29.101969,,SILVER_EXEC_20260929_023428_8d54fe
+18,bronze.interacoes,conteudo_id 999999 não existe no catálogo (falha de integridade referencial),2026-09-29 02:34:29.101969,,SILVER_EXEC_20260929_023428_8d54fe
+22,bronze.interacoes,"duplicata por (usuario_id, conteudo_id, data_hora)",2026-09-29 02:42:03.121988,,SILVER_EXEC_20260929_024203_4186b5
+23,bronze.interacoes,"percentual_conclusao fora da faixa [0,100]: 250.0",2026-09-29 02:42:03.121988,,SILVER_EXEC_20260929_024203_4186b5
+24,bronze.interacoes,conteudo_id 999999 não existe no catálogo (falha de integridade referencial),2026-09-29 02:42:03.121988,,SILVER_EXEC_20260929_024203_4186b5

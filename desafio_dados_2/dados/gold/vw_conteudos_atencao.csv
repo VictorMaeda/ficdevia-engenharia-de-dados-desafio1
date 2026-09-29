@@ -1,51 +1,51 @@
 conteudo_id,titulo,tipo,categoria,nivel,total_interacoes,tempo_total_segundos,media_percentual_conclusao,quantidade_conclusoes,taxa_conclusao_interacoes,media_interacoes_geral,media_conclusao_geral,diferenca_interacoes_media,diferenca_conclusao_media
-192,Especialização em Data Lakehouse e Armazenamento Delta Lake com Projetos Práticos,Curso,Engenharia de Dados,Básico,3,800,42.20,0,0.00,1.60,54.08,1.40,-11.88
-550,Como Implementar Arquitetura RAG e Recuperação Semântica Passo a Passo,Vídeo,Inteligência Artificial,Básico,3,59,51.93,0,0.00,1.60,54.08,1.40,-2.15
-295,Análise Comparativa e Padrões Recomendados em Métricas de Avaliação de Modelos Preditivos,Artigo,Ciência de Dados,Avançado,2,2,7.00,0,0.00,1.60,54.08,0.40,-47.08
-78,Melhores Práticas e Arquitetura de Clusterização e Segmentação de Perfis,Vídeo,Ciência de Dados,Avançado,2,90,41.30,0,0.00,1.60,54.08,0.40,-12.78
-59,Princípios Essenciais e Arquitetura de Auditoria e Monitoramento de Logs de Acesso,Artigo,Segurança & Governança,Intermediário,3,38,42.93,0,0.00,1.60,54.08,1.40,-11.15
+383,Curso Completo de Processamento Distribuído com Apache Spark: Da Teoria à Prática,Curso,Engenharia de Dados,Básico,3,755,39.87,1,33.33,1.60,54.08,1.40,-14.21
 829,Guia Rápido e Hands-on: Armazenamento de Documentos com MongoDB,Vídeo,Banco de Dados,Intermediário,3,40,29.93,0,0.00,1.60,54.08,1.40,-24.15
-584,Guia Definitivo e Boas Práticas sobre Linhagem de Dados e Rastreabilidade de Origem,Artigo,Segurança & Governança,Intermediário,2,14,28.10,0,0.00,1.60,54.08,0.40,-25.98
-588,Análise Comparativa e Padrões Recomendados em Adequação à LGPD e Proteção de Dados Pessoais,Artigo,Segurança & Governança,Básico,2,3,28.65,0,0.00,1.60,54.08,0.40,-25.43
-66,Melhores Práticas e Arquitetura de Escalabilidade e Gestão de Custos em Cloud,Vídeo,DevOps & Cloud,Avançado,2,70,33.75,0,0.00,1.60,54.08,0.40,-20.33
-592,Formação Prática em Escalabilidade e Gestão de Custos em Cloud: Fundamentos e Aplicação,Curso,DevOps & Cloud,Básico,2,127,12.10,0,0.00,1.60,54.08,0.40,-41.98
-147,Estudo Técnico e Decisões de Arquitetura em Tipagem Estática e Boas Práticas com Mypy,Artigo,Programação & Software,Intermediário,2,3,12.15,0,0.00,1.60,54.08,0.40,-41.93
-229,Arquitetura & Código Ep. 79: Inovações em Storytelling com Dados para Apresentações Executivas,Podcast,Business Intelligence,Intermediário,3,18,21.30,0,0.00,1.60,54.08,1.40,-32.78
-278,"Arquitetura & Código Ep. 129: Inovações em Ingestão Eficiente de CSV, JSON e Parquet",Podcast,Engenharia de Dados,Avançado,3,79,39.97,0,0.00,1.60,54.08,1.40,-14.11
-680,Masterclass de Modelos de Linguagem de Larga Escala (LLMs) para Projetos Reais,Curso,Inteligência Artificial,Intermediário,2,1263,52.35,0,0.00,1.60,54.08,0.40,-1.73
-671,Papo de Dados Ep. 5: Desvendando Técnicas de Anonimização e Pseudonimização,Podcast,Segurança & Governança,Avançado,2,33,45.65,0,0.00,1.60,54.08,0.40,-8.43
 534,Guia Definitivo e Boas Práticas sobre Design de Dashboards e Eliminação de Chartjunk,Artigo,Business Intelligence,Avançado,4,44,37.65,0,0.00,1.60,54.08,2.40,-16.43
-558,Estudo Técnico e Decisões de Arquitetura em Design de Dashboards e Eliminação de Chartjunk,Artigo,Business Intelligence,Básico,2,11,31.55,0,0.00,1.60,54.08,0.40,-22.53
-754,Formação Prática em Engenharia de Recursos e Pré-processamento: Fundamentos e Aplicação,Curso,Ciência de Dados,Intermediário,2,487,22.40,0,0.00,1.60,54.08,0.40,-31.68
-753,Estudo Técnico e Decisões de Arquitetura em Replicação e Tolerância a Falhas no PostgreSQL,Artigo,Banco de Dados,Avançado,3,15,45.13,1,33.33,1.60,54.08,1.40,-8.95
-239,Tech Talk Ep. 29: Melhores Práticas em Modelagem e Agregações Analíticas no SQL Lab,Podcast,Business Intelligence,Básico,2,66,41.75,0,0.00,1.60,54.08,0.40,-12.33
-644,Análise Prática e Demonstração de Técnicas de Anonimização e Pseudonimização,Vídeo,Segurança & Governança,Intermediário,2,70,50.20,0,0.00,1.60,54.08,0.40,-3.88
-231,"Data Insights Ep. 100: Experiências Reais com Python Avançado: POO, Decorators e Geradores",Podcast,Programação & Software,Intermediário,2,20,11.70,0,0.00,1.60,54.08,0.40,-42.38
-888,Como Obter Alta Performance Utilizando Catálogo de Dados Corporativo e Glossário,Artigo,Segurança & Governança,Básico,2,8,51.05,1,50.00,1.60,54.08,0.40,-3.03
-531,Princípios Essenciais e Arquitetura de Transações ACID e Controle de Concorrência,Artigo,Banco de Dados,Intermediário,2,16,35.10,0,0.00,1.60,54.08,0.40,-18.98
-206,Masterclass de Fundamentos de Deep Learning com PyTorch para Projetos Reais,Curso,Inteligência Artificial,Básico,5,776,43.00,0,0.00,1.60,54.08,3.40,-11.08
-431,Formação Prática em Arquitetura RAG e Recuperação Semântica: Fundamentos e Aplicação,Curso,Inteligência Artificial,Básico,2,533,50.70,0,0.00,1.60,54.08,0.40,-3.38
-95,Construindo Aplicações Robustas com Refatoração de Código e Padrões PEP 8,Curso,Programação & Software,Intermediário,3,870,25.17,0,0.00,1.60,54.08,1.40,-28.91
-565,Curso Completo de Gestão de Metadados e Qualidade de Dados Mestres: Da Teoria à Prática,Curso,Segurança & Governança,Intermediário,2,854,35.90,0,0.00,1.60,54.08,0.40,-18.18
+723,Construindo Aplicações Robustas com Testes Automatizados e TDD com Pytest,Curso,Programação & Software,Intermediário,2,758,47.15,0,0.00,1.60,54.08,0.40,-6.93
+295,Análise Comparativa e Padrões Recomendados em Métricas de Avaliação de Modelos Preditivos,Artigo,Ciência de Dados,Avançado,2,2,7.00,0,0.00,1.60,54.08,0.40,-47.08
+185,"Papo de Dados Ep. 15: Desvendando Ingestão Eficiente de CSV, JSON e Parquet",Podcast,Engenharia de Dados,Básico,2,24,45.15,0,0.00,1.60,54.08,0.40,-8.93
+868,Curso Completo de Análise Exploratória de Dados com Pandas: Da Teoria à Prática,Curso,Ciência de Dados,Avançado,4,3316,52.25,1,25.00,1.60,54.08,2.40,-1.83
+553,Guia Rápido e Hands-on: Pipelines e Transformações com Apache Hop,Vídeo,Engenharia de Dados,Básico,3,24,46.13,1,33.33,1.60,54.08,1.40,-7.95
+313,Curso Completo de Modelagem e Agregações Analíticas no SQL Lab: Da Teoria à Prática,Curso,Business Intelligence,Básico,3,228,26.90,0,0.00,1.60,54.08,1.40,-27.18
+780,Curso Completo de Armazenamento de Documentos com MongoDB: Da Teoria à Prática,Curso,Banco de Dados,Básico,2,238,33.50,0,0.00,1.60,54.08,0.40,-20.58
+584,Guia Definitivo e Boas Práticas sobre Linhagem de Dados e Rastreabilidade de Origem,Artigo,Segurança & Governança,Intermediário,2,14,28.10,0,0.00,1.60,54.08,0.40,-25.98
+173,Como Implementar Modelagem e Agregações Analíticas no SQL Lab Passo a Passo,Vídeo,Business Intelligence,Intermediário,4,66,53.10,0,0.00,1.60,54.08,2.40,-0.98
 243,Especialização em Particionamento e Alta Disponibilidade em Bancos com Projetos Práticos,Curso,Banco de Dados,Avançado,2,324,5.60,0,0.00,1.60,54.08,0.40,-48.48
-434,Guia Definitivo e Boas Práticas sobre Refatoração de Código e Padrões PEP 8,Artigo,Programação & Software,Avançado,2,2,8.70,0,0.00,1.60,54.08,0.40,-45.38
-653,Deep Dive Ep. 110: Casos de Sucesso em Embeddings Vetoriais e Representação Semântica,Podcast,Inteligência Artificial,Básico,2,37,52.20,0,0.00,1.60,54.08,0.40,-1.88
-458,Masterclass de Busca Vetorial com pgvector e Índices HNSW para Projetos Reais,Curso,Banco de Dados,Avançado,3,3178,53.87,0,0.00,1.60,54.08,1.40,-0.21
+558,Estudo Técnico e Decisões de Arquitetura em Design de Dashboards e Eliminação de Chartjunk,Artigo,Business Intelligence,Básico,2,11,31.55,0,0.00,1.60,54.08,0.40,-22.53
 638,Princípios Essenciais e Arquitetura de Otimização de Consultas SQL com EXPLAIN ANALYZE,Artigo,Banco de Dados,Avançado,2,13,45.65,0,0.00,1.60,54.08,0.40,-8.43
-755,Princípios Essenciais e Arquitetura de Práticas de DataOps e Qualidade de Dados,Artigo,Engenharia de Dados,Avançado,2,2,12.70,0,0.00,1.60,54.08,0.40,-41.38
-249,Guia Definitivo e Boas Práticas sobre Conteinerização com Docker e Docker Compose,Artigo,DevOps & Cloud,Básico,4,23,40.95,0,0.00,1.60,54.08,2.40,-13.13
-684,Data Insights Ep. 6: Experiências Reais com Auditoria e Monitoramento de Logs de Acesso,Podcast,Segurança & Governança,Intermediário,3,69,40.97,0,0.00,1.60,54.08,1.40,-13.11
-729,Arquitetura & Código Ep. 31: Inovações em Métricas de Avaliação de Modelos Preditivos,Podcast,Ciência de Dados,Intermediário,2,64,47.75,0,0.00,1.60,54.08,0.40,-6.33
-562,Estudo Técnico e Decisões de Arquitetura em Catálogo de Dados Corporativo e Glossário,Artigo,Segurança & Governança,Básico,2,11,42.25,0,0.00,1.60,54.08,0.40,-11.83
-994,Estudo Técnico e Decisões de Arquitetura em Arquitetura de Dados Resiliente e Tolerante a Falhas,Artigo,Engenharia de Dados,Avançado,2,14,47.65,0,0.00,1.60,54.08,0.40,-6.43
-292,Guia Definitivo e Boas Práticas sobre Controle de Acesso Baseado em Papéis (RBAC),Artigo,Segurança & Governança,Intermediário,2,15,36.75,0,0.00,1.60,54.08,0.40,-17.33
-853,Papo de Dados Ep. 36: Desvendando Orquestração de Microsserviços com Kubernetes,Podcast,DevOps & Cloud,Intermediário,2,16,34.10,0,0.00,1.60,54.08,0.40,-19.98
-339,Especialização em Prevenção contra Vazamentos e Segurança em APIs com Projetos Práticos,Curso,Segurança & Governança,Básico,2,251,23.05,0,0.00,1.60,54.08,0.40,-31.03
-524,Como Implementar Visualizações com Big Numbers e Gráficos Eficazes Passo a Passo,Vídeo,Business Intelligence,Intermediário,4,94,50.83,1,25.00,1.60,54.08,2.40,-3.25
+298,Data Insights Ep. 94: Experiências Reais com Visão Computacional e Processamento de Imagens,Podcast,Inteligência Artificial,Intermediário,3,77,38.93,0,0.00,1.60,54.08,1.40,-15.15
 572,Curso Completo de Tipagem Estática e Boas Práticas com Mypy: Da Teoria à Prática,Curso,Programação & Software,Básico,2,79,12.85,0,0.00,1.60,54.08,0.40,-41.23
-707,Guia Definitivo e Boas Práticas sobre Experimentação e Testes A/B Orientados a Dados,Artigo,Ciência de Dados,Básico,4,21,42.47,0,0.00,1.60,54.08,2.40,-11.61
+74,Deep Dive Ep. 103: Casos de Sucesso em Métricas de Avaliação de Modelos Preditivos,Podcast,Ciência de Dados,Intermediário,3,61,33.17,0,0.00,1.60,54.08,1.40,-20.91
+147,Estudo Técnico e Decisões de Arquitetura em Tipagem Estática e Boas Práticas com Mypy,Artigo,Programação & Software,Intermediário,2,3,12.15,0,0.00,1.60,54.08,0.40,-41.93
+624,"Especialização em Ingestão Eficiente de CSV, JSON e Parquet com Projetos Práticos",Curso,Engenharia de Dados,Intermediário,4,2527,52.03,0,0.00,1.60,54.08,2.40,-2.05
+617,Data Insights Ep. 82: Experiências Reais com Design de Dashboards e Eliminação de Chartjunk,Podcast,Business Intelligence,Intermediário,2,62,36.10,0,0.00,1.60,54.08,0.40,-17.98
+592,Formação Prática em Escalabilidade e Gestão de Custos em Cloud: Fundamentos e Aplicação,Curso,DevOps & Cloud,Básico,2,127,12.10,0,0.00,1.60,54.08,0.40,-41.98
+90,Deep Dive Ep. 38: Casos de Sucesso em Clusterização e Segmentação de Perfis,Podcast,Ciência de Dados,Básico,2,45,38.95,0,0.00,1.60,54.08,0.40,-15.13
+590,Papo de Dados Ep. 111: Desvendando Arquitetura Limpa e Princípios SOLID,Podcast,Programação & Software,Intermediário,2,13,24.80,0,0.00,1.60,54.08,0.40,-29.28
+357,Guia Rápido e Hands-on: Data Lakehouse e Armazenamento Delta Lake,Vídeo,Engenharia de Dados,Intermediário,2,31,47.30,0,0.00,1.60,54.08,0.40,-6.78
+550,Como Implementar Arquitetura RAG e Recuperação Semântica Passo a Passo,Vídeo,Inteligência Artificial,Básico,3,59,51.93,0,0.00,1.60,54.08,1.40,-2.15
+66,Melhores Práticas e Arquitetura de Escalabilidade e Gestão de Custos em Cloud,Vídeo,DevOps & Cloud,Avançado,2,70,33.75,0,0.00,1.60,54.08,0.40,-20.33
+420,Tech Talk Ep. 100: Melhores Práticas em Monitoramento de Performance e Acompanhamento de Metas,Podcast,Business Intelligence,Intermediário,2,32,40.65,0,0.00,1.60,54.08,0.40,-13.43
+524,Como Implementar Visualizações com Big Numbers e Gráficos Eficazes Passo a Passo,Vídeo,Business Intelligence,Intermediário,4,94,50.83,1,25.00,1.60,54.08,2.40,-3.25
+97,Construindo Aplicações Robustas com Processamento Distribuído com Apache Spark,Curso,Engenharia de Dados,Avançado,2,2334,45.40,0,0.00,1.60,54.08,0.40,-8.68
+895,Guia Rápido e Hands-on: Padrões de Projeto para Engenharia de Software,Vídeo,Programação & Software,Básico,2,6,14.55,0,0.00,1.60,54.08,0.40,-39.53
+78,Melhores Práticas e Arquitetura de Clusterização e Segmentação de Perfis,Vídeo,Ciência de Dados,Avançado,2,90,41.30,0,0.00,1.60,54.08,0.40,-12.78
+472,"Especialização em Métricas de Engajamento, Retenção e Conversão com Projetos Práticos",Curso,Business Intelligence,Básico,2,364,39.40,0,0.00,1.60,54.08,0.40,-14.68
+713,Como Implementar Tipagem Estática e Boas Práticas com Mypy Passo a Passo,Vídeo,Programação & Software,Avançado,3,92,51.70,1,33.33,1.60,54.08,1.40,-2.38
+601,Princípios Essenciais e Arquitetura de Métricas de Avaliação de Modelos Preditivos,Artigo,Ciência de Dados,Básico,2,24,46.40,0,0.00,1.60,54.08,0.40,-7.68
+225,Especialização em Experimentação e Testes A/B Orientados a Dados com Projetos Práticos,Curso,Ciência de Dados,Básico,2,396,36.05,0,0.00,1.60,54.08,0.40,-18.03
+756,Guia Rápido e Hands-on: Experimentação e Testes A/B Orientados a Dados,Vídeo,Ciência de Dados,Avançado,2,66,52.05,0,0.00,1.60,54.08,0.40,-2.03
+690,Guia Rápido e Hands-on: Conteinerização com Docker e Docker Compose,Vídeo,DevOps & Cloud,Básico,3,14,43.07,0,0.00,1.60,54.08,1.40,-11.01
+81,Masterclass de Data Lakehouse e Armazenamento Delta Lake para Projetos Reais,Curso,Engenharia de Dados,Intermediário,2,513,29.40,0,0.00,1.60,54.08,0.40,-24.68
+192,Especialização em Data Lakehouse e Armazenamento Delta Lake com Projetos Práticos,Curso,Engenharia de Dados,Básico,3,800,42.20,0,0.00,1.60,54.08,1.40,-11.88
+434,Guia Definitivo e Boas Práticas sobre Refatoração de Código e Padrões PEP 8,Artigo,Programação & Software,Avançado,2,2,8.70,0,0.00,1.60,54.08,0.40,-45.38
+184,"Princípios Essenciais e Arquitetura de Métricas de Engajamento, Retenção e Conversão",Artigo,Business Intelligence,Básico,2,7,54.05,0,0.00,1.60,54.08,0.40,-0.03
+684,Data Insights Ep. 6: Experiências Reais com Auditoria e Monitoramento de Logs de Acesso,Podcast,Segurança & Governança,Intermediário,3,69,40.97,0,0.00,1.60,54.08,1.40,-13.11
 276,Data Insights Ep. 82: Experiências Reais com Prevenção contra Vazamentos e Segurança em APIs,Podcast,Segurança & Governança,Avançado,3,79,30.60,0,0.00,1.60,54.08,1.40,-23.48
-179,Curso Completo de Storytelling com Dados para Apresentações Executivas: Da Teoria à Prática,Curso,Business Intelligence,Avançado,3,3562,50.97,1,33.33,1.60,54.08,1.40,-3.11
-318,Formação Prática em Machine Learning Supervisionado com Scikit-Learn: Fundamentos e Aplicação,Curso,Ciência de Dados,Intermediário,2,511,40.70,0,0.00,1.60,54.08,0.40,-13.38
-945,Masterclass de Dashboards Estratégicos no Apache Superset para Projetos Reais,Curso,Business Intelligence,Intermediário,3,1706,47.27,0,0.00,1.60,54.08,1.40,-6.81
-578,Princípios Essenciais e Arquitetura de Gestão de Metadados e Qualidade de Dados Mestres,Artigo,Segurança & Governança,Intermediário,2,5,32.60,0,0.00,1.60,54.08,0.40,-21.48
+669,Papo de Dados Ep. 113: Desvendando Replicação e Tolerância a Falhas no PostgreSQL,Podcast,Banco de Dados,Intermediário,2,55,52.30,0,0.00,1.60,54.08,0.40,-1.78
+156,Especialização em Definição de KPIs e Métricas Orientadas a Decisão com Projetos Práticos,Curso,Business Intelligence,Básico,3,528,38.67,0,0.00,1.60,54.08,1.40,-15.41
+644,Análise Prática e Demonstração de Técnicas de Anonimização e Pseudonimização,Vídeo,Segurança & Governança,Intermediário,2,70,50.20,0,0.00,1.60,54.08,0.40,-3.88
+935,Deep Dive Ep. 74: Casos de Sucesso em Design de Dashboards e Eliminação de Chartjunk,Podcast,Business Intelligence,Intermediário,4,158,51.62,1,25.00,1.60,54.08,2.40,-2.46
+923,Papo de Dados Ep. 60: Desvendando Pipelines de CI/CD para Engenharia de Dados,Podcast,DevOps & Cloud,Avançado,2,19,17.60,0,0.00,1.60,54.08,0.40,-36.48
+203,Guia Rápido e Hands-on: Visualizações com Big Numbers e Gráficos Eficazes,Vídeo,Business Intelligence,Avançado,4,172,53.10,0,0.00,1.60,54.08,2.40,-0.98

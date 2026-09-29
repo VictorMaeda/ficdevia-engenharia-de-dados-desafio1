@@ -1,101 +1,101 @@
 mes_referencia,conteudo_id,titulo,tipo,categoria,nivel,total_interacoes,tempo_total_segundos,media_percentual_conclusao,quantidade_conclusoes,data_carga
-2026-02-01,248,Tech Talk Ep. 111: Melhores Práticas em Previsão de Séries Temporais e Tendências,Podcast,Ciência de Dados,Intermediário,1,20,71.50,0,2026-09-28 23:20:40.590037
-2026-08-01,186,Estudo Técnico e Decisões de Arquitetura em Modelagem Relacional Avançada no PostgreSQL,Artigo,Banco de Dados,Básico,1,18,63.70,0,2026-09-28 23:20:40.590037
-2026-05-01,438,Análise Prática e Demonstração de Replicação e Tolerância a Falhas no PostgreSQL,Vídeo,Banco de Dados,Avançado,1,65,57.00,0,2026-09-28 23:20:40.590037
-2026-01-01,543,Data Insights Ep. 95: Experiências Reais com Tipagem Estática e Boas Práticas com Mypy,Podcast,Programação & Software,Intermediário,1,12,19.60,0,2026-09-28 23:20:40.590037
-2026-04-01,891,Guia Definitivo e Boas Práticas sobre Filtros Interativos e Exploração Granular em BI,Artigo,Business Intelligence,Avançado,1,7,95.10,0,2026-09-28 23:20:40.590037
-2026-07-01,832,Arquitetura & Código Ep. 41: Inovações em Armazenamento de Documentos com MongoDB,Podcast,Banco de Dados,Avançado,1,36,57.40,0,2026-09-28 23:20:40.590037
-2026-06-01,604,Guia Definitivo e Boas Práticas sobre Replicação e Tolerância a Falhas no PostgreSQL,Artigo,Banco de Dados,Avançado,1,29,100.00,1,2026-09-28 23:20:40.590037
-2026-04-01,936,Solucionando Desafios do Dia a Dia em Escalabilidade e Gestão de Custos em Cloud,Vídeo,DevOps & Cloud,Básico,1,11,83.90,0,2026-09-28 23:20:40.590037
-2026-06-01,641,Especialização em Filtros Interativos e Exploração Granular em BI com Projetos Práticos,Curso,Business Intelligence,Intermediário,1,475,74.30,0,2026-09-28 23:20:40.590037
-2026-08-01,239,Tech Talk Ep. 29: Melhores Práticas em Modelagem e Agregações Analíticas no SQL Lab,Podcast,Business Intelligence,Básico,1,54,68.20,0,2026-09-28 23:20:40.590037
-2026-02-01,762,Curso Completo de Estruturas de Dados e Algoritmos Eficientes: Da Teoria à Prática,Curso,Programação & Software,Intermediário,1,609,100.00,1,2026-09-28 23:20:40.590037
-2026-06-01,74,Deep Dive Ep. 103: Casos de Sucesso em Métricas de Avaliação de Modelos Preditivos,Podcast,Ciência de Dados,Intermediário,2,30,24.60,0,2026-09-28 23:20:40.590037
-2026-01-01,572,Curso Completo de Tipagem Estática e Boas Práticas com Mypy: Da Teoria à Prática,Curso,Programação & Software,Básico,1,33,10.80,0,2026-09-28 23:20:40.590037
-2026-06-01,356,Especialização em Otimização de Consultas SQL com EXPLAIN ANALYZE com Projetos Práticos,Curso,Banco de Dados,Intermediário,1,1146,100.00,1,2026-09-28 23:20:40.590037
-2026-02-01,331,Análise Prática e Demonstração de Gerenciamento de Ambientes e Segredos em Nuvem,Vídeo,DevOps & Cloud,Avançado,1,86,100.00,1,2026-09-28 23:20:40.590037
-2026-06-01,785,Como Obter Alta Performance Utilizando Estatística Descritiva e Inferencial para Decisão,Artigo,Ciência de Dados,Avançado,1,10,100.00,1,2026-09-28 23:20:40.590037
-2026-03-01,48,Data Insights Ep. 96: Experiências Reais com Orquestração de Workflows com Apache Airflow,Podcast,Engenharia de Dados,Básico,1,4,6.90,0,2026-09-28 23:20:40.590037
-2026-07-01,684,Data Insights Ep. 6: Experiências Reais com Auditoria e Monitoramento de Logs de Acesso,Podcast,Segurança & Governança,Intermediário,1,21,37.80,0,2026-09-28 23:20:40.590037
-2026-06-01,896,Especialização em Transações ACID e Controle de Concorrência com Projetos Práticos,Curso,Banco de Dados,Avançado,1,951,27.30,0,2026-09-28 23:20:40.590037
-2026-06-01,427,Como Obter Alta Performance Utilizando Machine Learning Supervisionado com Scikit-Learn,Artigo,Ciência de Dados,Intermediário,1,4,89.10,0,2026-09-28 23:20:40.590037
-2026-07-01,184,"Princípios Essenciais e Arquitetura de Métricas de Engajamento, Retenção e Conversão",Artigo,Business Intelligence,Básico,1,5,74.60,0,2026-09-28 23:20:40.590037
-2026-08-01,655,Construindo Aplicações Robustas com APIs RESTful de Alta Performance com FastAPI,Curso,Programação & Software,Básico,1,114,41.70,0,2026-09-28 23:20:40.590037
-2026-07-01,363,Análise Comparativa e Padrões Recomendados em Fundamentos de Deep Learning com PyTorch,Artigo,Inteligência Artificial,Avançado,1,8,100.00,1,2026-09-28 23:20:40.590037
-2026-02-01,97,Construindo Aplicações Robustas com Processamento Distribuído com Apache Spark,Curso,Engenharia de Dados,Avançado,1,833,32.40,0,2026-09-28 23:20:40.590037
-2026-06-01,995,Como Implementar Governança e Ética em Sistemas de IA Passo a Passo,Vídeo,Inteligência Artificial,Intermediário,1,15,46.00,0,2026-09-28 23:20:40.590037
-2026-05-01,677,Melhores Práticas e Arquitetura de Visualizações com Big Numbers e Gráficos Eficazes,Vídeo,Business Intelligence,Intermediário,1,13,41.30,0,2026-09-28 23:20:40.590037
-2026-06-01,3,Data Insights Ep. 54: Experiências Reais com Práticas de DataOps e Qualidade de Dados,Podcast,Engenharia de Dados,Avançado,1,50,66.70,0,2026-09-28 23:20:40.590037
-2026-07-01,260,Deep Dive Ep. 84: Casos de Sucesso em Orquestração de Microsserviços com Kubernetes,Podcast,DevOps & Cloud,Intermediário,1,23,38.30,0,2026-09-28 23:20:40.590037
-2026-06-01,52,Arquitetura & Código Ep. 109: Inovações em Análise Exploratória de Dados com Pandas,Podcast,Ciência de Dados,Avançado,2,138,99.00,1,2026-09-28 23:20:40.590037
-2026-07-01,792,Princípios Essenciais e Arquitetura de Orquestração de Microsserviços com Kubernetes,Artigo,DevOps & Cloud,Avançado,1,22,81.60,0,2026-09-28 23:20:40.590037
-2026-07-01,713,Como Implementar Tipagem Estática e Boas Práticas com Mypy Passo a Passo,Vídeo,Programação & Software,Avançado,1,28,48.30,0,2026-09-28 23:20:40.590037
-2026-05-01,87,Deep Dive Ep. 109: Casos de Sucesso em Métricas de Avaliação de Modelos Preditivos,Podcast,Ciência de Dados,Básico,1,53,67.80,0,2026-09-28 23:20:40.590037
-2026-07-01,179,Curso Completo de Storytelling com Dados para Apresentações Executivas: Da Teoria à Prática,Curso,Business Intelligence,Avançado,1,1088,46.70,0,2026-09-28 23:20:40.590037
-2026-07-01,190,"Formação Prática em Métricas de Engajamento, Retenção e Conversão: Fundamentos e Aplicação",Curso,Business Intelligence,Básico,1,218,83.50,0,2026-09-28 23:20:40.590037
-2026-06-01,336,Princípios Essenciais e Arquitetura de Arquitetura de Dados Resiliente e Tolerante a Falhas,Artigo,Engenharia de Dados,Avançado,1,2,11.70,0,2026-09-28 23:20:40.590037
-2026-02-01,901,Curso Completo de Modelagem Relacional Avançada no PostgreSQL: Da Teoria à Prática,Curso,Banco de Dados,Básico,1,20,11.10,0,2026-09-28 23:20:40.590037
-2026-03-01,198,Formação Prática em Padrões de Projeto para Engenharia de Software: Fundamentos e Aplicação,Curso,Programação & Software,Intermediário,1,421,36.40,0,2026-09-28 23:20:40.590037
-2026-02-01,939,Tech Talk Ep. 37: Melhores Práticas em Arquitetura Limpa e Princípios SOLID,Podcast,Programação & Software,Avançado,1,9,35.00,0,2026-09-28 23:20:40.590037
-2026-02-01,169,Melhores Práticas e Arquitetura de Mensageria e Streaming com Apache Kafka,Vídeo,Engenharia de Dados,Avançado,1,11,10.90,0,2026-09-28 23:20:40.590037
-2026-07-01,874,Masterclass de Dashboards Estratégicos no Apache Superset para Projetos Reais,Curso,Business Intelligence,Básico,1,282,56.50,0,2026-09-28 23:20:40.590037
-2026-06-01,687,Construindo Aplicações Robustas com Governança e Padronização de Painéis de Indicadores,Curso,Business Intelligence,Intermediário,1,373,51.50,0,2026-09-28 23:20:40.590037
-2026-02-01,599,Como Implementar Criptografia de Dados em Repouso e em Trânsito Passo a Passo,Vídeo,Segurança & Governança,Avançado,1,61,58.20,0,2026-09-28 23:20:40.590037
-2026-01-01,121,Estudo Técnico e Decisões de Arquitetura em Governança de Dados para Aplicações de IA,Artigo,Segurança & Governança,Intermediário,1,8,55.60,0,2026-09-28 23:20:40.590037
-2026-01-01,428,Princípios Essenciais e Arquitetura de Definição de KPIs e Métricas Orientadas a Decisão,Artigo,Business Intelligence,Avançado,1,28,95.70,0,2026-09-28 23:20:40.590037
-2026-08-01,691,Análise Prática e Demonstração de APIs RESTful de Alta Performance com FastAPI,Vídeo,Programação & Software,Básico,1,9,46.80,0,2026-09-28 23:20:40.590037
-2026-06-01,329,Data Insights Ep. 68: Experiências Reais com Práticas de DataOps e Qualidade de Dados,Podcast,Engenharia de Dados,Avançado,1,16,33.20,0,2026-09-28 23:20:40.590037
-2026-03-01,747,Construindo Aplicações Robustas com Modelagem Dimensional Star Schema e Snowflake,Curso,Engenharia de Dados,Básico,1,258,50.10,0,2026-09-28 23:20:40.590037
-2026-02-01,268,Data Insights Ep. 70: Experiências Reais com Fine-Tuning de Modelos Fundacionais,Podcast,Inteligência Artificial,Básico,1,3,10.50,0,2026-09-28 23:20:40.590037
-2026-02-01,59,Princípios Essenciais e Arquitetura de Auditoria e Monitoramento de Logs de Acesso,Artigo,Segurança & Governança,Intermediário,2,23,39.15,0,2026-09-28 23:20:40.590037
-2026-03-01,612,Deep Dive Ep. 45: Casos de Sucesso em Ambientes Reprodutíveis para Aplicações de Dados,Podcast,DevOps & Cloud,Intermediário,1,4,10.10,0,2026-09-28 23:20:40.590037
-2026-02-01,763,Tech Talk Ep. 8: Melhores Práticas em Prevenção contra Vazamentos e Segurança em APIs,Podcast,Segurança & Governança,Intermediário,1,48,62.80,0,2026-09-28 23:20:40.590037
-2026-02-01,152,Especialização em Governança e Ética em Sistemas de IA com Projetos Práticos,Curso,Inteligência Artificial,Avançado,1,1415,80.40,0,2026-09-28 23:20:40.590037
-2026-08-01,634,Melhores Práticas e Arquitetura de Monitoramento com Prometheus e Grafana,Vídeo,DevOps & Cloud,Básico,1,10,100.00,1,2026-09-28 23:20:40.590037
-2026-05-01,603,Especialização em Segurança de Redes e Controle de Acesso com Projetos Práticos,Curso,DevOps & Cloud,Intermediário,1,551,57.00,0,2026-09-28 23:20:40.590037
-2026-01-01,969,Melhores Práticas e Arquitetura de Arquitetura RAG e Recuperação Semântica,Vídeo,Inteligência Artificial,Básico,1,1,1.40,0,2026-09-28 23:20:40.590037
-2026-01-01,219,Como Implementar Interpretabilidade de Modelos com SHAP e LIME Passo a Passo,Vídeo,Ciência de Dados,Intermediário,1,1,1.30,0,2026-09-28 23:20:40.590037
-2026-05-01,965,Como Obter Alta Performance Utilizando Ambientes Reprodutíveis para Aplicações de Dados,Artigo,DevOps & Cloud,Avançado,1,6,74.10,0,2026-09-28 23:20:40.590037
-2026-03-01,965,Como Obter Alta Performance Utilizando Ambientes Reprodutíveis para Aplicações de Dados,Artigo,DevOps & Cloud,Avançado,1,9,100.00,1,2026-09-28 23:20:40.590037
-2026-07-01,151,Especialização em Visualizações com Big Numbers e Gráficos Eficazes com Projetos Práticos,Curso,Business Intelligence,Básico,1,159,53.20,0,2026-09-28 23:20:40.590037
-2026-04-01,23,Tech Talk Ep. 12: Melhores Práticas em Pipelines e Transformações com Apache Hop,Podcast,Engenharia de Dados,Avançado,1,15,49.30,0,2026-09-28 23:20:40.590037
-2026-07-01,430,Curso Completo de Visualizações com Big Numbers e Gráficos Eficazes: Da Teoria à Prática,Curso,Business Intelligence,Avançado,1,2078,71.10,0,2026-09-28 23:20:40.590037
-2026-08-01,595,Guia Rápido e Hands-on: Experimentação e Testes A/B Orientados a Dados,Vídeo,Ciência de Dados,Básico,1,27,68.10,0,2026-09-28 23:20:40.590037
-2026-06-01,422,Masterclass de Pipelines de Ingestão Batch e Streaming para Projetos Reais,Curso,Engenharia de Dados,Intermediário,1,1182,100.00,1,2026-09-28 23:20:40.590037
-2026-04-01,589,Análise Comparativa e Padrões Recomendados em Otimização de Consultas SQL com EXPLAIN ANALYZE,Artigo,Banco de Dados,Avançado,1,22,79.00,0,2026-09-28 23:20:40.590037
-2026-02-01,19,"Solucionando Desafios do Dia a Dia em Python Avançado: POO, Decorators e Geradores",Vídeo,Programação & Software,Básico,1,1,10.10,0,2026-09-28 23:20:40.590037
-2026-07-01,578,Princípios Essenciais e Arquitetura de Gestão de Metadados e Qualidade de Dados Mestres,Artigo,Segurança & Governança,Intermediário,1,2,26.70,0,2026-09-28 23:20:40.590037
-2026-03-01,30,Masterclass de Monitoramento de Performance e Acompanhamento de Metas para Projetos Reais,Curso,Business Intelligence,Avançado,1,967,40.20,0,2026-09-28 23:20:40.590037
-2026-01-01,229,Arquitetura & Código Ep. 79: Inovações em Storytelling com Dados para Apresentações Executivas,Podcast,Business Intelligence,Intermediário,1,1,4.20,0,2026-09-28 23:20:40.590037
-2026-06-01,985,Como Obter Alta Performance Utilizando Tipagem Estática e Boas Práticas com Mypy,Artigo,Programação & Software,Intermediário,1,2,12.60,0,2026-09-28 23:20:40.590037
-2026-03-01,431,Formação Prática em Arquitetura RAG e Recuperação Semântica: Fundamentos e Aplicação,Curso,Inteligência Artificial,Básico,1,302,57.40,0,2026-09-28 23:20:40.590037
-2026-02-01,269,Especialização em Previsão de Séries Temporais e Tendências com Projetos Práticos,Curso,Ciência de Dados,Básico,1,186,30.50,0,2026-09-28 23:20:40.590037
-2026-01-01,362,Princípios Essenciais e Arquitetura de Auditoria e Monitoramento de Logs de Acesso,Artigo,Segurança & Governança,Básico,1,1,10.20,0,2026-09-28 23:20:40.590037
-2026-02-01,292,Guia Definitivo e Boas Práticas sobre Controle de Acesso Baseado em Papéis (RBAC),Artigo,Segurança & Governança,Intermediário,1,9,42.10,0,2026-09-28 23:20:40.590037
-2026-07-01,348,Estudo Técnico e Decisões de Arquitetura em Governança e Ética em Sistemas de IA,Artigo,Inteligência Artificial,Intermediário,1,1,14.90,0,2026-09-28 23:20:40.590037
-2026-08-01,717,Deep Dive Ep. 139: Casos de Sucesso em Análise Exploratória de Dados com Pandas,Podcast,Ciência de Dados,Intermediário,1,2,5.80,0,2026-09-28 23:20:40.590037
-2026-04-01,509,Tech Talk Ep. 111: Melhores Práticas em Engenharia de Recursos e Pré-processamento,Podcast,Ciência de Dados,Avançado,1,79,100.00,1,2026-09-28 23:20:40.590037
-2026-05-01,820,Melhores Práticas e Arquitetura de Design de Dashboards e Eliminação de Chartjunk,Vídeo,Business Intelligence,Intermediário,1,70,100.00,1,2026-09-28 23:20:40.590037
-2026-02-01,298,Data Insights Ep. 94: Experiências Reais com Visão Computacional e Processamento de Imagens,Podcast,Inteligência Artificial,Intermediário,1,9,13.70,0,2026-09-28 23:20:40.590037
-2026-05-01,95,Construindo Aplicações Robustas com Refatoração de Código e Padrões PEP 8,Curso,Programação & Software,Intermediário,2,401,17.40,0,2026-09-28 23:20:40.590037
-2026-04-01,114,Solucionando Desafios do Dia a Dia em Modelagem Dimensional Star Schema e Snowflake,Vídeo,Engenharia de Dados,Básico,1,4,14.70,0,2026-09-28 23:20:40.590037
-2026-02-01,787,Tech Talk Ep. 109: Melhores Práticas em Embeddings Vetoriais e Representação Semântica,Podcast,Inteligência Artificial,Avançado,1,70,100.00,1,2026-09-28 23:20:40.590037
-2026-01-01,665,Formação Prática em Arquitetura de Dados Resiliente e Tolerante a Falhas: Fundamentos e Aplicação,Curso,Engenharia de Dados,Avançado,1,3367,93.80,0,2026-09-28 23:20:40.590037
-2026-07-01,50,Solucionando Desafios do Dia a Dia em Arquitetura RAG e Recuperação Semântica,Vídeo,Inteligência Artificial,Básico,1,4,9.70,0,2026-09-28 23:20:40.590037
-2026-07-01,534,Guia Definitivo e Boas Práticas sobre Design de Dashboards e Eliminação de Chartjunk,Artigo,Business Intelligence,Avançado,1,4,13.70,0,2026-09-28 23:20:40.590037
-2026-03-01,154,Análise Comparativa e Padrões Recomendados em Consultas e Índices GIN com JSONB no PostgreSQL,Artigo,Banco de Dados,Avançado,1,17,71.80,0,2026-09-28 23:20:40.590037
-2026-07-01,402,Formação Prática em Infraestrutura como Código com Terraform: Fundamentos e Aplicação,Curso,DevOps & Cloud,Intermediário,1,812,59.60,0,2026-09-28 23:20:40.590037
-2026-04-01,152,Especialização em Governança e Ética em Sistemas de IA com Projetos Práticos,Curso,Inteligência Artificial,Avançado,1,894,50.80,0,2026-09-28 23:20:40.590037
-2026-06-01,444,Melhores Práticas e Arquitetura de Estratégias de Indexação e Performance de Bancos,Vídeo,Banco de Dados,Avançado,1,60,53.80,0,2026-09-28 23:20:40.590037
-2026-04-01,188,Masterclass de Automação de Servidores Linux e Acesso SSH para Projetos Reais,Curso,DevOps & Cloud,Básico,1,431,86.50,0,2026-09-28 23:20:40.590037
-2026-02-01,774,Como Obter Alta Performance Utilizando Modelagem e Agregações Analíticas no SQL Lab,Artigo,Business Intelligence,Avançado,1,23,82.40,0,2026-09-28 23:20:40.590037
-2026-08-01,658,Análise Comparativa e Padrões Recomendados em Clusterização e Segmentação de Perfis,Artigo,Ciência de Dados,Intermediário,1,13,100.00,1,2026-09-28 23:20:40.590037
-2026-01-01,765,Construindo Aplicações Robustas com Arquitetura de Dados Resiliente e Tolerante a Falhas,Curso,Engenharia de Dados,Avançado,1,432,18.30,0,2026-09-28 23:20:40.590037
-2026-07-01,65,Princípios Essenciais e Arquitetura de Conteinerização com Docker e Docker Compose,Artigo,DevOps & Cloud,Intermediário,1,10,84.50,0,2026-09-28 23:20:40.590037
-2026-04-01,136,Arquitetura & Código Ep. 109: Inovações em Armazenamento de Documentos com MongoDB,Podcast,Banco de Dados,Básico,1,33,100.00,1,2026-09-28 23:20:40.590037
-2026-02-01,636,Estudo Técnico e Decisões de Arquitetura em Design de Dashboards e Eliminação de Chartjunk,Artigo,Business Intelligence,Avançado,1,7,60.00,0,2026-09-28 23:20:40.590037
-2026-01-01,83,Deep Dive Ep. 94: Casos de Sucesso em Data Lakehouse e Armazenamento Delta Lake,Podcast,Engenharia de Dados,Básico,1,23,65.50,0,2026-09-28 23:20:40.590037
-2026-08-01,554,Especialização em Controle de Acesso Baseado em Papéis (RBAC) com Projetos Práticos,Curso,Segurança & Governança,Básico,1,196,100.00,1,2026-09-28 23:20:40.590037
-2026-01-01,239,Tech Talk Ep. 29: Melhores Práticas em Modelagem e Agregações Analíticas no SQL Lab,Podcast,Business Intelligence,Básico,1,12,15.30,0,2026-09-28 23:20:40.590037
-2026-05-01,429,Como Obter Alta Performance Utilizando Mensageria e Streaming com Apache Kafka,Artigo,Engenharia de Dados,Intermediário,1,14,67.40,0,2026-09-28 23:20:40.590037
-2026-01-01,102,Masterclass de Escalabilidade e Gestão de Custos em Cloud para Projetos Reais,Curso,DevOps & Cloud,Avançado,1,435,25.60,0,2026-09-28 23:20:40.590037
+2026-02-01,248,Tech Talk Ep. 111: Melhores Práticas em Previsão de Séries Temporais e Tendências,Podcast,Ciência de Dados,Intermediário,1,20,71.50,0,2026-09-29 02:42:07.414724
+2026-08-01,186,Estudo Técnico e Decisões de Arquitetura em Modelagem Relacional Avançada no PostgreSQL,Artigo,Banco de Dados,Básico,1,18,63.70,0,2026-09-29 02:42:07.414724
+2026-05-01,438,Análise Prática e Demonstração de Replicação e Tolerância a Falhas no PostgreSQL,Vídeo,Banco de Dados,Avançado,1,65,57.00,0,2026-09-29 02:42:07.414724
+2026-01-01,543,Data Insights Ep. 95: Experiências Reais com Tipagem Estática e Boas Práticas com Mypy,Podcast,Programação & Software,Intermediário,1,12,19.60,0,2026-09-29 02:42:07.414724
+2026-04-01,891,Guia Definitivo e Boas Práticas sobre Filtros Interativos e Exploração Granular em BI,Artigo,Business Intelligence,Avançado,1,7,95.10,0,2026-09-29 02:42:07.414724
+2026-07-01,832,Arquitetura & Código Ep. 41: Inovações em Armazenamento de Documentos com MongoDB,Podcast,Banco de Dados,Avançado,1,36,57.40,0,2026-09-29 02:42:07.414724
+2026-06-01,604,Guia Definitivo e Boas Práticas sobre Replicação e Tolerância a Falhas no PostgreSQL,Artigo,Banco de Dados,Avançado,1,29,100.00,1,2026-09-29 02:42:07.414724
+2026-04-01,936,Solucionando Desafios do Dia a Dia em Escalabilidade e Gestão de Custos em Cloud,Vídeo,DevOps & Cloud,Básico,1,11,83.90,0,2026-09-29 02:42:07.414724
+2026-06-01,641,Especialização em Filtros Interativos e Exploração Granular em BI com Projetos Práticos,Curso,Business Intelligence,Intermediário,1,475,74.30,0,2026-09-29 02:42:07.414724
+2026-08-01,239,Tech Talk Ep. 29: Melhores Práticas em Modelagem e Agregações Analíticas no SQL Lab,Podcast,Business Intelligence,Básico,1,54,68.20,0,2026-09-29 02:42:07.414724
+2026-02-01,762,Curso Completo de Estruturas de Dados e Algoritmos Eficientes: Da Teoria à Prática,Curso,Programação & Software,Intermediário,1,609,100.00,1,2026-09-29 02:42:07.414724
+2026-06-01,74,Deep Dive Ep. 103: Casos de Sucesso em Métricas de Avaliação de Modelos Preditivos,Podcast,Ciência de Dados,Intermediário,2,30,24.60,0,2026-09-29 02:42:07.414724
+2026-01-01,572,Curso Completo de Tipagem Estática e Boas Práticas com Mypy: Da Teoria à Prática,Curso,Programação & Software,Básico,1,33,10.80,0,2026-09-29 02:42:07.414724
+2026-06-01,356,Especialização em Otimização de Consultas SQL com EXPLAIN ANALYZE com Projetos Práticos,Curso,Banco de Dados,Intermediário,1,1146,100.00,1,2026-09-29 02:42:07.414724
+2026-02-01,331,Análise Prática e Demonstração de Gerenciamento de Ambientes e Segredos em Nuvem,Vídeo,DevOps & Cloud,Avançado,1,86,100.00,1,2026-09-29 02:42:07.414724
+2026-06-01,785,Como Obter Alta Performance Utilizando Estatística Descritiva e Inferencial para Decisão,Artigo,Ciência de Dados,Avançado,1,10,100.00,1,2026-09-29 02:42:07.414724
+2026-03-01,48,Data Insights Ep. 96: Experiências Reais com Orquestração de Workflows com Apache Airflow,Podcast,Engenharia de Dados,Básico,1,4,6.90,0,2026-09-29 02:42:07.414724
+2026-07-01,684,Data Insights Ep. 6: Experiências Reais com Auditoria e Monitoramento de Logs de Acesso,Podcast,Segurança & Governança,Intermediário,1,21,37.80,0,2026-09-29 02:42:07.414724
+2026-06-01,896,Especialização em Transações ACID e Controle de Concorrência com Projetos Práticos,Curso,Banco de Dados,Avançado,1,951,27.30,0,2026-09-29 02:42:07.414724
+2026-06-01,427,Como Obter Alta Performance Utilizando Machine Learning Supervisionado com Scikit-Learn,Artigo,Ciência de Dados,Intermediário,1,4,89.10,0,2026-09-29 02:42:07.414724
+2026-07-01,184,"Princípios Essenciais e Arquitetura de Métricas de Engajamento, Retenção e Conversão",Artigo,Business Intelligence,Básico,1,5,74.60,0,2026-09-29 02:42:07.414724
+2026-08-01,655,Construindo Aplicações Robustas com APIs RESTful de Alta Performance com FastAPI,Curso,Programação & Software,Básico,1,114,41.70,0,2026-09-29 02:42:07.414724
+2026-07-01,363,Análise Comparativa e Padrões Recomendados em Fundamentos de Deep Learning com PyTorch,Artigo,Inteligência Artificial,Avançado,1,8,100.00,1,2026-09-29 02:42:07.414724
+2026-02-01,97,Construindo Aplicações Robustas com Processamento Distribuído com Apache Spark,Curso,Engenharia de Dados,Avançado,1,833,32.40,0,2026-09-29 02:42:07.414724
+2026-06-01,995,Como Implementar Governança e Ética em Sistemas de IA Passo a Passo,Vídeo,Inteligência Artificial,Intermediário,1,15,46.00,0,2026-09-29 02:42:07.414724
+2026-05-01,677,Melhores Práticas e Arquitetura de Visualizações com Big Numbers e Gráficos Eficazes,Vídeo,Business Intelligence,Intermediário,1,13,41.30,0,2026-09-29 02:42:07.414724
+2026-06-01,3,Data Insights Ep. 54: Experiências Reais com Práticas de DataOps e Qualidade de Dados,Podcast,Engenharia de Dados,Avançado,1,50,66.70,0,2026-09-29 02:42:07.414724
+2026-07-01,260,Deep Dive Ep. 84: Casos de Sucesso em Orquestração de Microsserviços com Kubernetes,Podcast,DevOps & Cloud,Intermediário,1,23,38.30,0,2026-09-29 02:42:07.414724
+2026-06-01,52,Arquitetura & Código Ep. 109: Inovações em Análise Exploratória de Dados com Pandas,Podcast,Ciência de Dados,Avançado,2,138,99.00,1,2026-09-29 02:42:07.414724
+2026-07-01,792,Princípios Essenciais e Arquitetura de Orquestração de Microsserviços com Kubernetes,Artigo,DevOps & Cloud,Avançado,1,22,81.60,0,2026-09-29 02:42:07.414724
+2026-07-01,713,Como Implementar Tipagem Estática e Boas Práticas com Mypy Passo a Passo,Vídeo,Programação & Software,Avançado,1,28,48.30,0,2026-09-29 02:42:07.414724
+2026-05-01,87,Deep Dive Ep. 109: Casos de Sucesso em Métricas de Avaliação de Modelos Preditivos,Podcast,Ciência de Dados,Básico,1,53,67.80,0,2026-09-29 02:42:07.414724
+2026-07-01,179,Curso Completo de Storytelling com Dados para Apresentações Executivas: Da Teoria à Prática,Curso,Business Intelligence,Avançado,1,1088,46.70,0,2026-09-29 02:42:07.414724
+2026-07-01,190,"Formação Prática em Métricas de Engajamento, Retenção e Conversão: Fundamentos e Aplicação",Curso,Business Intelligence,Básico,1,218,83.50,0,2026-09-29 02:42:07.414724
+2026-06-01,336,Princípios Essenciais e Arquitetura de Arquitetura de Dados Resiliente e Tolerante a Falhas,Artigo,Engenharia de Dados,Avançado,1,2,11.70,0,2026-09-29 02:42:07.414724
+2026-02-01,901,Curso Completo de Modelagem Relacional Avançada no PostgreSQL: Da Teoria à Prática,Curso,Banco de Dados,Básico,1,20,11.10,0,2026-09-29 02:42:07.414724
+2026-03-01,198,Formação Prática em Padrões de Projeto para Engenharia de Software: Fundamentos e Aplicação,Curso,Programação & Software,Intermediário,1,421,36.40,0,2026-09-29 02:42:07.414724
+2026-02-01,939,Tech Talk Ep. 37: Melhores Práticas em Arquitetura Limpa e Princípios SOLID,Podcast,Programação & Software,Avançado,1,9,35.00,0,2026-09-29 02:42:07.414724
+2026-02-01,169,Melhores Práticas e Arquitetura de Mensageria e Streaming com Apache Kafka,Vídeo,Engenharia de Dados,Avançado,1,11,10.90,0,2026-09-29 02:42:07.414724
+2026-07-01,874,Masterclass de Dashboards Estratégicos no Apache Superset para Projetos Reais,Curso,Business Intelligence,Básico,1,282,56.50,0,2026-09-29 02:42:07.414724
+2026-06-01,687,Construindo Aplicações Robustas com Governança e Padronização de Painéis de Indicadores,Curso,Business Intelligence,Intermediário,1,373,51.50,0,2026-09-29 02:42:07.414724
+2026-02-01,599,Como Implementar Criptografia de Dados em Repouso e em Trânsito Passo a Passo,Vídeo,Segurança & Governança,Avançado,1,61,58.20,0,2026-09-29 02:42:07.414724
+2026-01-01,121,Estudo Técnico e Decisões de Arquitetura em Governança de Dados para Aplicações de IA,Artigo,Segurança & Governança,Intermediário,1,8,55.60,0,2026-09-29 02:42:07.414724
+2026-01-01,428,Princípios Essenciais e Arquitetura de Definição de KPIs e Métricas Orientadas a Decisão,Artigo,Business Intelligence,Avançado,1,28,95.70,0,2026-09-29 02:42:07.414724
+2026-08-01,691,Análise Prática e Demonstração de APIs RESTful de Alta Performance com FastAPI,Vídeo,Programação & Software,Básico,1,9,46.80,0,2026-09-29 02:42:07.414724
+2026-06-01,329,Data Insights Ep. 68: Experiências Reais com Práticas de DataOps e Qualidade de Dados,Podcast,Engenharia de Dados,Avançado,1,16,33.20,0,2026-09-29 02:42:07.414724
+2026-03-01,747,Construindo Aplicações Robustas com Modelagem Dimensional Star Schema e Snowflake,Curso,Engenharia de Dados,Básico,1,258,50.10,0,2026-09-29 02:42:07.414724
+2026-02-01,268,Data Insights Ep. 70: Experiências Reais com Fine-Tuning de Modelos Fundacionais,Podcast,Inteligência Artificial,Básico,1,3,10.50,0,2026-09-29 02:42:07.414724
+2026-02-01,59,Princípios Essenciais e Arquitetura de Auditoria e Monitoramento de Logs de Acesso,Artigo,Segurança & Governança,Intermediário,2,23,39.15,0,2026-09-29 02:42:07.414724
+2026-03-01,612,Deep Dive Ep. 45: Casos de Sucesso em Ambientes Reprodutíveis para Aplicações de Dados,Podcast,DevOps & Cloud,Intermediário,1,4,10.10,0,2026-09-29 02:42:07.414724
+2026-02-01,763,Tech Talk Ep. 8: Melhores Práticas em Prevenção contra Vazamentos e Segurança em APIs,Podcast,Segurança & Governança,Intermediário,1,48,62.80,0,2026-09-29 02:42:07.414724
+2026-02-01,152,Especialização em Governança e Ética em Sistemas de IA com Projetos Práticos,Curso,Inteligência Artificial,Avançado,1,1415,80.40,0,2026-09-29 02:42:07.414724
+2026-08-01,634,Melhores Práticas e Arquitetura de Monitoramento com Prometheus e Grafana,Vídeo,DevOps & Cloud,Básico,1,10,100.00,1,2026-09-29 02:42:07.414724
+2026-05-01,603,Especialização em Segurança de Redes e Controle de Acesso com Projetos Práticos,Curso,DevOps & Cloud,Intermediário,1,551,57.00,0,2026-09-29 02:42:07.414724
+2026-01-01,969,Melhores Práticas e Arquitetura de Arquitetura RAG e Recuperação Semântica,Vídeo,Inteligência Artificial,Básico,1,1,1.40,0,2026-09-29 02:42:07.414724
+2026-01-01,219,Como Implementar Interpretabilidade de Modelos com SHAP e LIME Passo a Passo,Vídeo,Ciência de Dados,Intermediário,1,1,1.30,0,2026-09-29 02:42:07.414724
+2026-05-01,965,Como Obter Alta Performance Utilizando Ambientes Reprodutíveis para Aplicações de Dados,Artigo,DevOps & Cloud,Avançado,1,6,74.10,0,2026-09-29 02:42:07.414724
+2026-03-01,965,Como Obter Alta Performance Utilizando Ambientes Reprodutíveis para Aplicações de Dados,Artigo,DevOps & Cloud,Avançado,1,9,100.00,1,2026-09-29 02:42:07.414724
+2026-07-01,151,Especialização em Visualizações com Big Numbers e Gráficos Eficazes com Projetos Práticos,Curso,Business Intelligence,Básico,1,159,53.20,0,2026-09-29 02:42:07.414724
+2026-04-01,23,Tech Talk Ep. 12: Melhores Práticas em Pipelines e Transformações com Apache Hop,Podcast,Engenharia de Dados,Avançado,1,15,49.30,0,2026-09-29 02:42:07.414724
+2026-07-01,430,Curso Completo de Visualizações com Big Numbers e Gráficos Eficazes: Da Teoria à Prática,Curso,Business Intelligence,Avançado,1,2078,71.10,0,2026-09-29 02:42:07.414724
+2026-08-01,595,Guia Rápido e Hands-on: Experimentação e Testes A/B Orientados a Dados,Vídeo,Ciência de Dados,Básico,1,27,68.10,0,2026-09-29 02:42:07.414724
+2026-06-01,422,Masterclass de Pipelines de Ingestão Batch e Streaming para Projetos Reais,Curso,Engenharia de Dados,Intermediário,1,1182,100.00,1,2026-09-29 02:42:07.414724
+2026-04-01,589,Análise Comparativa e Padrões Recomendados em Otimização de Consultas SQL com EXPLAIN ANALYZE,Artigo,Banco de Dados,Avançado,1,22,79.00,0,2026-09-29 02:42:07.414724
+2026-02-01,19,"Solucionando Desafios do Dia a Dia em Python Avançado: POO, Decorators e Geradores",Vídeo,Programação & Software,Básico,1,1,10.10,0,2026-09-29 02:42:07.414724
+2026-07-01,578,Princípios Essenciais e Arquitetura de Gestão de Metadados e Qualidade de Dados Mestres,Artigo,Segurança & Governança,Intermediário,1,2,26.70,0,2026-09-29 02:42:07.414724
+2026-03-01,30,Masterclass de Monitoramento de Performance e Acompanhamento de Metas para Projetos Reais,Curso,Business Intelligence,Avançado,1,967,40.20,0,2026-09-29 02:42:07.414724
+2026-01-01,229,Arquitetura & Código Ep. 79: Inovações em Storytelling com Dados para Apresentações Executivas,Podcast,Business Intelligence,Intermediário,1,1,4.20,0,2026-09-29 02:42:07.414724
+2026-06-01,985,Como Obter Alta Performance Utilizando Tipagem Estática e Boas Práticas com Mypy,Artigo,Programação & Software,Intermediário,1,2,12.60,0,2026-09-29 02:42:07.414724
+2026-03-01,431,Formação Prática em Arquitetura RAG e Recuperação Semântica: Fundamentos e Aplicação,Curso,Inteligência Artificial,Básico,1,302,57.40,0,2026-09-29 02:42:07.414724
+2026-02-01,269,Especialização em Previsão de Séries Temporais e Tendências com Projetos Práticos,Curso,Ciência de Dados,Básico,1,186,30.50,0,2026-09-29 02:42:07.414724
+2026-01-01,362,Princípios Essenciais e Arquitetura de Auditoria e Monitoramento de Logs de Acesso,Artigo,Segurança & Governança,Básico,1,1,10.20,0,2026-09-29 02:42:07.414724
+2026-02-01,292,Guia Definitivo e Boas Práticas sobre Controle de Acesso Baseado em Papéis (RBAC),Artigo,Segurança & Governança,Intermediário,1,9,42.10,0,2026-09-29 02:42:07.414724
+2026-07-01,348,Estudo Técnico e Decisões de Arquitetura em Governança e Ética em Sistemas de IA,Artigo,Inteligência Artificial,Intermediário,1,1,14.90,0,2026-09-29 02:42:07.414724
+2026-08-01,717,Deep Dive Ep. 139: Casos de Sucesso em Análise Exploratória de Dados com Pandas,Podcast,Ciência de Dados,Intermediário,1,2,5.80,0,2026-09-29 02:42:07.414724
+2026-04-01,509,Tech Talk Ep. 111: Melhores Práticas em Engenharia de Recursos e Pré-processamento,Podcast,Ciência de Dados,Avançado,1,79,100.00,1,2026-09-29 02:42:07.414724
+2026-05-01,820,Melhores Práticas e Arquitetura de Design de Dashboards e Eliminação de Chartjunk,Vídeo,Business Intelligence,Intermediário,1,70,100.00,1,2026-09-29 02:42:07.414724
+2026-02-01,298,Data Insights Ep. 94: Experiências Reais com Visão Computacional e Processamento de Imagens,Podcast,Inteligência Artificial,Intermediário,1,9,13.70,0,2026-09-29 02:42:07.414724
+2026-05-01,95,Construindo Aplicações Robustas com Refatoração de Código e Padrões PEP 8,Curso,Programação & Software,Intermediário,2,401,17.40,0,2026-09-29 02:42:07.414724
+2026-04-01,114,Solucionando Desafios do Dia a Dia em Modelagem Dimensional Star Schema e Snowflake,Vídeo,Engenharia de Dados,Básico,1,4,14.70,0,2026-09-29 02:42:07.414724
+2026-02-01,787,Tech Talk Ep. 109: Melhores Práticas em Embeddings Vetoriais e Representação Semântica,Podcast,Inteligência Artificial,Avançado,1,70,100.00,1,2026-09-29 02:42:07.414724
+2026-01-01,665,Formação Prática em Arquitetura de Dados Resiliente e Tolerante a Falhas: Fundamentos e Aplicação,Curso,Engenharia de Dados,Avançado,1,3367,93.80,0,2026-09-29 02:42:07.414724
+2026-07-01,50,Solucionando Desafios do Dia a Dia em Arquitetura RAG e Recuperação Semântica,Vídeo,Inteligência Artificial,Básico,1,4,9.70,0,2026-09-29 02:42:07.414724
+2026-07-01,534,Guia Definitivo e Boas Práticas sobre Design de Dashboards e Eliminação de Chartjunk,Artigo,Business Intelligence,Avançado,1,4,13.70,0,2026-09-29 02:42:07.414724
+2026-03-01,154,Análise Comparativa e Padrões Recomendados em Consultas e Índices GIN com JSONB no PostgreSQL,Artigo,Banco de Dados,Avançado,1,17,71.80,0,2026-09-29 02:42:07.414724
+2026-07-01,402,Formação Prática em Infraestrutura como Código com Terraform: Fundamentos e Aplicação,Curso,DevOps & Cloud,Intermediário,1,812,59.60,0,2026-09-29 02:42:07.414724
+2026-04-01,152,Especialização em Governança e Ética em Sistemas de IA com Projetos Práticos,Curso,Inteligência Artificial,Avançado,1,894,50.80,0,2026-09-29 02:42:07.414724
+2026-06-01,444,Melhores Práticas e Arquitetura de Estratégias de Indexação e Performance de Bancos,Vídeo,Banco de Dados,Avançado,1,60,53.80,0,2026-09-29 02:42:07.414724
+2026-04-01,188,Masterclass de Automação de Servidores Linux e Acesso SSH para Projetos Reais,Curso,DevOps & Cloud,Básico,1,431,86.50,0,2026-09-29 02:42:07.414724
+2026-02-01,774,Como Obter Alta Performance Utilizando Modelagem e Agregações Analíticas no SQL Lab,Artigo,Business Intelligence,Avançado,1,23,82.40,0,2026-09-29 02:42:07.414724
+2026-08-01,658,Análise Comparativa e Padrões Recomendados em Clusterização e Segmentação de Perfis,Artigo,Ciência de Dados,Intermediário,1,13,100.00,1,2026-09-29 02:42:07.414724
+2026-01-01,765,Construindo Aplicações Robustas com Arquitetura de Dados Resiliente e Tolerante a Falhas,Curso,Engenharia de Dados,Avançado,1,432,18.30,0,2026-09-29 02:42:07.414724
+2026-07-01,65,Princípios Essenciais e Arquitetura de Conteinerização com Docker e Docker Compose,Artigo,DevOps & Cloud,Intermediário,1,10,84.50,0,2026-09-29 02:42:07.414724
+2026-04-01,136,Arquitetura & Código Ep. 109: Inovações em Armazenamento de Documentos com MongoDB,Podcast,Banco de Dados,Básico,1,33,100.00,1,2026-09-29 02:42:07.414724
+2026-02-01,636,Estudo Técnico e Decisões de Arquitetura em Design de Dashboards e Eliminação de Chartjunk,Artigo,Business Intelligence,Avançado,1,7,60.00,0,2026-09-29 02:42:07.414724
+2026-01-01,83,Deep Dive Ep. 94: Casos de Sucesso em Data Lakehouse e Armazenamento Delta Lake,Podcast,Engenharia de Dados,Básico,1,23,65.50,0,2026-09-29 02:42:07.414724
+2026-08-01,554,Especialização em Controle de Acesso Baseado em Papéis (RBAC) com Projetos Práticos,Curso,Segurança & Governança,Básico,1,196,100.00,1,2026-09-29 02:42:07.414724
+2026-01-01,239,Tech Talk Ep. 29: Melhores Práticas em Modelagem e Agregações Analíticas no SQL Lab,Podcast,Business Intelligence,Básico,1,12,15.30,0,2026-09-29 02:42:07.414724
+2026-05-01,429,Como Obter Alta Performance Utilizando Mensageria e Streaming com Apache Kafka,Artigo,Engenharia de Dados,Intermediário,1,14,67.40,0,2026-09-29 02:42:07.414724
+2026-01-01,102,Masterclass de Escalabilidade e Gestão de Custos em Cloud para Projetos Reais,Curso,DevOps & Cloud,Avançado,1,435,25.60,0,2026-09-29 02:42:07.414724

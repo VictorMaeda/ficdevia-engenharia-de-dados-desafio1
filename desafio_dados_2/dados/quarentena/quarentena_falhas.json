@@ -71,5 +71,141 @@
       "avaliacao_atribuida": "None",
       "percentual_conclusao": "250.0"
     }
+  },
+  {
+    "registro_id": 11,
+    "origem": "bronze.interacoes",
+    "regra_violada": "duplicata por (usuario_id, conteudo_id, data_hora)",
+    "data_erro": "2026-09-29T02:33:23.877026",
+    "mensagem_erro": null,
+    "execucao_id": "SILVER_EXEC_20260929_023323_eba2e4",
+    "payload": {
+      "data_hora": "2026-03-21T10:54:52",
+      "usuario_id": "3",
+      "conteudo_id": "614",
+      "tipo_interacao": "conclus\u00e3o",
+      "tempo_consumido": "28",
+      "avaliacao_atribuida": "None",
+      "percentual_conclusao": "100.0"
+    }
+  },
+  {
+    "registro_id": 12,
+    "origem": "bronze.interacoes",
+    "regra_violada": "percentual_conclusao fora da faixa [0,100]: 250.0",
+    "data_erro": "2026-09-29T02:33:23.877026",
+    "mensagem_erro": null,
+    "execucao_id": "SILVER_EXEC_20260929_023323_eba2e4",
+    "payload": {
+      "data_hora": "2026-04-02T11:00:00",
+      "usuario_id": "11",
+      "conteudo_id": "21",
+      "tipo_interacao": "visualiza\u00e7\u00e3o",
+      "tempo_consumido": "200",
+      "avaliacao_atribuida": "None",
+      "percentual_conclusao": "250.0"
+    }
+  },
+  {
+    "registro_id": 16,
+    "origem": "bronze.interacoes",
+    "regra_violada": "duplicata por (usuario_id, conteudo_id, data_hora)",
+    "data_erro": "2026-09-29T02:34:29.101969",
+    "mensagem_erro": null,
+    "execucao_id": "SILVER_EXEC_20260929_023428_8d54fe",
+    "payload": {
+      "data_hora": "2026-03-21T10:54:52",
+      "usuario_id": "3",
+      "conteudo_id": "614",
+      "tipo_interacao": "conclus\u00e3o",
+      "tempo_consumido": "28",
+      "avaliacao_atribuida": "None",
+      "percentual_conclusao": "100.0"
+    }
+  },
+  {
+    "registro_id": 17,
+    "origem": "bronze.interacoes",
+    "regra_violada": "percentual_conclusao fora da faixa [0,100]: 250.0",
+    "data_erro": "2026-09-29T02:34:29.101969",
+    "mensagem_erro": null,
+    "execucao_id": "SILVER_EXEC_20260929_023428_8d54fe",
+    "payload": {
+      "data_hora": "2026-04-02T11:00:00",
+      "usuario_id": "11",
+      "conteudo_id": "21",
+      "tipo_interacao": "visualiza\u00e7\u00e3o",
+      "tempo_consumido": "200",
+      "avaliacao_atribuida": "None",
+      "percentual_conclusao": "250.0"
+    }
+  },
+  {
+    "registro_id": 18,
+    "origem": "bronze.interacoes",
+    "regra_violada": "conteudo_id 999999 n\u00e3o existe no cat\u00e1logo (falha de integridade referencial)",
+    "data_erro": "2026-09-29T02:34:29.101969",
+    "mensagem_erro": null,
+    "execucao_id": "SILVER_EXEC_20260929_023428_8d54fe",
+    "payload": {
+      "data_hora": "2026-04-03T12:00:00",
+      "usuario_id": "12",
+      "conteudo_id": "999999",
+      "tipo_interacao": "curtida",
+      "tempo_consumido": "10",
+      "avaliacao_atribuida": "5",
+      "percentual_conclusao": "50.0"
+    }
+  },
+  {
+    "registro_id": 22,
+    "origem": "bronze.interacoes",
+    "regra_violada": "duplicata por (usuario_id, conteudo_id, data_hora)",
+    "data_erro": "2026-09-29T02:42:03.121988",
+    "mensagem_erro": null,
+    "execucao_id": "SILVER_EXEC_20260929_024203_4186b5",
+    "payload": {
+      "data_hora": "2026-03-21T10:54:52",
+      "usuario_id": "3",
+      "conteudo_id": "614",
+      "tipo_interacao": "conclus\u00e3o",
+      "tempo_consumido": "28",
+      "avaliacao_atribuida": "None",
+      "percentual_conclusao": "100.0"
+    }
+  },
+  {
+    "registro_id": 23,
+    "origem": "bronze.interacoes",
+    "regra_violada": "percentual_conclusao fora da faixa [0,100]: 250.0",
+    "data_erro": "2026-09-29T02:42:03.121988",
+    "mensagem_erro": null,
+    "execucao_id": "SILVER_EXEC_20260929_024203_4186b5",
+    "payload": {
+      "data_hora": "2026-04-02T11:00:00",
+      "usuario_id": "11",
+      "conteudo_id": "21",
+      "tipo_interacao": "visualiza\u00e7\u00e3o",
+      "tempo_consumido": "200",
+      "avaliacao_atribuida": "None",
+      "percentual_conclusao": "250.0"
+    }
+  },
+  {
+    "registro_id": 24,
+    "origem": "bronze.interacoes",
+    "regra_violada": "conteudo_id 999999 n\u00e3o existe no cat\u00e1logo (falha de integridade referencial)",
+    "data_erro": "2026-09-29T02:42:03.121988",
+    "mensagem_erro": null,
+    "execucao_id": "SILVER_EXEC_20260929_024203_4186b5",
+    "payload": {
+      "data_hora": "2026-04-03T12:00:00",
+      "usuario_id": "12",
+      "conteudo_id": "999999",
+      "tipo_interacao": "curtida",
+      "tempo_consumido": "10",
+      "avaliacao_atribuida": "5",
+      "percentual_conclusao": "50.0"
+    }
   }
 ]
