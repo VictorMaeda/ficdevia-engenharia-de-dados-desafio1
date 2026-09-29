@@ -4,6 +4,11 @@
 **Módulo:** Fundamentos de Dados para IA  
 **Versão:** 1.0 — 2026  
 **Branch:** `lor-superset`
+## Participantes
+
+- Victor Maeda
+- Miltom Simplício
+- Leonardo Ramos
 
 ---
 
