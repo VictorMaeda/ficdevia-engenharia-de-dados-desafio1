@@ -41,10 +41,17 @@ with app.app_context():
 
     print("[*] Iniciando montagem do Dashboard Analítico Completo do Apache Superset (RF18)...")
 
-    # 1. Localizar banco de dados PostgreSQL
+    # 1. Localizar ou Criar banco de dados PostgreSQL
     database = db.session.query(Database).filter_by(database_name='PostgreSQL - Desafio Dados').first()
     if not database:
         database = db.session.query(Database).first()
+    if not database:
+        database = Database(
+            database_name='PostgreSQL - Desafio Dados',
+            sqlalchemy_uri='postgresql+psycopg2://desafio_user:troque_esta_senha@desafio_dados_postgres:5432/desafio_dados'
+        )
+        db.session.add(database)
+        db.session.commit()
     print(f"[OK] Banco de Dados associado: {database.database_name} (ID: {database.id})")
 
     # 2. Registrar Tabelas Físicas e Views da Camada Gold
