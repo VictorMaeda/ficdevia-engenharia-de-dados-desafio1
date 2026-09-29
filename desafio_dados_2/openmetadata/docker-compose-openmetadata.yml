@@ -80,8 +80,20 @@ services:
       - "8585:8585"
     volumes:
       - openmetadata_server_data:/opt/openmetadata
+    # Conecta também à rede do Desafio 2 para acessar desafio_dados_postgres por hostname
+    networks:
+      - default
+      - desafio2_network
 
 volumes:
   openmetadata_mysql_data:
   openmetadata_opensearch_data:
   openmetadata_server_data:
+
+# Rede externa do Docker Compose principal do Desafio 2
+networks:
+  default:
+    driver: bridge
+  desafio2_network:
+    external: true
+    name: ficdevia-engenharia-de-dados-desafio1_default

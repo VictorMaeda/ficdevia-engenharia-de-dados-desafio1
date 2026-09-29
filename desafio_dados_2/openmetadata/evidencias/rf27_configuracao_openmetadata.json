@@ -1,0 +1,63 @@
+{
+  "executado_em": "2026-09-29T06:41:07.281661",
+  "host_alvo": "http://localhost:8585",
+  "artefatos_configurados": [
+    {
+      "tipo": "DatabaseService",
+      "nome": "pg_desafio2_service",
+      "displayName": "PostgreSQL — Desafio 2 FIC DEV IA",
+      "descricao": "Serviço principal de banco de dados relacional do Desafio Prático 2. Hospeda as camadas Bronze, Silver, Gold e Quarentena da plataforma educacional. Governado pelo OpenMetadata conforme RF27.",
+      "conexao": {
+        "tipo": "Postgres",
+        "banco": "desafio_dados",
+        "host": "localhost",
+        "usuario": "desafio_user",
+        "schemas_ingeridos": [
+          "silver",
+          "gold",
+          "qualidade"
+        ]
+      }
+    },
+    {
+      "tipo": "IngestionPipeline",
+      "nome": "desafio2_postgres_metadata_ingestion",
+      "pipelineType": "metadata",
+      "agendamento": "0 6 * * *",
+      "descricao": "Pipeline de ingestão automática de metadados técnicos (schemas, tabelas, colunas, views e comentários DDL) do banco de dados desafio_dados para o catálogo do OpenMetadata. Filtra schemas relevantes: silver, gold, qualidade."
+    },
+    {
+      "tipo": "DashboardService",
+      "nome": "superset_desafio2_service",
+      "displayName": "Apache Superset — Dashboard Educacional Desafio 2",
+      "descricao": "Serviço de BI que hospeda o Dashboard Executivo de Engajamento Educacional consumido pela Diretoria Pedagógica. Conecta-se exclusivamente na camada Gold do PostgreSQL para garantir ausência de dados pessoais nos painéis."
+    },
+    {
+      "tipo": "Lineage",
+      "arestas": [
+        "bronze.interacoes → silver.interacoes (Apache Hop)",
+        "silver.interacoes → gold.engajamento_conteudo (Apache Beam + carregar_gold.py)",
+        "gold.engajamento_conteudo → dashboard_engajamento_educacional_desafio2 (Superset)"
+      ],
+      "colunas_mapeadas": [
+        "total_interacoes",
+        "taxa_conclusao_pct"
+      ]
+    }
+  ],
+  "politica_governanca": {
+    "proibido_promover_sem": [
+      "data_owner atribuído",
+      "description preenchida",
+      "tag de classificação aplicada",
+      "termo do glossário vinculado (para colunas com PII)"
+    ],
+    "controles_anti_swamp": [
+      "Isolamento estrito por camada (Bronze/Silver/Gold)",
+      "Quarentena automática para dados inválidos",
+      "Quality Gate Q01-Q05 bloqueia publicação Gold se crítico",
+      "Minimização LGPD: Gold sem usuario_id/autor/comentario",
+      "Ingestão automática diária de metadados técnicos"
+    ]
+  }
+}

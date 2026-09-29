@@ -1,0 +1,132 @@
+{
+  "executado_em": "2026-09-29T06:41:07.438690",
+  "requisito": "RF30 — Gestão de Dados Mestres (MDM)",
+  "ferramenta": "OpenMetadata",
+  "entidade_mestre": {
+    "nome": "ConteudoEducacional",
+    "displayName": "Conteúdo Educacional (Entidade Mestre MDM)",
+    "description": "Entidade de dados mestre central da plataforma FIC DEV IA. Representa o curso, vídeo, podcast ou artigo educacional de forma única e canônica. É referenciada por: silver.catalogo (master), silver.interacoes, silver.recomendacoes, silver.comentarios e gold.engajamento_conteudo.",
+    "chave_de_negocio": {
+      "golden_id": "conteudo_id",
+      "tipo": "surrogate key — gerado pelo pipeline de ingestão",
+      "chave_natural": "hash(titulo_normalizado + autor_id + tipo_midia)",
+      "regra": "O menor conteudo_id observado para registros que coincidem por similaridade >= 95% no título (após normalização) e mesmo autor e tipo é promovido a Golden Record."
+    },
+    "tabela_master": "silver.catalogo",
+    "servico_openmetadata": "pg_desafio2_service",
+    "fqn_tabela_master": "pg_desafio2_service.desafio_dados.silver.catalogo",
+    "atributos_essenciais": [
+      {
+        "coluna": "conteudo_id",
+        "tipo": "integer",
+        "papel_mdm": "Golden ID",
+        "obrigatorio": true
+      },
+      {
+        "coluna": "titulo",
+        "tipo": "varchar",
+        "papel_mdm": "Atributo Master",
+        "obrigatorio": true
+      },
+      {
+        "coluna": "tipo",
+        "tipo": "varchar",
+        "papel_mdm": "Atributo Master",
+        "obrigatorio": true
+      },
+      {
+        "coluna": "categoria",
+        "tipo": "varchar",
+        "papel_mdm": "Atributo Master",
+        "obrigatorio": true
+      },
+      {
+        "coluna": "nivel",
+        "tipo": "varchar",
+        "papel_mdm": "Atributo Master",
+        "obrigatorio": true
+      },
+      {
+        "coluna": "data_publicacao",
+        "tipo": "date",
+        "papel_mdm": "Atributo Master",
+        "obrigatorio": true
+      },
+      {
+        "coluna": "autor",
+        "tipo": "varchar",
+        "papel_mdm": "PII — Mascarado",
+        "obrigatorio": false,
+        "classificacao_lgpd": "PII.Identifiable"
+      }
+    ],
+    "regras_survivorship": [
+      "Título: prevalece o mais longo e descritivo (maior LENGTH não nulo).",
+      "Categoria: prevalece a do sistema acadêmico mestre (catalogo.csv).",
+      "Nível: prevalece o do registro com maior data_publicacao.",
+      "Golden ID (conteudo_id): menor ID entre os registros duplicados.",
+      "Autor: campo mascarado na Silver para conformidade LGPD."
+    ],
+    "sistemas_consumidores": [
+      {
+        "sistema": "silver.interacoes",
+        "campo_fk": "conteudo_id",
+        "cardinalidade": "N:1"
+      },
+      {
+        "sistema": "silver.recomendacoes",
+        "campo_fk": "conteudo_id",
+        "cardinalidade": "N:1"
+      },
+      {
+        "sistema": "silver.comentarios",
+        "campo_fk": "conteudo_id",
+        "cardinalidade": "N:1"
+      },
+      {
+        "sistema": "gold.engajamento_conteudo",
+        "campo_fk": "conteudo_id",
+        "cardinalidade": "1:1"
+      },
+      {
+        "sistema": "Apache Superset — Dashboard",
+        "campo_fk": "conteudo_id",
+        "cardinalidade": "Consumo analítico"
+      },
+      {
+        "sistema": "Motor de Recomendação IA",
+        "campo_fk": "conteudo_id",
+        "cardinalidade": "N:M"
+      }
+    ],
+    "steward": {
+      "area": "Coordenação Pedagógica e Acadêmica",
+      "email": "pedagogico@ficdevia.edu.br",
+      "responsabilidades": [
+        "Aprovar inclusão de novos conteúdos no catálogo mestre.",
+        "Validar resultados de deduplicação antes da promoção ao Golden Record.",
+        "Revisar mapeamento de categorias e níveis a cada semestre."
+      ]
+    },
+    "politica_manutencao": {
+      "frequencia_revisao": "Trimestral",
+      "controle_versao": "Histórico de mudanças no campo updated_at de silver.catalogo",
+      "processo_correcao": "Abrir ticket no sistema acadêmico → Pipeline reingere → Regras de Survivorship resolvem → Aprovação do Steward → Publicação na Gold na próxima execução agendada."
+    }
+  },
+  "custom_properties_definidas": [
+    "mdm_is_golden_record",
+    "mdm_golden_id",
+    "mdm_steward",
+    "mdm_survivorship_rule"
+  ],
+  "descricoes_colunas_aplicadas": [
+    "conteudo_id",
+    "titulo",
+    "tipo",
+    "categoria",
+    "nivel",
+    "data_publicacao",
+    "autor"
+  ]
+}
