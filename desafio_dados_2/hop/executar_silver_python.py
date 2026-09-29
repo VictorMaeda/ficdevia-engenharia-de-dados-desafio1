@@ -212,12 +212,15 @@ def popular_silver_interacoes(conn):
     print("\n[Silver Interações] Iniciando padronização...")
 
     with conn.cursor() as cur:
+        cur.execute("SELECT DISTINCT conteudo_id FROM silver.catalogo")
+        conteudos_validos = {int(r[0]) for r in cur.fetchall() if r[0] is not None}
+
         cur.execute("SELECT id, conteudo_json, origem_arquivo, execucao_id FROM bronze.interacoes")
         rows = cur.fetchall()
         cols = [d[0] for d in cur.description]
         registros = [dict(zip(cols, r)) for r in rows]
 
-    print(f"  Bronze lida: {len(registros)} registros.")
+    print(f"  Bronze lida: {len(registros)} registros. Catálogo válido: {len(conteudos_validos)} IDs.")
 
     validos = []
     quarentena = []
@@ -284,6 +287,8 @@ def popular_silver_interacoes(conn):
             erros.append("usuario_id ausente ou inválido")
         if cid is None:
             erros.append("conteudo_id ausente ou inválido")
+        elif cid not in conteudos_validos:
+            erros.append(f"conteudo_id {cid} não existe no catálogo (falha de integridade referencial)")
         if not tipo_int:
             erros.append("tipo_interacao ausente")
         if data_hora is None:
