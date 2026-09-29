@@ -80,10 +80,7 @@ duracao() {
 aguardar_postgres() {
     info "Aguardando PostgreSQL em ${POSTGRES_HOST}:${POSTGRES_PORT}..."
     local tentativas=0
-    until PGPASSWORD="${POSTGRES_PASSWORD}" psql \
-        -h "${POSTGRES_HOST}" -p "${POSTGRES_PORT}" \
-        -U "${POSTGRES_USER}" -d "${POSTGRES_DB}" \
-        -c "SELECT 1" > /dev/null 2>&1; do
+    until python3 -c "import psycopg2, os; conn = psycopg2.connect(host=os.getenv('POSTGRES_HOST', 'localhost'), port=int(os.getenv('POSTGRES_PORT', '5432')), dbname=os.getenv('POSTGRES_DB', 'desafio_dados'), user=os.getenv('POSTGRES_USER', 'desafio_user'), password=os.getenv('POSTGRES_PASSWORD', 'troque_esta_senha')); conn.close()" > /dev/null 2>&1; do
         tentativas=$((tentativas + 1))
         if [[ $tentativas -gt 30 ]]; then
             erro "PostgreSQL não respondeu após 30 tentativas."
