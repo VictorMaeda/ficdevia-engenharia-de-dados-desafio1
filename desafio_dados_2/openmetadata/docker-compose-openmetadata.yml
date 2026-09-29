@@ -72,7 +72,10 @@ services:
       SEARCH_TYPE: opensearch
       SEARCH_HOST: openmetadata-opensearch
       SEARCH_PORT: 9200
-      AUTHENTICATION_PROVIDER: openmetadata
+      AUTHENTICATION_PROVIDER: basic
+      AUTHENTICATION_PUBLIC_KEYS: "[http://localhost:8585/api/v1/system/config/jwks]"
+      AUTHENTICATION_AUTHORITY: "http://localhost:8585/api/v1/system/config/jwks"
+      AUTHENTICATION_ENABLE_SELF_SIGNUP: "true"
     ports:
       - "8585:8585"
     volumes:

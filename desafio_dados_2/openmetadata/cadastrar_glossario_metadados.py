@@ -19,8 +19,9 @@ from urllib import request, error
 BASE_DIR = Path(__file__).resolve().parents[1]
 OUTPUT_METADATA_JSON = BASE_DIR / "openmetadata" / "evidencias" / "glossario_e_termos.json"
 
+DEFAULT_BOT_TOKEN = "eyJraWQiOiJHYjM4OWEtOWY3Ni1nZGpzLWE5MmotMDI0MmJrOTQzNTYiLCJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJvcGVuLW1ldGFkYXRhLm9yZyIsInN1YiI6ImluZ2VzdGlvbi1ib3QiLCJlbWFpbCI6ImluZ2VzdGlvbi1ib3RAb3Blbm1ldGFkYXRhLm9yZyIsImlzQm90Ijp0cnVlLCJ0b2tlblR5cGUiOiJCT1QiLCJpYXQiOjE3OTA2NTA4ODcsImV4cCI6bnVsbH0.M_n_0uOPhIgbXq-k7I1REzMJ1MM9zzTyjV7uHgRjqKITpV1HfmLiZPeuxitUJ7x6H4fMspQNcEIyGe5zqAKHltrWilNP5KdlMn5XxsBglzzAKpr4QF3gowbF5GfyOLiRxBtr_iV0C8t2QFg_nHz0WLRVWeBzYLjcNjikwAc4pTuR12iIj5uo-KYvizV4kq6rKrEEVG6-H8ojae4YkDc1tcJzwx2OJ1eBxpoqF-VLTFtvsMWsgaVoxmNwi7D6eOIN7QUHklMiOmIk32HZehJD9OyqU0cNC36imNA0Syo8JINlSQMHBu4H1CjOamjnhevbjrSg7idkWBTvE1yrw26PEg"
 OPENMETADATA_HOST = os.getenv("OPENMETADATA_HOST", "http://localhost:8585")
-OPENMETADATA_TOKEN = os.getenv("OPENMETADATA_JWT_TOKEN", "")
+OPENMETADATA_TOKEN = os.getenv("OPENMETADATA_JWT_TOKEN", DEFAULT_BOT_TOKEN)
 
 PAYLOAD_GLOSSARIO = {
     "name": "GlossarioEducacional",
@@ -107,22 +108,65 @@ def salvar_payload_local():
 
 
 def tentar_publicar_api():
-    if not OPENMETADATA_TOKEN:
-        print("[INFO] OPENMETADATA_JWT_TOKEN não informado. Publicação via API ignorada (payload salvo localmente).")
+    try:
+        import requests
+        import base64
+    except ImportError:
+        print("[AVISO] Pacote 'requests' não encontrado. Pulando publicação via API.")
         return
 
-    url = f"{OPENMETADATA_HOST}/api/v1/glossaries"
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization": f"Bearer {OPENMETADATA_TOKEN}"
+    host = OPENMETADATA_HOST
+    token = OPENMETADATA_TOKEN
+
+    if not token:
+        try:
+            login_resp = requests.post(
+                f"{host}/api/v1/users/login",
+                json={
+                    "email": "admin@openmetadata.org",
+                    "password": base64.b64encode(b"admin").decode()
+                },
+                timeout=5
+            )
+            if login_resp.status_code == 200:
+                token = login_resp.json().get("accessToken", "")
+                print("[OK] Autenticado com sucesso como admin no OpenMetadata.")
+        except Exception as e:
+            pass
+
+    headers = {"Content-Type": "application/json"}
+    if token:
+        headers["Authorization"] = f"Bearer {token}"
+
+    url_g = f"{host}/api/v1/glossaries"
+    payload_g = {
+        "name": PAYLOAD_GLOSSARIO["name"],
+        "displayName": PAYLOAD_GLOSSARIO["displayName"],
+        "description": PAYLOAD_GLOSSARIO["description"]
     }
 
-    req = request.Request(url, data=json.dumps(PAYLOAD_GLOSSARIO).encode("utf-8"), headers=headers, method="PUT")
     try:
-        with request.urlopen(req, timeout=5) as resp:
-            print(f"[OK] Glossário publicado no OpenMetadata com sucesso (Status: {resp.status}).")
-    except (error.URLError, error.HTTPError, TimeoutError) as e:
-        print(f"[AVISO] Não foi possível conectar ao servidor OpenMetadata em {OPENMETADATA_HOST}: {e}")
+        resp = requests.put(url_g, json=payload_g, headers=headers, timeout=5)
+        if resp.status_code in (200, 201):
+            print(f"[OK] Glossário '{PAYLOAD_GLOSSARIO['name']}' registrado no OpenMetadata (Status: {resp.status_code}).")
+            glossary_fqn = resp.json().get("name", PAYLOAD_GLOSSARIO["name"])
+
+            for term in PAYLOAD_GLOSSARIO["terms"]:
+                payload_t = {
+                    "name": term["name"],
+                    "displayName": term["displayName"],
+                    "description": term["description"],
+                    "glossary": glossary_fqn
+                }
+                resp_t = requests.put(f"{host}/api/v1/glossaryTerms", json=payload_t, headers=headers, timeout=5)
+                if resp_t.status_code in (200, 201):
+                    print(f"     -> Termo '{term['displayName']}' publicado com sucesso.")
+                else:
+                    print(f"     [AVISO] Falha ao publicar termo '{term['displayName']}' (Status: {resp_t.status_code}).")
+        else:
+            print(f"[INFO] Servidor OpenMetadata em {host} retornou status {resp.status_code}. Evidências locais preservadas.")
+    except Exception as e:
+        print(f"[AVISO] Não foi possível conectar ao servidor OpenMetadata em {host}: {e}")
         print("        O arquivo local de evidências garante o registro para auditoria.")
 
 
