@@ -16,7 +16,7 @@
 #   ./executar_pipeline_completo.sh qualidade    # apenas testes de qualidade (RF31)
 #   ./executar_pipeline_completo.sh lgpd         # apenas demonstração LGPD (RF33)
 #   ./executar_pipeline_completo.sh amostras     # apenas exportar amostras (RF34)
-#   ./executar_pipeline_completo.sh openmetadata # apenas glossário OpenMetadata (RF28)
+#   ./executar_pipeline_completo.sh openmetadata # Bootstrap OpenMetadata completo (RF27/28/30)
 # ==============================================================================
 
 set -euo pipefail
@@ -173,14 +173,27 @@ etapa_lgpd() {
 }
 
 etapa_openmetadata() {
-    cabecalho "RF27/28 — Cadastro de Glossário e Metadados no OpenMetadata"
+    cabecalho "RF27/28/30 — Bootstrap Completo do OpenMetadata (Serviços, Glossário e MDM)"
     local t=$(date +%s)
-    python3 "${DD2}/openmetadata/cadastrar_glossario_metadados.py" || {
-        warn "Falha ao conectar ao OpenMetadata. Verifique se a instância está ativa."
-        warn "O script registrou as definições localmente em openmetadata/evidencias/"
-        return 0
+
+    info "[1/3] RF27 — Configurando serviços, pipeline de ingestão e linhagem..."
+    python3 "${DD2}/openmetadata/configurar_openmetadata.py" || {
+        warn "Servidor OpenMetadata indisponível. Evidências locais preservadas."
     }
-    ok "Glossário e metadados registrados. Duração: $(duracao $t)"
+
+    info "[2/3] RF28 — Registrando Glossário de Negócio e Classificações..."
+    python3 "${DD2}/openmetadata/cadastrar_glossario_metadados.py" || {
+        warn "Falha ao publicar glossário via API. Evidência JSON local salva."
+    }
+
+    info "[3/3] RF30 — Registrando Dados Mestres (MDM) — Entidade Conteúdo Educacional..."
+    python3 "${DD2}/openmetadata/registrar_dados_mestres_openmetadata.py" || {
+        warn "Falha ao publicar MDM via API. Evidência JSON local salva."
+    }
+
+    ok "Bootstrap OpenMetadata concluído. Duração: $(duracao $t)"
+    info "Evidências salvas em: openmetadata/evidencias/"
+    info "Interface web: http://localhost:8585 (se disponível)"
 }
 
 etapa_completa() {
@@ -229,9 +242,9 @@ case "${ETAPA}" in
     gold|rf26)          aguardar_postgres && etapa_gold ;;
     qualidade|rf31)     aguardar_postgres && etapa_qualidade ;;
     lgpd|rf33)          etapa_lgpd ;;
-    openmetadata|rf28)  etapa_openmetadata ;;
+    openmetadata|rf27|rf28|rf30)  etapa_openmetadata ;;
     *)
-        echo "Uso: $0 [completo|amostras|silver|parquet|beam|gold|qualidade|lgpd|openmetadata]"
+        echo "Uso: $0 [completo|amostras|silver|parquet|beam|gold|qualidade|lgpd|openmetadata|rf27|rf28|rf30]"
         exit 1
         ;;
 esac

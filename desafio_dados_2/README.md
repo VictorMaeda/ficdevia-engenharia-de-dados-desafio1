@@ -329,13 +329,29 @@ Demonstra as 3 técnicas de proteção:
 2. **Pseudonimização** — HMAC-SHA256 determinístico (campo `usuario_id`)
 3. **Hashing com Salt** — SHA-256 irreversível (campo `comentario`)
 
-### Passo 10 — Registrar Glossário no OpenMetadata (RF28)
+### Passo 10 — Bootstrap Completo do OpenMetadata (RF27, RF28, RF30)
 
 ```bash
+# Executa os 3 scripts de governança em sequência:
+python desafio_dados_2/openmetadata/configurar_openmetadata.py
 python desafio_dados_2/openmetadata/cadastrar_glossario_metadados.py
+python desafio_dados_2/openmetadata/registrar_dados_mestres_openmetadata.py
 ```
 
-> Se a instância OpenMetadata não estiver disponível, o script registra as definições localmente em `openmetadata/evidencias/`.
+Ou via script unificado:
+```bash
+./desafio_dados_2/executar_pipeline_completo.sh openmetadata
+```
+
+> Se a instância OpenMetadata não estiver disponível, todos os scripts registram as definições localmente em `openmetadata/evidencias/`.
+
+**O que cada script faz:**
+
+| Script | RF | Ações |
+|--------|----|---------|
+| `configurar_openmetadata.py` | RF27 | Registra serviço PostgreSQL, pipeline de ingestão diário, serviço Superset e 3 arestas de linhagem |
+| `cadastrar_glossario_metadados.py` | RF28 | Cria glossário com 4 termos de negócio e 2 classificações (PII, Tier) |
+| `registrar_dados_mestres_openmetadata.py` | RF30 | Custom Properties MDM, descrições de coluna com papel Golden ID/PII |
 
 ### Passo 11 — Acessar o Apache Superset (RF16, RF17, RF18)
 
@@ -365,7 +381,10 @@ chmod +x desafio_dados_2/executar_pipeline_completo.sh
 ./desafio_dados_2/executar_pipeline_completo.sh gold
 ./desafio_dados_2/executar_pipeline_completo.sh qualidade
 ./desafio_dados_2/executar_pipeline_completo.sh lgpd
-./desafio_dados_2/executar_pipeline_completo.sh openmetadata
+./desafio_dados_2/executar_pipeline_completo.sh openmetadata  # RF27 + RF28 + RF30
+./desafio_dados_2/executar_pipeline_completo.sh rf27           # alias openmetadata
+./desafio_dados_2/executar_pipeline_completo.sh rf28           # alias openmetadata
+./desafio_dados_2/executar_pipeline_completo.sh rf30           # alias openmetadata
 ./desafio_dados_2/executar_pipeline_completo.sh amostras
 ```
 
@@ -387,10 +406,10 @@ chmod +x desafio_dados_2/executar_pipeline_completo.sh
 | **RF24** | Parquet particionado e benchmark | `beam/exportar_parquet.py`, `beam/evidencias/rf24_parquet.md` | ✅ |
 | **RF25** | Apache Beam (DirectRunner + SparkRunner) | `beam/pipeline_beam.py`, `beam/evidencias/rf25_beam.md` | ✅ |
 | **RF26** | Camada Gold para consumo analítico | `sql/camada_gold.sql`, `dados/gold/`, `documentacao/rf26_gold.md` | ✅ |
-| **RF27** | OpenMetadata implantação e integração | `openmetadata/ingestao_postgres.yaml`, `openmetadata/evidencias/` | ✅ |
-| **RF28** | Catálogo, classificação e glossário (4 termos) | `openmetadata/evidencias/rf28_glossario_e_classificacoes.md` | ✅ |
-| **RF29** | Linhagem ponta a ponta | `documentacao/linhagem.md`, `openmetadata/evidencias/rf29_linhagem.md` | ✅ |
-| **RF30** | Dados mestres (MDM — entidade Conteúdo) | `documentacao/dados_mestres.md`, `documentacao/dados_mestres.pdf` | ✅ |
+| **RF27** | OpenMetadata implantação e integração | `openmetadata/configurar_openmetadata.py`, `openmetadata/ingestao_postgres.yaml`, `openmetadata/evidencias/rf27_*.md` e `rf27_*.json` | ✅ |
+| **RF28** | Catálogo, classificação e glossário (4 termos) | `openmetadata/cadastrar_glossario_metadados.py`, `openmetadata/evidencias/rf28_glossario_e_classificacoes.md` | ✅ |
+| **RF29** | Linhagem ponta a ponta | `documentacao/linhagem.md`, `openmetadata/linhagem_pipeline.json`, `openmetadata/evidencias/rf29_linhagem.md` | ✅ |
+| **RF30** | Dados mestres (MDM — entidade Conteúdo) | `openmetadata/registrar_dados_mestres_openmetadata.py`, `openmetadata/evidencias/rf30_dados_mestres_openmetadata.md`, `documentacao/dados_mestres.md` | ✅ |
 | **RF31** | Qualidade de dados (5 testes + gate Gold) | `qualidade/regras.md`, `qualidade/executar_testes.py` | ✅ |
 | **RF32** | Inventário LGPD e ROPA | `lgpd/inventario_de_dados.md` | ✅ |
 | **RF33** | Mascaramento, pseudonimização e hashing | `lgpd/tecnicas_de_protecao.md`, `lgpd/demonstrar_protecao_lgpd.py` | ✅ |
@@ -445,14 +464,20 @@ desafio_dados_2/
 │       └── dashboard_export_config.json      ← Metadados e JSON dos charts
 │
 ├── openmetadata/
-│   ├── ingestao_postgres.yaml                ← Spec do conector PostgreSQL
-│   ├── cadastrar_glossario_metadados.py      ← Script de cadastro via API
-│   ├── linhagem_pipeline.json                ← Definição manual de linhagem
+│   ├── ingestao_postgres.yaml                ← Spec do conector PostgreSQL (RF27)
+│   ├── docker-compose-openmetadata.yml       ← Docker Compose para subir o OpenMetadata
+│   ├── configurar_openmetadata.py            ← Bootstrap: serviço PG, Superset, linhagem (RF27)
+│   ├── cadastrar_glossario_metadados.py      ← Glossário de negócio + tags PII/Tier (RF28)
+│   ├── registrar_dados_mestres_openmetadata.py ← MDM: Custom Properties + Golden Record (RF30)
+│   ├── linhagem_pipeline.json                ← Definição manual de linhagem (importável)
 │   └── evidencias/
-│       ├── rf27_implantacao_e_governanca.md  ← Implantação e política anti-Data Swamp
+│       ├── rf27_implantacao_e_governanca.md  ← Implantação, serviços e política anti-Data Swamp
+│       ├── rf27_configuracao_openmetadata.json ← Evidência JSON do bootstrap RF27
 │       ├── rf28_glossario_e_classificacoes.md← 4 Termos de negócio e sensibilidade
-│       ├── rf29_linhagem.md                  ← Linhagem ponta a ponta
-│       └── glossario_e_termos.json           ← Termos canônicos (JSON)
+│       ├── rf29_linhagem.md                  ← Linhagem ponta a ponta + rastreabilidade
+│       ├── rf30_dados_mestres_openmetadata.md← MDM: entidade mestre, survivorship, custom props
+│       ├── rf30_dados_mestres_openmetadata.json ← Evidência JSON do MDM RF30
+│       └── glossario_e_termos.json           ← Termos canônicos (JSON gerado pelo script RF28)
 │
 ├── qualidade/
 │   ├── regras.md                             ← Especificação formal dos 5 testes (Q01–Q05)
