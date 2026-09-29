@@ -6,9 +6,9 @@
 **Branch:** `lor-superset`
 ## Participantes
 
-- Victor Maeda
-- Miltom Simplício
-- Leonardo Ramos
+- Milton Simplício Gonçalves Junior
+- Victor Maeda Chinen
+- Leonardo de Oliveira Ramos
 
 ---
 
